@@ -60,14 +60,15 @@ export default async function HomePage() {
                 Shoptazik pr&eacute;sente
               </p>
               <h2 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl lg:text-6xl">
-                Le nouvel album
+                L&apos;album &eacute;v&eacute;nement
               </h2>
               <p className="mt-2 text-lg text-white/50">
                 9 titres &middot; Disponible en vinyle, CD et merch
               </p>
               <p className="mx-auto mt-6 max-w-md leading-relaxed md:mx-0" style={{ color: "#9A7080" }}>
-                Comme la fleur de flamboyant tatou&eacute;e sur son visage, cet
-                album est rouge, vif et impossible &agrave; ignorer.
+                Flamboyant, c&apos;est Fdy Phenomen dans toute sa splendeur.
+                Un album ambitieux, des productions riches, une plume
+                incandescente. Rouge, vif, impossible &agrave; ignorer.
               </p>
 
               <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
