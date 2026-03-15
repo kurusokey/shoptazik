@@ -91,6 +91,18 @@ export async function getVariantsByProduct(
   return data ?? [];
 }
 
+export async function getChildProjects(
+  parentProjectId: string
+): Promise<Project[]> {
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("parent_project_id", parentProjectId)
+    .order("title");
+  if (error) throw error;
+  return data ?? [];
+}
+
 export async function getFeaturedProject(): Promise<
   (Project & { artist: Artist; products: Product[] }) | null
 > {

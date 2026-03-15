@@ -49,7 +49,7 @@ export const projects: Project[] = [
     slug: "flamboyant",
     description:
       "Flamboyant est un album ambitieux où Fdy Phenomen déploie tout son talent d'écriture sur des productions riches et variées.",
-    cover_url: "/images/projects/flamboyant.svg",
+    cover_url: "/images/projects/album_flamboyant.jpg",
     release_year: 2022,
     tracklist: [
       "Flamboyant (Intro)",

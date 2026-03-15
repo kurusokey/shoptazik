@@ -1,5 +1,9 @@
 import { notFound } from "next/navigation";
-import { getProjectBySlug, getProductsByProject } from "@/lib/supabase-data";
+import {
+  getProjectBySlug,
+  getProductsByProject,
+  getChildProjects,
+} from "@/lib/supabase-data";
 import ProductCard from "@/components/ui/ProductCard";
 import { projectTypeLabel } from "@/lib/utils";
 import Link from "next/link";
@@ -15,6 +19,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) return notFound();
 
   const products = await getProductsByProject(project.id);
+  const singles = await getChildProjects(project.id);
 
   return (
     <div>
@@ -77,31 +82,93 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
               <div className="mt-6 text-sm text-zinc-500">
                 {project.tracklist.length} titres
+                {singles.length > 0 && (
+                  <span>
+                    {" "}
+                    &middot; {singles.length} single
+                    {singles.length > 1 ? "s" : ""}
+                  </span>
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Singles extraits de l'album */}
+      {singles.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-12">
+          <h2 className="mb-6 text-xl font-bold text-white">
+            Singles extraits de l&apos;album
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {singles.map((single) => (
+              <Link
+                key={single.id}
+                href={`/artists/${artistSlug}/${single.slug}`}
+                className="group flex gap-5 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 p-4 transition hover:border-orange-500/40"
+              >
+                <div className="h-28 w-28 shrink-0 overflow-hidden rounded-lg">
+                  <img
+                    src={single.cover_url}
+                    alt={single.title}
+                    className="h-full w-full object-cover transition group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <span className="mb-1 inline-block w-fit rounded-full bg-orange-500/10 px-2 py-0.5 text-xs font-semibold text-orange-400">
+                    Single
+                  </span>
+                  <h3 className="text-lg font-bold text-white transition group-hover:text-orange-400">
+                    {single.title}
+                  </h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-zinc-400">
+                    {single.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Tracklist */}
       <section className="mx-auto max-w-7xl px-4 py-12">
         <h2 className="mb-6 text-xl font-bold text-white">Tracklist</h2>
         <div className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900">
-          {project.tracklist.map((track, i) => (
-            <div
-              key={i}
-              className={`flex items-center gap-4 px-6 py-3 ${
-                i !== project.tracklist.length - 1
-                  ? "border-b border-zinc-800"
-                  : ""
-              }`}
-            >
-              <span className="w-8 text-right text-sm text-zinc-600">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="text-sm text-zinc-300">{track}</span>
-            </div>
-          ))}
+          {project.tracklist.map((track, i) => {
+            const isSingle = singles.some(
+              (s) =>
+                s.title.toLowerCase() === track.toLowerCase() ||
+                track.toLowerCase().includes(s.title.toLowerCase())
+            );
+            return (
+              <div
+                key={i}
+                className={`flex items-center gap-4 px-6 py-3 ${
+                  i !== project.tracklist.length - 1
+                    ? "border-b border-zinc-800"
+                    : ""
+                }`}
+              >
+                <span className="w-8 text-right text-sm text-zinc-600">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`text-sm ${
+                    isSingle ? "font-medium text-orange-400" : "text-zinc-300"
+                  }`}
+                >
+                  {track}
+                </span>
+                {isSingle && (
+                  <span className="rounded-full bg-orange-500/10 px-2 py-0.5 text-xs text-orange-400">
+                    Single
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 

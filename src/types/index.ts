@@ -18,6 +18,7 @@ export interface Project {
   release_year: number;
   tracklist: string[];
   type: "album" | "ep" | "mixtape" | "single";
+  parent_project_id?: string | null;
   created_at: string;
 }
 
