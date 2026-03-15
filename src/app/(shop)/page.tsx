@@ -13,65 +13,82 @@ export default async function HomePage() {
   return (
     <div style={{ background: "#0f070b" }}>
       {/* ============================================
-          HERO — Pochette plein écran
-          Le texte du site est EN BAS à gauche pour ne pas
-          chevaucher "FDY PHENOMEN / FLAMBOYANT" de la pochette
+          HERO — La pochette ENTIÈRE + CTA
+          Fond aux couleurs de la pochette, pochette visible en entier
           ============================================ */}
-      <section className="relative overflow-hidden" style={{ height: "100vh", minHeight: "600px", maxHeight: "1000px" }}>
-        {/* Pochette en fond — centrée sur le visage */}
-        <img
-          src={COVER_HD}
-          alt="Fdy Phenomen — Flamboyant"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: "center 20%" }}
-        />
-
-        {/* Overlay bas : dégradé fort en bas pour le texte */}
+      <section className="relative overflow-hidden">
+        {/* Fond : couleurs extraites de la pochette */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(15,7,11,0.6) 65%, rgba(15,7,11,0.95) 85%, #0f070b 100%)",
+              "linear-gradient(160deg, #3A1528 0%, #2A0E1C 30%, #1a0e14 60%, #251020 100%)",
           }}
         />
-        {/* Overlay latéral léger sur les bords */}
+        {/* Halo mauve comme le fond de la pochette */}
         <div
-          className="absolute inset-0 hidden md:block"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(15,7,11,0.4) 0%, transparent 20%, transparent 80%, rgba(15,7,11,0.4) 100%)",
-          }}
+          className="absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full blur-[120px]"
+          style={{ background: "rgba(90,32,64,0.25)" }}
+        />
+        <div
+          className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full blur-[100px]"
+          style={{ background: "rgba(58,21,40,0.2)" }}
         />
 
-        {/* Texte — positionné EN BAS pour ne pas masquer la pochette ni son titre */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-10 md:pb-14">
-          <div className="mx-auto max-w-7xl">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-white/40">
-              Shoptazik pr&eacute;sente
-            </p>
-            <div className="mt-4 flex flex-wrap items-end gap-6 md:gap-10">
-              <div className="flex-1">
-                <p className="text-lg text-white/70 md:text-xl">
-                  Le nouvel album de <span className="font-semibold text-white">Fdy Phenomen</span>
-                </p>
-                <p className="mt-1 text-sm text-white/40">
-                  9 titres &middot; Disponible en vinyle, CD et merch
-                </p>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 md:py-20">
+          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
+            {/* Pochette — ENTIÈRE, pas coupée */}
+            <div className="flex justify-center">
+              <div
+                className="w-full max-w-[500px] overflow-hidden rounded-2xl"
+                style={{ boxShadow: "0 30px 80px rgba(60,15,30,0.6), 0 0 0 1px rgba(255,255,255,0.05)" }}
+              >
+                <img
+                  src={COVER_HD}
+                  alt="Fdy Phenomen — Flamboyant"
+                  className="block h-auto w-full"
+                />
               </div>
-              <div className="flex gap-3">
+            </div>
+
+            {/* Texte + CTA */}
+            <div className="text-center md:text-left">
+              <p
+                className="text-xs font-medium uppercase tracking-[0.3em]"
+                style={{ color: "#C07088" }}
+              >
+                Shoptazik pr&eacute;sente
+              </p>
+              <h2 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl lg:text-6xl">
+                Le nouvel album
+              </h2>
+              <p className="mt-2 text-lg text-white/50">
+                9 titres &middot; Disponible en vinyle, CD et merch
+              </p>
+              <p className="mx-auto mt-6 max-w-md leading-relaxed md:mx-0" style={{ color: "#9A7080" }}>
+                Comme la fleur de flamboyant tatou&eacute;e sur son visage, cet
+                album est rouge, vif et impossible &agrave; ignorer.
+              </p>
+
+              <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
                 <Link
                   href="/artists/fdy-phenomen/flamboyant"
-                  className="rounded-xl px-6 py-3 text-sm font-bold text-white transition hover:opacity-90 md:px-8 md:py-4 md:text-base"
+                  className="rounded-xl px-8 py-4 font-bold text-white transition hover:brightness-110"
                   style={{
-                    background: "#D41920",
-                    boxShadow: "0 6px 25px rgba(212,25,32,0.35)",
+                    background: "linear-gradient(135deg, #5A2040, #3A1528)",
+                    boxShadow: "0 6px 25px rgba(90,32,64,0.4)",
+                    border: "1px solid rgba(192,112,136,0.2)",
                   }}
                 >
                   D&eacute;couvrir l&apos;album
                 </Link>
                 <Link
                   href="/artists/fdy-phenomen"
-                  className="rounded-xl border border-white/15 px-6 py-3 text-sm font-semibold text-white/70 transition hover:border-white/30 hover:text-white md:px-8 md:py-4 md:text-base"
+                  className="rounded-xl px-8 py-4 font-semibold transition hover:text-white"
+                  style={{
+                    border: "1px solid rgba(192,112,136,0.2)",
+                    color: "#C07088",
+                  }}
                 >
                   Discographie
                 </Link>
@@ -86,155 +103,169 @@ export default async function HomePage() {
           ============================================ */}
       {featured && featured.products.length > 0 && (
         <section className="relative overflow-hidden px-4 py-20">
-          {/* Pochette floutée en fond */}
+          {/* Fond pochette floutée */}
           <div className="absolute inset-0 overflow-hidden">
             <img
               src={COVER_HD}
               alt=""
               className="h-full w-full scale-125 object-cover blur-[100px]"
-              style={{ opacity: 0.12 }}
+              style={{ opacity: 0.1 }}
             />
-            <div className="absolute inset-0" style={{ background: "rgba(15,7,11,0.85)" }} />
+            <div className="absolute inset-0" style={{ background: "rgba(15,7,11,0.88)" }} />
           </div>
 
-          <div className="relative mx-auto max-w-7xl">
+          <div className="relative mx-auto max-w-5xl">
             <h2 className="mb-10 text-2xl font-bold text-white">
               Formats disponibles
             </h2>
 
-            <div className="grid gap-8 lg:grid-cols-5">
-              {/* Pochette à gauche */}
-              <div className="flex items-start justify-center lg:col-span-2">
+            <div className="space-y-4">
+              {featured.products.map((product) => (
                 <div
-                  className="h-72 w-72 overflow-hidden rounded-2xl md:h-96 md:w-96"
-                  style={{ boxShadow: "0 25px 60px rgba(90,20,40,0.5)" }}
+                  key={product.id}
+                  className="flex items-center gap-5 rounded-xl border p-5 transition hover:border-[#5A2040]/50"
+                  style={{
+                    borderColor: "rgba(90,32,64,0.15)",
+                    background: "rgba(25,12,18,0.6)",
+                  }}
                 >
-                  <img
-                    src={COVER_HD}
-                    alt="Flamboyant"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Produits à droite */}
-              <div className="flex flex-col justify-center space-y-4 lg:col-span-3">
-                {featured.products.map((product) => (
-                  <div
-                    key={product.id}
-                    className="flex items-center gap-4 rounded-xl border p-4 transition hover:border-[#D41920]/30"
-                    style={{
-                      borderColor: "rgba(90,32,64,0.15)",
-                      background: "rgba(25,12,18,0.6)",
-                    }}
-                  >
-                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg">
-                      <img
-                        src={product.image_url}
-                        alt={product.name}
-                        className="h-full w-full object-cover"
-                      />
+                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg">
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-white">{product.name}</h3>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs" style={{ color: "#9A7080" }}>
+                      <span>{categoryLabel(product.category)}</span>
+                      {product.is_limited && (
+                        <span style={{ color: "#D41920" }}>Edition limit&eacute;e</span>
+                      )}
+                      {product.edition_info && (
+                        <span>&middot; {product.edition_info}</span>
+                      )}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="truncate font-semibold text-white">{product.name}</h3>
-                      <div className="mt-0.5 flex items-center gap-2 text-xs" style={{ color: "#9A7080" }}>
-                        <span>{categoryLabel(product.category)}</span>
-                        {product.is_limited && (
-                          <span style={{ color: "#D41920" }}>Edition limit&eacute;e</span>
-                        )}
-                      </div>
-                    </div>
-                    <span className="shrink-0 text-lg font-bold text-white">
+                    <p className="mt-1 hidden text-sm sm:block" style={{ color: "#9A7080" }}>
+                      {product.description}
+                    </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <span className="text-xl font-bold text-white">
                       {formatPrice(product.price)}
                     </span>
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
 
-                <Link
-                  href="/artists/fdy-phenomen/flamboyant"
-                  className="mt-2 inline-block rounded-xl px-6 py-3 text-center font-bold text-white transition hover:opacity-90"
-                  style={{ background: "#D41920" }}
-                >
-                  Voir tous les formats
-                </Link>
-              </div>
+            <div className="mt-8 text-center">
+              <Link
+                href="/artists/fdy-phenomen/flamboyant"
+                className="inline-block rounded-xl px-8 py-4 font-bold text-white transition hover:brightness-110"
+                style={{
+                  background: "linear-gradient(135deg, #5A2040, #3A1528)",
+                  boxShadow: "0 6px 25px rgba(90,32,64,0.4)",
+                  border: "1px solid rgba(192,112,136,0.2)",
+                }}
+              >
+                Voir tous les formats
+              </Link>
             </div>
           </div>
         </section>
       )}
-
-      {/* ============================================
-          BANDEAU — Pochette recadrée sur le tatouage
-          ============================================ */}
-      <section className="relative h-48 overflow-hidden md:h-72">
-        <img
-          src={COVER_HD}
-          alt=""
-          className="h-full w-full object-cover"
-          style={{ objectPosition: "center 55%" }}
-        />
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{
-            background:
-              "linear-gradient(to right, #0f070b, rgba(15,7,11,0.4), rgba(15,7,11,0.4), #0f070b)",
-          }}
-        >
-          <blockquote className="max-w-3xl px-8 text-center text-lg font-light leading-relaxed text-white/80 md:text-2xl">
-            &laquo;&nbsp;Le flamboyant, c&apos;est l&apos;arbre qui prend feu
-            sans br&ucirc;ler. Cet album, c&apos;est &ccedil;a.&nbsp;&raquo;
-          </blockquote>
-        </div>
-      </section>
 
       {/* ============================================
           TRACKLIST
           ============================================ */}
       {featured && (
         <section className="relative px-4 py-16">
-          <div className="relative mx-auto max-w-4xl">
-            <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">Tracklist</h2>
-              <span className="text-sm" style={{ color: "#9A7080" }}>
-                {featured.tracklist.length} titres
-              </span>
-            </div>
-
-            <div
-              className="overflow-hidden rounded-xl border"
-              style={{ borderColor: "rgba(90,32,64,0.12)", background: "rgba(20,10,15,0.8)" }}
-            >
-              {featured.tracklist.map((track, i) => (
+          <div className="relative mx-auto max-w-5xl">
+            <div className="grid gap-8 md:grid-cols-5 md:gap-12">
+              {/* Pochette miniature */}
+              <div className="hidden md:col-span-2 md:block">
                 <div
-                  key={i}
-                  className="flex items-center gap-4 px-6 py-3.5 transition hover:bg-white/[0.03]"
-                  style={{
-                    borderBottom:
-                      i !== featured.tracklist.length - 1
-                        ? "1px solid rgba(90,32,64,0.08)"
-                        : "none",
-                  }}
+                  className="sticky top-24 overflow-hidden rounded-xl"
+                  style={{ boxShadow: "0 20px 50px rgba(60,15,30,0.4)" }}
                 >
-                  <span className="w-8 text-right text-sm font-medium" style={{ color: "rgba(212,25,32,0.4)" }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm text-white/60">{track}</span>
+                  <img
+                    src={COVER_HD}
+                    alt="Flamboyant"
+                    className="block h-auto w-full"
+                  />
                 </div>
-              ))}
-            </div>
+              </div>
 
-            <div className="mt-6 text-center">
-              <Link
-                href="/artists/fdy-phenomen/flamboyant"
-                className="text-sm font-semibold transition hover:opacity-80"
-                style={{ color: "#D41920" }}
-              >
-                Voir le projet complet &rarr;
-              </Link>
+              {/* Tracklist */}
+              <div className="md:col-span-3">
+                <div className="mb-6 flex items-center justify-between">
+                  <h2 className="text-2xl font-bold text-white">Tracklist</h2>
+                  <span className="text-sm" style={{ color: "#9A7080" }}>
+                    {featured.tracklist.length} titres
+                  </span>
+                </div>
+
+                <div
+                  className="overflow-hidden rounded-xl border"
+                  style={{ borderColor: "rgba(90,32,64,0.12)", background: "rgba(20,10,15,0.8)" }}
+                >
+                  {featured.tracklist.map((track, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-4 px-5 py-4 transition hover:bg-white/[0.03]"
+                      style={{
+                        borderBottom:
+                          i !== featured.tracklist.length - 1
+                            ? "1px solid rgba(90,32,64,0.08)"
+                            : "none",
+                      }}
+                    >
+                      <span
+                        className="w-8 text-right text-sm font-bold"
+                        style={{ color: "rgba(212,25,32,0.4)" }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="flex-1 text-sm text-white/70">{track}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 text-center md:text-left">
+                  <Link
+                    href="/artists/fdy-phenomen/flamboyant"
+                    className="text-sm font-semibold transition hover:opacity-80"
+                    style={{ color: "#C07088" }}
+                  >
+                    Voir le projet complet &rarr;
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       )}
+
+      {/* ============================================
+          BANDEAU CITATION
+          ============================================ */}
+      <section className="relative overflow-hidden py-16">
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(180deg, #0f070b, #1a0e14, #0f070b)" }}
+        />
+        <div className="relative mx-auto max-w-3xl px-6 text-center">
+          <blockquote className="text-xl font-light leading-relaxed text-white/60 md:text-2xl">
+            &laquo;&nbsp;Le flamboyant, c&apos;est l&apos;arbre qui prend feu
+            sans br&ucirc;ler. Cet album, c&apos;est &ccedil;a.&nbsp;&raquo;
+          </blockquote>
+          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: "#5A2040" }}>
+            Fdy Phenomen
+          </p>
+        </div>
+      </section>
 
       {/* ============================================
           ARTISTE
@@ -248,22 +279,22 @@ export default async function HomePage() {
               <Link
                 key={artist.id}
                 href={`/artists/${artist.slug}`}
-                className="group overflow-hidden rounded-xl border p-6 transition hover:border-[#D41920]/30"
+                className="group overflow-hidden rounded-xl border p-6 transition hover:border-[#5A2040]/40"
                 style={{
                   borderColor: "rgba(90,32,64,0.12)",
                   background: "rgba(20,10,15,0.8)",
                 }}
               >
-                <div className="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-white/10 transition group-hover:ring-[#D41920]/50">
+                <div className="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-white/10 transition group-hover:ring-[#5A2040]">
                   <img src={artist.image_url} alt={artist.name} className="h-full w-full object-cover" />
                 </div>
-                <h3 className="text-xl font-bold text-white transition group-hover:text-[#D41920]">
+                <h3 className="text-xl font-bold text-white transition group-hover:text-[#C07088]">
                   {artist.name}
                 </h3>
                 <p className="mt-2 line-clamp-3 text-sm" style={{ color: "#9A7080" }}>
                   {artist.bio}
                 </p>
-                <p className="mt-4 text-sm font-medium" style={{ color: "#D41920" }}>
+                <p className="mt-4 text-sm font-medium" style={{ color: "#C07088" }}>
                   Voir la discographie &rarr;
                 </p>
               </Link>
