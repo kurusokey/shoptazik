@@ -12,7 +12,17 @@ export default async function ArtistPage({ params }: ArtistPageProps) {
 
   if (!artist) return notFound();
 
-  const projects = await getProjectsByArtist(artist.id);
+  const allProjects = await getProjectsByArtist(artist.id);
+
+  // Séparer par catégorie (exclure les singles liés à un album)
+  const albums = allProjects.filter((p) => p.type === "album");
+  const mixtapes = allProjects.filter((p) => p.type === "mixtape");
+  const eps = allProjects.filter((p) => p.type === "ep");
+  const singlesStandalone = allProjects.filter(
+    (p) => p.type === "single" && !p.parent_project_id
+  );
+
+  const totalMain = albums.length + mixtapes.length + eps.length;
 
   return (
     <div>
@@ -21,7 +31,6 @@ export default async function ArtistPage({ params }: ArtistPageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-400/5 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-7xl">
           <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
-            {/* Photo artiste */}
             <div className="h-32 w-32 shrink-0 overflow-hidden rounded-full bg-zinc-700 md:h-40 md:w-40">
               <img
                 src={artist.image_url}
@@ -38,29 +47,101 @@ export default async function ArtistPage({ params }: ArtistPageProps) {
                 {artist.name}
               </h1>
               <p className="mt-4 max-w-2xl text-zinc-400">{artist.bio}</p>
-              <div className="mt-4 flex justify-center gap-4 text-sm text-zinc-500 md:justify-start">
-                <span>
-                  {projects.length} projet{projects.length > 1 ? "s" : ""}
-                </span>
+              <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm text-zinc-500 md:justify-start">
+                {albums.length > 0 && (
+                  <span>
+                    {albums.length} album{albums.length > 1 ? "s" : ""}
+                  </span>
+                )}
+                {mixtapes.length > 0 && (
+                  <span>
+                    {mixtapes.length} mixtape{mixtapes.length > 1 ? "s" : ""}
+                  </span>
+                )}
+                {eps.length > 0 && (
+                  <span>
+                    {eps.length} EP{eps.length > 1 ? "s" : ""}
+                  </span>
+                )}
+                {singlesStandalone.length > 0 && (
+                  <span>
+                    {singlesStandalone.length} inédit
+                    {singlesStandalone.length > 1 ? "s" : ""}
+                  </span>
+                )}
+                <span className="text-zinc-600">&middot;</span>
+                <span>{totalMain + singlesStandalone.length} projets</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Discographie */}
-      <section className="mx-auto max-w-7xl px-4 py-12">
-        <h2 className="mb-8 text-2xl font-bold text-white">Discographie</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              artistSlug={artist.slug}
-            />
-          ))}
-        </div>
-      </section>
+      {/* Albums */}
+      {albums.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 pt-12 pb-6">
+          <h2 className="mb-6 text-2xl font-bold text-white">Albums</h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {albums.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                artistSlug={artist.slug}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Mixtapes */}
+      {mixtapes.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-6">
+          <h2 className="mb-6 text-2xl font-bold text-white">Mixtapes</h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {mixtapes.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                artistSlug={artist.slug}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* EPs */}
+      {eps.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-6">
+          <h2 className="mb-6 text-2xl font-bold text-white">EPs</h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {eps.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                artistSlug={artist.slug}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Singles & Inédits (hors singles liés à un album) */}
+      {singlesStandalone.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-6 pb-12">
+          <h2 className="mb-6 text-2xl font-bold text-white">
+            Singles &amp; Inédits
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {singlesStandalone.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                artistSlug={artist.slug}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
