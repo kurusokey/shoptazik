@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="bannerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="50%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#18181b"/>
+    </linearGradient>
+    <linearGradient id="bannerAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bannerBg)"/>
+  <!-- Decorative lines -->
+  <line x1="0" y1="200" x2="1200" y2="200" stroke="#3f3f46" stroke-width="0.5"/>
+  <line x1="0" y1="100" x2="1200" y2="100" stroke="#3f3f46" stroke-width="0.3"/>
+  <line x1="0" y1="300" x2="1200" y2="300" stroke="#3f3f46" stroke-width="0.3"/>
+  <!-- Sound wave pattern -->
+  <g opacity="0.15" fill="#fbbf24">
+    <rect x="100" y="160" width="4" height="80" rx="2"/>
+    <rect x="115" y="140" width="4" height="120" rx="2"/>
+    <rect x="130" y="120" width="4" height="160" rx="2"/>
+    <rect x="145" y="150" width="4" height="100" rx="2"/>
+    <rect x="160" y="170" width="4" height="60" rx="2"/>
+    <rect x="175" y="130" width="4" height="140" rx="2"/>
+    <rect x="190" y="155" width="4" height="90" rx="2"/>
+    <rect x="205" y="145" width="4" height="110" rx="2"/>
+    <rect x="950" y="160" width="4" height="80" rx="2"/>
+    <rect x="965" y="140" width="4" height="120" rx="2"/>
+    <rect x="980" y="120" width="4" height="160" rx="2"/>
+    <rect x="995" y="150" width="4" height="100" rx="2"/>
+    <rect x="1010" y="170" width="4" height="60" rx="2"/>
+    <rect x="1025" y="130" width="4" height="140" rx="2"/>
+    <rect x="1040" y="155" width="4" height="90" rx="2"/>
+    <rect x="1055" y="145" width="4" height="110" rx="2"/>
+  </g>
+  <!-- Title -->
+  <text x="600" y="185" text-anchor="middle" font-family="system-ui, sans-serif" font-size="56" font-weight="800" fill="white" letter-spacing="4">FDY PHENOMEN</text>
+  <text x="600" y="230" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="400" fill="#a1a1aa" letter-spacing="6">RAPPEUR &amp; AUTEUR</text>
+  <!-- Bottom accent line -->
+  <rect x="0" y="395" width="1200" height="5" fill="url(#bannerAccent)"/>
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#bannerAccent)"/>
+</svg>

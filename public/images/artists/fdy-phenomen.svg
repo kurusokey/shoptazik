@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#18181b"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <!-- Silhouette head -->
+  <circle cx="200" cy="140" r="55" fill="#3f3f46"/>
+  <!-- Silhouette body -->
+  <ellipse cx="200" cy="280" rx="80" ry="90" fill="#3f3f46"/>
+  <!-- Microphone -->
+  <rect x="240" y="160" width="6" height="50" rx="3" fill="#52525b" transform="rotate(-20 243 185)"/>
+  <circle cx="237" cy="155" r="10" fill="#52525b" stroke="#fbbf24" stroke-width="1.5"/>
+  <!-- Name label -->
+  <rect x="60" y="345" width="280" height="36" rx="8" fill="#27272a"/>
+  <text x="200" y="369" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#fbbf24">FDY PHENOMEN</text>
+  <!-- Corner accent -->
+  <rect x="0" y="0" width="400" height="3" fill="url(#accent)"/>
+</svg>
