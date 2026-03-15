@@ -106,11 +106,11 @@ export async function getChildProjects(
 export async function getFeaturedProject(): Promise<
   (Project & { artist: Artist; products: Product[] }) | null
 > {
-  // Projet mis en avant : Flamboyant
+  // Projet mis en avant : Chanteur de Rap
   const { data: project, error } = await supabase
     .from("projects")
     .select("*")
-    .eq("slug", "flamboyant")
+    .eq("slug", "chanteur-de-rap")
     .single();
   if (error || !project) return null;
 

@@ -10,42 +10,46 @@ export default function Header() {
     <header
       className="sticky top-0 z-50 backdrop-blur-sm"
       style={{
-        background: "rgba(58,30,44,0.92)",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        background: "rgba(216,204,190,0.92)",
+        borderBottom: "1px solid rgba(26,26,26,0.08)",
       }}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-        <Link href="/" className="text-xl font-bold tracking-tight text-white/90">
-          SHOP<span style={{ color: "#C07088" }}>TAZIK</span>
+        <Link href="/" className="text-xl font-bold tracking-tight" style={{ color: "#1A1A1A" }}>
+          SHOP<span style={{ color: "#3A5A8A" }}>TAZIK</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
           <Link
             href="/"
-            className="text-sm text-white/40 transition hover:text-white/80"
+            className="text-sm transition hover:text-black"
+            style={{ color: "#6A5A4A" }}
           >
             Accueil
           </Link>
           <Link
             href="/artists/fdy-phenomen"
-            className="text-sm text-white/40 transition hover:text-white/80"
+            className="text-sm transition hover:text-black"
+            style={{ color: "#6A5A4A" }}
           >
             Artistes
           </Link>
           <Link
-            href="/artists/fdy-phenomen/flamboyant"
-            className="text-sm font-semibold text-white/70 transition hover:text-white"
+            href="/artists/fdy-phenomen/chanteur-de-rap"
+            className="text-sm font-semibold transition hover:opacity-80"
+            style={{ color: "#3A5A8A" }}
           >
-            Flamboyant
+            Chanteur de Rap
           </Link>
         </nav>
 
         <Link
           href="/cart"
-          className="relative flex items-center gap-2 rounded-lg px-4 py-2 text-sm text-white/80 transition hover:bg-white/10"
+          className="relative flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition hover:bg-black/5"
           style={{
-            background: "rgba(90,48,69,0.3)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            color: "#3A3A3A",
+            background: "rgba(255,255,255,0.5)",
+            border: "1px solid rgba(26,26,26,0.08)",
           }}
         >
           <svg
@@ -67,8 +71,8 @@ export default function Header() {
             <span
               className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white"
               style={{
-                background: "linear-gradient(135deg, #8B3050, #5A2040)",
-                boxShadow: "0 2px 10px rgba(90,32,64,0.5)",
+                background: "#3A5A8A",
+                boxShadow: "0 2px 8px rgba(58,90,138,0.4)",
               }}
             >
               {totalItems()}

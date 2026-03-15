@@ -4,11 +4,11 @@ import { formatPrice, categoryLabel } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-const COVER_HD = "/images/projects/album_flamboyant_hd.jpg";
+const COVER = "/images/projects/album_chanteur_de_rap.jpg";
 
-// Overlay grain CSS — reproduit la texture vieillie/grainée de la pochette
+// Grain texturé style papier/crayon — comme l'illustration de la pochette
 const grainStyle = {
-  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E")`,
+  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
   backgroundRepeat: "repeat",
   backgroundSize: "128px 128px",
 };
@@ -18,35 +18,31 @@ export default async function HomePage() {
   const artists = await getArtists();
 
   return (
-    <div className="relative" style={{ background: "#3A1E2C" }}>
-      {/* Grain texture sur toute la page */}
-      <div className="pointer-events-none fixed inset-0 z-50 opacity-40" style={grainStyle} />
+    <div className="relative" style={{ background: "#E8DDD0" }}>
+      {/* Grain papier sur toute la page */}
+      <div className="pointer-events-none fixed inset-0 z-50 opacity-60" style={grainStyle} />
 
       {/* ============================================
-          HERO — La pochette intégrée dans son propre univers
-          Fond rose/mauve poussiéreux = comme le fond de la pochette
+          HERO — Pochette Chanteur de Rap
+          Palette : beige crème, bleu profond, encre noire
           ============================================ */}
       <section className="relative overflow-hidden">
-        {/* Fond texturé — tons exacts de la pochette */}
+        {/* Fond beige texturé avec touches de bleu */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(170deg, #4A2535 0%, #3A1E2C 30%, #5A3045 50%, #3A1E2C 70%, #2A1520 100%)",
+              "linear-gradient(170deg, #D8CCBE 0%, #E8DDD0 30%, #D0C4B5 60%, #E0D5C8 100%)",
           }}
         />
-        {/* Taches de lumière comme sur la pochette */}
+        {/* Tache de bleu comme l'aquarelle de la pochette */}
         <div
-          className="absolute left-1/3 -top-20 h-[400px] w-[300px] rotate-12 blur-[80px]"
-          style={{ background: "rgba(255,255,255,0.06)" }}
+          className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full blur-[120px]"
+          style={{ background: "rgba(58,90,138,0.12)" }}
         />
         <div
-          className="absolute -left-20 top-1/3 h-[300px] w-[300px] rounded-full blur-[100px]"
-          style={{ background: "rgba(120,50,70,0.3)" }}
-        />
-        <div
-          className="absolute -right-20 bottom-1/4 h-[300px] w-[300px] rounded-full blur-[100px]"
-          style={{ background: "rgba(90,40,60,0.25)" }}
+          className="absolute -left-20 bottom-0 h-[300px] w-[300px] rounded-full blur-[100px]"
+          style={{ background: "rgba(58,90,138,0.08)" }}
         />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 md:py-16">
@@ -57,12 +53,12 @@ export default async function HomePage() {
                 className="w-full max-w-[520px] overflow-hidden rounded-lg"
                 style={{
                   boxShadow:
-                    "0 30px 80px rgba(20,5,15,0.6), 0 0 0 1px rgba(255,255,255,0.06)",
+                    "0 30px 80px rgba(26,26,26,0.2), 0 0 0 1px rgba(26,26,26,0.08)",
                 }}
               >
                 <img
-                  src={COVER_HD}
-                  alt="Fdy Phenomen — Flamboyant"
+                  src={COVER}
+                  alt="Fdy Phenomen — Chanteur de Rap"
                   className="block h-auto w-full"
                 />
               </div>
@@ -70,35 +66,46 @@ export default async function HomePage() {
 
             {/* Texte */}
             <div className="text-center md:text-left">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-white/30">
+              <p
+                className="text-xs font-medium uppercase tracking-[0.3em]"
+                style={{ color: "#3A5A8A" }}
+              >
                 Shoptazik pr&eacute;sente
               </p>
-              <h2 className="mt-4 text-4xl font-black tracking-tight text-white md:text-5xl lg:text-6xl">
-                L&apos;album &eacute;v&eacute;nement
+              <h2
+                className="mt-4 text-4xl font-black tracking-tight md:text-5xl lg:text-6xl"
+                style={{ color: "#1A1A1A" }}
+              >
+                Le nouvel album
               </h2>
-              <p className="mt-2 text-lg text-white/40">
-                9 titres &middot; Disponible en vinyle, CD et merch
+              <p className="mt-2 text-lg" style={{ color: "#3A5A8A" }}>
+                Fdy Phenomen
               </p>
-              <p className="mx-auto mt-6 max-w-md leading-relaxed text-white/50 md:mx-0">
-                Flamboyant, c&apos;est Fdy Phenomen dans toute sa splendeur.
-                Un album ambitieux, des productions riches, une plume
-                incandescente. Rouge, vif, impossible &agrave; ignorer.
+              <p className="mx-auto mt-6 max-w-md leading-relaxed md:mx-0" style={{ color: "#6A5A4A" }}>
+                Chanteur de Rap, c&apos;est le manifeste. L&apos;&eacute;criture
+                comme arme, le storytelling comme art, le rap d&apos;auteur dans
+                sa forme la plus aboutie. Un album pour ceux qui consid&egrave;rent
+                le rap comme de la litt&eacute;rature.
               </p>
 
               <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
                 <Link
-                  href="/artists/fdy-phenomen/flamboyant"
+                  href="/artists/fdy-phenomen/chanteur-de-rap"
                   className="rounded-xl px-8 py-4 font-bold text-white transition hover:brightness-110"
                   style={{
-                    background: "linear-gradient(135deg, #8B3050, #5A2040)",
-                    boxShadow: "0 6px 30px rgba(90,32,64,0.5)",
+                    background: "linear-gradient(135deg, #3A5A8A, #2A4A7A)",
+                    boxShadow: "0 6px 30px rgba(58,90,138,0.35)",
                   }}
                 >
                   D&eacute;couvrir l&apos;album
                 </Link>
                 <Link
                   href="/artists/fdy-phenomen"
-                  className="rounded-xl border border-white/15 px-8 py-4 font-semibold text-white/60 transition hover:border-white/30 hover:text-white"
+                  className="rounded-xl px-8 py-4 font-semibold transition hover:bg-black/5"
+                  style={{
+                    border: "1px solid rgba(26,26,26,0.15)",
+                    color: "#4A4A4A",
+                  }}
                 >
                   Discographie
                 </Link>
@@ -107,39 +114,32 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Séparation */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-white/5" />
+        <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "rgba(26,26,26,0.08)" }} />
       </section>
 
       {/* ============================================
-          BANDEAU POCHETTE — Fondu plein écran
+          BANDEAU — Pochette en frise
           ============================================ */}
-      <section className="relative h-56 overflow-hidden md:h-72">
+      <section className="relative h-48 overflow-hidden md:h-64">
         <img
-          src={COVER_HD}
+          src={COVER}
           alt=""
           className="h-full w-full object-cover"
-          style={{ objectPosition: "center 45%" }}
-        />
-        {/* Overlay texturé */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(58,30,44,0.85), rgba(58,30,44,0.3), rgba(58,30,44,0.3), rgba(58,30,44,0.85))",
-          }}
+          style={{ objectPosition: "center 40%" }}
         />
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 flex items-center justify-center"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(58,30,44,0.5), transparent, rgba(42,21,32,0.5))",
+              "linear-gradient(to right, rgba(232,221,208,0.9), rgba(232,221,208,0.5), rgba(232,221,208,0.5), rgba(232,221,208,0.9))",
           }}
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <blockquote className="max-w-3xl px-8 text-center text-lg font-light italic leading-relaxed text-white/70 md:text-2xl">
-            &laquo;&nbsp;Le flamboyant, c&apos;est l&apos;arbre qui prend feu
-            sans br&ucirc;ler. Cet album, c&apos;est &ccedil;a.&nbsp;&raquo;
+        >
+          <blockquote
+            className="max-w-3xl px-8 text-center text-lg font-light italic leading-relaxed md:text-2xl"
+            style={{ color: "#2A3A4A" }}
+          >
+            &laquo;&nbsp;Le rap, c&apos;est de la litt&eacute;rature qui se chante.
+            Cet album, c&apos;est la preuve.&nbsp;&raquo;
           </blockquote>
         </div>
       </section>
@@ -151,11 +151,11 @@ export default async function HomePage() {
         <section className="relative overflow-hidden px-4 py-20">
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(180deg, #2A1520, #3A1E2C, #2A1520)" }}
+            style={{ background: "linear-gradient(180deg, #D8CCBE, #E0D5C8, #D8CCBE)" }}
           />
 
           <div className="relative mx-auto max-w-5xl">
-            <h2 className="mb-10 text-2xl font-bold text-white">
+            <h2 className="mb-10 text-2xl font-bold" style={{ color: "#1A1A1A" }}>
               Formats disponibles
             </h2>
 
@@ -163,10 +163,10 @@ export default async function HomePage() {
               {featured.products.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center gap-5 rounded-xl border p-5 transition hover:border-white/15"
+                  className="flex items-center gap-5 rounded-xl border p-5 transition hover:border-[#3A5A8A]/30"
                   style={{
-                    borderColor: "rgba(255,255,255,0.06)",
-                    background: "rgba(90,48,69,0.2)",
+                    borderColor: "rgba(26,26,26,0.08)",
+                    background: "rgba(255,255,255,0.5)",
                   }}
                 >
                   <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg">
@@ -177,23 +177,21 @@ export default async function HomePage() {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-semibold text-white">{product.name}</h3>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-white/40">
+                    <h3 className="font-semibold" style={{ color: "#1A1A1A" }}>{product.name}</h3>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs" style={{ color: "#8A7A6A" }}>
                       <span>{categoryLabel(product.category)}</span>
                       {product.is_limited && (
-                        <span className="text-[#D41920]">
-                          Edition limit&eacute;e
-                        </span>
+                        <span style={{ color: "#3A5A8A" }}>Edition limit&eacute;e</span>
                       )}
                       {product.edition_info && (
                         <span>&middot; {product.edition_info}</span>
                       )}
                     </div>
-                    <p className="mt-1 hidden text-sm text-white/30 sm:block">
+                    <p className="mt-1 hidden text-sm sm:block" style={{ color: "#8A7A6A" }}>
                       {product.description}
                     </p>
                   </div>
-                  <span className="shrink-0 text-xl font-bold text-white">
+                  <span className="shrink-0 text-xl font-bold" style={{ color: "#1A1A1A" }}>
                     {formatPrice(product.price)}
                   </span>
                 </div>
@@ -202,11 +200,11 @@ export default async function HomePage() {
 
             <div className="mt-8 text-center">
               <Link
-                href="/artists/fdy-phenomen/flamboyant"
+                href="/artists/fdy-phenomen/chanteur-de-rap"
                 className="inline-block rounded-xl px-8 py-4 font-bold text-white transition hover:brightness-110"
                 style={{
-                  background: "linear-gradient(135deg, #8B3050, #5A2040)",
-                  boxShadow: "0 6px 30px rgba(90,32,64,0.5)",
+                  background: "linear-gradient(135deg, #3A5A8A, #2A4A7A)",
+                  boxShadow: "0 6px 30px rgba(58,90,138,0.35)",
                 }}
               >
                 Voir tous les formats
@@ -223,7 +221,7 @@ export default async function HomePage() {
         <section className="relative px-4 py-16">
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(180deg, #2A1520, #3A1E2C)" }}
+            style={{ background: "linear-gradient(180deg, #D8CCBE, #E8DDD0)" }}
           />
 
           <div className="relative mx-auto max-w-5xl">
@@ -233,13 +231,12 @@ export default async function HomePage() {
                 <div
                   className="sticky top-24 overflow-hidden rounded-xl"
                   style={{
-                    boxShadow:
-                      "0 20px 50px rgba(20,5,15,0.5), 0 0 0 1px rgba(255,255,255,0.05)",
+                    boxShadow: "0 20px 50px rgba(26,26,26,0.15), 0 0 0 1px rgba(26,26,26,0.06)",
                   }}
                 >
                   <img
-                    src={COVER_HD}
-                    alt="Flamboyant"
+                    src={COVER}
+                    alt="Chanteur de Rap"
                     className="block h-auto w-full"
                   />
                 </div>
@@ -248,8 +245,8 @@ export default async function HomePage() {
               {/* Tracklist */}
               <div className="md:col-span-3">
                 <div className="mb-6 flex items-center justify-between">
-                  <h2 className="text-2xl font-bold text-white">Tracklist</h2>
-                  <span className="text-sm text-white/30">
+                  <h2 className="text-2xl font-bold" style={{ color: "#1A1A1A" }}>Tracklist</h2>
+                  <span className="text-sm" style={{ color: "#8A7A6A" }}>
                     {featured.tracklist.length} titres
                   </span>
                 </div>
@@ -257,25 +254,25 @@ export default async function HomePage() {
                 <div
                   className="overflow-hidden rounded-xl border"
                   style={{
-                    borderColor: "rgba(255,255,255,0.06)",
-                    background: "rgba(90,48,69,0.15)",
+                    borderColor: "rgba(26,26,26,0.08)",
+                    background: "rgba(255,255,255,0.4)",
                   }}
                 >
                   {featured.tracklist.map((track, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-4 px-5 py-4 transition hover:bg-white/[0.04]"
+                      className="flex items-center gap-4 px-5 py-4 transition hover:bg-white/40"
                       style={{
                         borderBottom:
                           i !== featured.tracklist.length - 1
-                            ? "1px solid rgba(255,255,255,0.04)"
+                            ? "1px solid rgba(26,26,26,0.06)"
                             : "none",
                       }}
                     >
-                      <span className="w-8 text-right text-sm font-bold text-white/20">
+                      <span className="w-8 text-right text-sm font-bold" style={{ color: "rgba(58,90,138,0.4)" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="flex-1 text-sm text-white/60">
+                      <span className="flex-1 text-sm" style={{ color: "#3A3A3A" }}>
                         {track}
                       </span>
                     </div>
@@ -284,8 +281,9 @@ export default async function HomePage() {
 
                 <div className="mt-6 text-center md:text-left">
                   <Link
-                    href="/artists/fdy-phenomen/flamboyant"
-                    className="text-sm font-semibold text-white/40 transition hover:text-white/70"
+                    href="/artists/fdy-phenomen/chanteur-de-rap"
+                    className="text-sm font-semibold transition hover:opacity-70"
+                    style={{ color: "#3A5A8A" }}
                   >
                     Voir le projet complet &rarr;
                   </Link>
@@ -302,11 +300,11 @@ export default async function HomePage() {
       <section className="relative px-4 py-20">
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(180deg, #3A1E2C, #2A1520)" }}
+          style={{ background: "linear-gradient(180deg, #E8DDD0, #D8CCBE)" }}
         />
 
         <div className="relative mx-auto max-w-7xl">
-          <h2 className="mb-10 text-2xl font-bold text-white">
+          <h2 className="mb-10 text-2xl font-bold" style={{ color: "#1A1A1A" }}>
             L&apos;artiste
           </h2>
 
@@ -315,26 +313,22 @@ export default async function HomePage() {
               <Link
                 key={artist.id}
                 href={`/artists/${artist.slug}`}
-                className="group overflow-hidden rounded-xl border p-6 transition hover:border-white/15"
+                className="group overflow-hidden rounded-xl border p-6 transition hover:border-[#3A5A8A]/30"
                 style={{
-                  borderColor: "rgba(255,255,255,0.06)",
-                  background: "rgba(90,48,69,0.15)",
+                  borderColor: "rgba(26,26,26,0.08)",
+                  background: "rgba(255,255,255,0.4)",
                 }}
               >
-                <div className="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-white/10 transition group-hover:ring-white/25">
-                  <img
-                    src={artist.image_url}
-                    alt={artist.name}
-                    className="h-full w-full object-cover"
-                  />
+                <div className="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-black/5 transition group-hover:ring-[#3A5A8A]/30">
+                  <img src={artist.image_url} alt={artist.name} className="h-full w-full object-cover" />
                 </div>
-                <h3 className="text-xl font-bold text-white transition group-hover:text-white/80">
+                <h3 className="text-xl font-bold transition group-hover:text-[#3A5A8A]" style={{ color: "#1A1A1A" }}>
                   {artist.name}
                 </h3>
-                <p className="mt-2 line-clamp-3 text-sm text-white/40">
+                <p className="mt-2 line-clamp-3 text-sm" style={{ color: "#6A5A4A" }}>
                   {artist.bio}
                 </p>
-                <p className="mt-4 text-sm font-medium text-white/30 transition group-hover:text-white/50">
+                <p className="mt-4 text-sm font-medium" style={{ color: "#3A5A8A" }}>
                   Voir la discographie &rarr;
                 </p>
               </Link>
