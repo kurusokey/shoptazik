@@ -7,28 +7,37 @@ export default function Header() {
   const totalItems = useCartStore((s) => s.totalItems);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#DC143C]/10 bg-[#0a0608]/95 backdrop-blur-sm">
+    <header
+      className="sticky top-0 z-50 backdrop-blur-sm"
+      style={{
+        background: "rgba(26,14,20,0.95)",
+        borderBottom: "1px solid rgba(90,32,64,0.2)",
+      }}
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link href="/" className="text-xl font-bold tracking-tight text-white">
-          SHOP<span className="bg-gradient-to-r from-[#DC143C] to-[#8B2252] bg-clip-text text-transparent">TAZIK</span>
+          SHOP<span style={{ color: "#D41920" }}>TAZIK</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
           <Link
             href="/"
-            className="text-sm text-[#a07070] transition hover:text-white"
+            className="text-sm transition hover:text-white"
+            style={{ color: "#9A7080" }}
           >
             Accueil
           </Link>
           <Link
             href="/artists/fdy-phenomen"
-            className="text-sm text-[#a07070] transition hover:text-white"
+            className="text-sm transition hover:text-white"
+            style={{ color: "#9A7080" }}
           >
             Artistes
           </Link>
           <Link
             href="/artists/fdy-phenomen/flamboyant"
-            className="text-sm text-[#DC143C] transition hover:text-[#f05070]"
+            className="text-sm font-semibold transition hover:opacity-80"
+            style={{ color: "#D41920" }}
           >
             Flamboyant
           </Link>
@@ -36,7 +45,11 @@ export default function Header() {
 
         <Link
           href="/cart"
-          className="relative flex items-center gap-2 rounded-lg border border-[#DC143C]/15 bg-[#1a0a10] px-4 py-2 text-sm text-white transition hover:border-[#DC143C]/30 hover:bg-[#2a0a18]"
+          className="relative flex items-center gap-2 rounded-lg px-4 py-2 text-sm text-white transition hover:opacity-90"
+          style={{
+            background: "#251020",
+            border: "1px solid rgba(90,32,64,0.25)",
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +67,10 @@ export default function Header() {
           </svg>
           Panier
           {totalItems() > 0 && (
-            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#DC143C] text-xs font-bold text-white shadow-lg shadow-[#DC143C]/30">
+            <span
+              className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white"
+              style={{ background: "#D41920", boxShadow: "0 2px 10px rgba(212,25,32,0.4)" }}
+            >
               {totalItems()}
             </span>
           )}
