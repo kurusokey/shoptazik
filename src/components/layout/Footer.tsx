@@ -2,24 +2,24 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-zinc-800 bg-zinc-950">
+    <footer className="border-t border-[#DC143C]/10 bg-[#0a0608]">
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
             <h3 className="text-lg font-bold text-white">
-              SHOP<span className="text-amber-400">TAZIK</span>
+              SHOP<span className="bg-gradient-to-r from-[#DC143C] to-[#8B2252] bg-clip-text text-transparent">TAZIK</span>
             </h3>
-            <p className="mt-2 text-sm text-zinc-400">
+            <p className="mt-2 text-sm text-[#a07070]">
               La boutique du rap francophone. Vinyles, CD, K7 et merchandising
               officiel.
             </p>
           </div>
 
           <div>
-            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-300">
+            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#d4a0a0]">
               Navigation
             </h4>
-            <ul className="space-y-2 text-sm text-zinc-400">
+            <ul className="space-y-2 text-sm text-[#a07070]">
               <li>
                 <Link href="/" className="transition hover:text-white">
                   Accueil
@@ -34,6 +34,14 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/artists/fdy-phenomen/flamboyant"
+                  className="transition hover:text-[#DC143C]"
+                >
+                  Flamboyant
+                </Link>
+              </li>
+              <li>
                 <Link href="/cart" className="transition hover:text-white">
                   Panier
                 </Link>
@@ -42,10 +50,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-300">
+            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#d4a0a0]">
               Informations
             </h4>
-            <ul className="space-y-2 text-sm text-zinc-400">
+            <ul className="space-y-2 text-sm text-[#a07070]">
               <li>Livraison en France et DOM-TOM</li>
               <li>Paiement sécurisé par Stripe</li>
               <li>Contact : contact@shoptazik.com</li>
@@ -53,7 +61,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-zinc-800 pt-8 text-center text-xs text-zinc-500">
+        <div className="mt-8 border-t border-[#DC143C]/10 pt-8 text-center text-xs text-[#703040]">
           &copy; {new Date().getFullYear()} Shoptazik. Tous droits réservés.
         </div>
       </div>

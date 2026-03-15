@@ -7,30 +7,36 @@ export default function Header() {
   const totalItems = useCartStore((s) => s.totalItems);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-[#DC143C]/10 bg-[#0a0608]/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link href="/" className="text-xl font-bold tracking-tight text-white">
-          SHOP<span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">TAZIK</span>
+          SHOP<span className="bg-gradient-to-r from-[#DC143C] to-[#8B2252] bg-clip-text text-transparent">TAZIK</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
           <Link
             href="/"
-            className="text-sm text-zinc-400 transition hover:text-white"
+            className="text-sm text-[#a07070] transition hover:text-white"
           >
             Accueil
           </Link>
           <Link
             href="/artists/fdy-phenomen"
-            className="text-sm text-zinc-400 transition hover:text-white"
+            className="text-sm text-[#a07070] transition hover:text-white"
           >
             Artistes
+          </Link>
+          <Link
+            href="/artists/fdy-phenomen/flamboyant"
+            className="text-sm text-[#DC143C] transition hover:text-[#f05070]"
+          >
+            Flamboyant
           </Link>
         </nav>
 
         <Link
           href="/cart"
-          className="relative flex items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-sm text-white transition hover:bg-zinc-700"
+          className="relative flex items-center gap-2 rounded-lg border border-[#DC143C]/15 bg-[#1a0a10] px-4 py-2 text-sm text-white transition hover:border-[#DC143C]/30 hover:bg-[#2a0a18]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +54,7 @@ export default function Header() {
           </svg>
           Panier
           {totalItems() > 0 && (
-            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-xs font-bold text-black">
+            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#DC143C] text-xs font-bold text-white shadow-lg shadow-[#DC143C]/30">
               {totalItems()}
             </span>
           )}
