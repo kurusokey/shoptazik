@@ -94,12 +94,11 @@ export async function getVariantsByProduct(
 export async function getFeaturedProject(): Promise<
   (Project & { artist: Artist; products: Product[] }) | null
 > {
-  // On prend le projet le plus récent
+  // Projet mis en avant : Flamboyant
   const { data: project, error } = await supabase
     .from("projects")
     .select("*")
-    .order("release_year", { ascending: false })
-    .limit(1)
+    .eq("slug", "flamboyant")
     .single();
   if (error || !project) return null;
 

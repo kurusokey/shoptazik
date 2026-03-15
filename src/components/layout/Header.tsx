@@ -10,7 +10,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link href="/" className="text-xl font-bold tracking-tight text-white">
-          SHOP<span className="text-amber-400">TAZIK</span>
+          SHOP<span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">TAZIK</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -48,7 +48,7 @@ export default function Header() {
           </svg>
           Panier
           {totalItems() > 0 && (
-            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-amber-400 text-xs font-bold text-black">
+            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-xs font-bold text-black">
               {totalItems()}
             </span>
           )}
