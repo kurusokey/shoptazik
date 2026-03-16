@@ -46,7 +46,7 @@ export default async function HomePage() {
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="max-w-xl">
                 <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
-                  Shoptazik pr&eacute;sente
+                  La Mug &amp; Frero Prod pr&eacute;sente
                 </p>
                 <h1 className="mt-3 text-4xl font-black tracking-tight text-white md:text-6xl">
                   Chanteur de Rap
