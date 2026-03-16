@@ -10,8 +10,8 @@ export default function Footer() {
 
   return (
     <footer style={{ background: t.footerBg, borderTop: t.footerBorder }}>
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-3">
+      <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+        <div className="grid gap-6 md:grid-cols-3 md:gap-8">
           <div>
             <h3 className="text-lg font-bold text-white/90">
               SHOP<span style={{ color: t.logo }}>TAZIK</span>

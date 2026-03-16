@@ -292,7 +292,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {/* ============================================
           HERO — Pochette + infos
           ============================================ */}
-      <section className="relative overflow-hidden px-4 py-16" style={{ background: theme.headerBg }}>
+      <section className="relative overflow-hidden px-4 py-10 md:py-16" style={{ background: theme.headerBg }}>
         {/* Pochette floutée en fond */}
         <div className="absolute inset-0 overflow-hidden">
           <img src={project.cover_url} alt="" className="h-full w-full scale-125 object-cover blur-[80px]" style={{ opacity: 0.12 }} />
@@ -300,7 +300,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         <div className="relative mx-auto max-w-7xl">
-          <nav className="mb-8 flex items-center gap-2 text-sm" style={{ color: theme.textSecondary }}>
+          <nav className="mb-6 flex flex-wrap items-center gap-1.5 text-xs md:mb-8 md:gap-2 md:text-sm" style={{ color: theme.textSecondary }}>
             <Link href="/" className="transition hover:opacity-70">Accueil</Link>
             <span>/</span>
             <Link href={`/artists/${artistSlug}`} className="transition hover:opacity-70">{project.artist.name}</Link>
@@ -308,9 +308,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <span style={{ color: theme.accent }}>{project.title}</span>
           </nav>
 
-          <div className="grid gap-10 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2 md:gap-10">
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-[460px] overflow-hidden rounded-xl" style={{ boxShadow: theme.shadow }}>
+              <div className="w-full max-w-[320px] overflow-hidden rounded-xl md:max-w-[460px]" style={{ boxShadow: theme.shadow }}>
                 <img src={project.cover_url} alt={project.title} className="block h-auto w-full" />
               </div>
             </div>
@@ -327,7 +327,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {project.artist.name}
               </Link>
 
-              <h1 className="mt-1 text-3xl font-black md:text-5xl" style={{ color: theme.textPrimary }}>{project.title}</h1>
+              <h1 className="mt-1 text-2xl font-black md:text-5xl" style={{ color: theme.textPrimary }}>{project.title}</h1>
 
               <p className="mt-4 leading-relaxed" style={{ color: theme.textSecondary }}>{project.description}</p>
 

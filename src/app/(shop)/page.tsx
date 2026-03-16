@@ -25,7 +25,7 @@ export default async function HomePage() {
           HERO — Le blouson Avirex en studio, plein écran
           Fdy de dos, casque, micro, en pleine session
           ============================================ */}
-      <section className="relative overflow-hidden" style={{ height: "100vh", minHeight: "600px", maxHeight: "1100px" }}>
+      <section className="relative overflow-hidden" style={{ height: "85vh", minHeight: "500px", maxHeight: "1100px" }}>
         <img
           src={AVIREX_STUDIO}
           alt="Fdy Phenomen en studio — blouson Avirex"
@@ -55,7 +55,7 @@ export default async function HomePage() {
                 <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
                   Frero Prod pr&eacute;sente :
                 </p>
-                <h1 className="mt-3 text-4xl font-black tracking-tight text-white md:text-6xl">
+                <h1 className="mt-3 text-3xl font-black tracking-tight text-white md:text-6xl">
                   Chanteur de Rap
                 </h1>
                 <p className="mt-2 text-lg text-white/50">
@@ -123,7 +123,7 @@ export default async function HomePage() {
           SECTION — Le blouson Avirex, l'univers
           Photo fdy_life.jpg en plein écran
           ============================================ */}
-      <section className="relative overflow-hidden" style={{ height: "80vh", minHeight: "500px", maxHeight: "900px" }}>
+      <section className="relative overflow-hidden" style={{ height: "70vh", minHeight: "400px", maxHeight: "900px" }}>
         <img
           src={AVIREX_LIFE}
           alt="L'univers de Fdy Phenomen — blouson Avirex, vinyles, discographie"
@@ -193,10 +193,10 @@ export default async function HomePage() {
                 return (
                 <div
                   key={product.id}
-                  className="flex items-center gap-5 rounded-xl border p-5 transition hover:border-[#C8A050]/30"
+                  className="flex flex-col gap-4 rounded-xl border p-4 transition hover:border-[#C8A050]/30 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
                   style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.05)" }}
                 >
-                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg">
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20">
                     <img src={product.image_url} alt={product.name} className="h-full w-full object-cover" />
                   </div>
                   <div className="min-w-0 flex-1">
