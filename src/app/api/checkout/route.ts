@@ -67,25 +67,30 @@ export async function POST(req: NextRequest) {
 
     const isDigitalOnly = !hasItems && hasTracks;
 
-    // Appel direct à l'API Stripe via fetch (pas le SDK)
-    const formData = new URLSearchParams();
-    formData.append("mode", "payment");
-    formData.append("success_url", `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`);
-    formData.append("cancel_url", `${baseUrl}/cart`);
-    formData.append("locale", "fr");
+    // Appel direct à l'API Stripe via fetch
+    const params: string[] = [];
+    const add = (key: string, value: string) => {
+      params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+    };
+
+    add("mode", "payment");
+    add("locale", "fr");
+
+    // Les URLs Stripe doivent garder {CHECKOUT_SESSION_ID} tel quel
+    params.push(`success_url=${encodeURIComponent(`${baseUrl}/checkout/success`)}%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D`);
+    params.push(`cancel_url=${encodeURIComponent(`${baseUrl}/cart`)}`);
 
     line_items.forEach((item, i) => {
-      formData.append(`line_items[${i}][price_data][currency]`, item.price_data.currency);
-      formData.append(`line_items[${i}][price_data][product_data][name]`, item.price_data.product_data.name);
-      formData.append(`line_items[${i}][price_data][product_data][description]`, item.price_data.product_data.description);
-      formData.append(`line_items[${i}][price_data][unit_amount]`, String(item.price_data.unit_amount));
-      formData.append(`line_items[${i}][quantity]`, String(item.quantity));
+      add(`line_items[${i}][price_data][currency]`, item.price_data.currency);
+      add(`line_items[${i}][price_data][product_data][name]`, item.price_data.product_data.name);
+      add(`line_items[${i}][price_data][product_data][description]`, item.price_data.product_data.description);
+      add(`line_items[${i}][price_data][unit_amount]`, String(item.price_data.unit_amount));
+      add(`line_items[${i}][quantity]`, String(item.quantity));
     });
 
     if (!isDigitalOnly) {
-      const countries = ["FR", "BE", "CH", "LU", "MC", "GP", "MQ", "RE", "GF"];
-      countries.forEach((c, i) => {
-        formData.append(`shipping_address_collection[allowed_countries][${i}]`, c);
+      ["FR", "BE", "CH", "LU", "MC", "GP", "MQ", "RE", "GF"].forEach((c, i) => {
+        add(`shipping_address_collection[allowed_countries][${i}]`, c);
       });
     }
 
@@ -95,7 +100,7 @@ export async function POST(req: NextRequest) {
         "Authorization": `Bearer ${stripeSecretKey}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: formData.toString(),
+      body: params.join("&"),
     });
 
     const session = await response.json();
