@@ -185,7 +185,9 @@ export default async function HomePage() {
             <h2 className="mb-10 text-2xl font-bold text-white">Formats disponibles</h2>
 
             <div className="space-y-4">
-              {featured.products.map((product) => {
+              {featured.products
+                .filter((product) => product.category !== "tshirt")
+                .map((product) => {
                 const isVinyle = product.category === "vinyle";
                 const isCD = product.category === "cd";
                 const externalUrl = isVinyle
@@ -236,12 +238,13 @@ export default async function HomePage() {
                 );
               })}
 
-              {/* Album numérique */}
+              {/* Album digital */}
               <BuyAlbumDigital
                 title="Chanteur de Rap"
                 artist="Fdy Phenomen"
                 trackCount={featured.tracklist.length}
                 price={999}
+                coverUrl={COVER_FRONT}
               />
             </div>
           </div>

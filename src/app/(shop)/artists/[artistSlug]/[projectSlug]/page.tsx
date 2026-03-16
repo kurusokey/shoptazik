@@ -481,22 +481,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           FORMATS DISPONIBLES
           ============================================ */}
       <section className="mx-auto max-w-7xl px-4 py-12">
-        <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>Formats disponibles</h2>
+        <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>
+          {projectSlug === "chanteur-de-rap" ? "Formats disponibles" : "Format disponible"}
+        </h2>
 
-        {products.length > 0 && (
+        {/* Produits physiques uniquement pour Chanteur de Rap (sans t-shirt) */}
+        {projectSlug === "chanteur-de-rap" && products.length > 0 && (
           <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {products
+              .filter((p) => p.category !== "tshirt")
+              .map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
           </div>
         )}
 
-        {/* Album numérique */}
+        {/* Album digital */}
         <BuyAlbumDigital
           title={project.title}
           artist={project.artist.name}
           trackCount={project.tracklist.length}
           price={999}
+          coverUrl={project.cover_url}
         />
       </section>
     </div>
