@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getFeaturedProject, getArtists } from "@/lib/supabase-data";
 import { formatPrice, categoryLabel } from "@/lib/utils";
 import AddToCartButton from "@/components/ui/AddToCartButton";
+import YouTubePlayer from "@/components/ui/YouTubePlayer";
+import { getYouTubeId } from "@/lib/youtube";
 
 export const dynamic = "force-dynamic";
 
@@ -234,18 +236,30 @@ export default async function HomePage() {
                 </div>
 
                 <div className="overflow-hidden rounded-xl border" style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.04)" }}>
-                  {featured.tracklist.map((track, i) => (
+                  {featured.tracklist.map((track, i) => {
+                    const ytId = getYouTubeId(track);
+                    return (
                     <div
                       key={i}
-                      className="flex items-center gap-4 px-5 py-4 transition hover:bg-white/[0.03]"
+                      className="flex items-center gap-3 px-5 py-4 transition hover:bg-white/[0.03]"
                       style={{ borderBottom: i !== featured.tracklist.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
                     >
-                      <span className="w-8 text-right text-sm font-bold" style={{ color: "rgba(200,160,80,0.4)" }}>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                      {ytId ? (
+                        <YouTubePlayer videoId={ytId} trackTitle={track} />
+                      ) : (
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center text-sm font-bold" style={{ color: "rgba(200,160,80,0.4)" }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      )}
                       <span className="flex-1 text-sm text-white/60">{track}</span>
+                      {ytId && (
+                        <span className="shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)" }}>
+                          YouTube
+                        </span>
+                      )}
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
