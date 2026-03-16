@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import Stripe from "stripe";
 
 export const maxDuration = 30;
 
@@ -22,12 +21,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Stripe non configuré" }, { status: 500 });
     }
 
-    const stripe = new Stripe(stripeSecretKey, {
-      timeout: 20000,
-      maxNetworkRetries: 3,
-    });
-
-    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+    // Construire les line_items pour l'API Stripe
+    const line_items: Array<{
+      price_data: {
+        currency: string;
+        product_data: { name: string; description: string };
+        unit_amount: number;
+      };
+      quantity: number;
+    }> = [];
 
     if (hasItems) {
       for (const item of items) {
@@ -65,21 +67,47 @@ export async function POST(req: NextRequest) {
 
     const isDigitalOnly = !hasItems && hasTracks;
 
-    const sessionParams: Stripe.Checkout.SessionCreateParams = {
-      mode: "payment",
-      line_items,
-      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/cart`,
-      locale: "fr",
-    };
+    // Appel direct à l'API Stripe via fetch (pas le SDK)
+    const formData = new URLSearchParams();
+    formData.append("mode", "payment");
+    formData.append("success_url", `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`);
+    formData.append("cancel_url", `${baseUrl}/cart`);
+    formData.append("locale", "fr");
+
+    line_items.forEach((item, i) => {
+      formData.append(`line_items[${i}][price_data][currency]`, item.price_data.currency);
+      formData.append(`line_items[${i}][price_data][product_data][name]`, item.price_data.product_data.name);
+      formData.append(`line_items[${i}][price_data][product_data][description]`, item.price_data.product_data.description);
+      formData.append(`line_items[${i}][price_data][unit_amount]`, String(item.price_data.unit_amount));
+      formData.append(`line_items[${i}][quantity]`, String(item.quantity));
+    });
 
     if (!isDigitalOnly) {
-      sessionParams.shipping_address_collection = {
-        allowed_countries: ["FR", "BE", "CH", "LU", "MC", "GP", "MQ", "RE", "GF"],
-      };
+      const countries = ["FR", "BE", "CH", "LU", "MC", "GP", "MQ", "RE", "GF"];
+      countries.forEach((c, i) => {
+        formData.append(`shipping_address_collection[allowed_countries][${i}]`, c);
+      });
     }
 
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    const response = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${stripeSecretKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
+    });
+
+    const session = await response.json();
+
+    if (!response.ok) {
+      console.error("Stripe API error:", session);
+      return NextResponse.json(
+        { error: "Erreur Stripe", debug: session.error?.message },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({ url: session.url });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
