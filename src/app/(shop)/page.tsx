@@ -5,78 +5,67 @@ import { formatPrice, categoryLabel } from "@/lib/utils";
 export const dynamic = "force-dynamic";
 
 const COVER_FRONT = "/images/projects/album_chanteur_de_rap.jpg";
-const COVER_BACK = "/images/projects/album_chanteur_de_rap_back.jpg";
-const COVER_INSIDE = "/images/projects/album_chanteur_de_rap_inside.jpg";
-const COVER_MOCKUP = "/images/projects/album_chanteur_de_rap_front_mockup.jpg";
-
-const grainStyle = {
-  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
-  backgroundRepeat: "repeat",
-  backgroundSize: "128px 128px",
-};
+const AVIREX_STUDIO = "/images/projects/avirex.png";
+const AVIREX_LIFE = "/images/projects/fdy_life.jpg";
 
 export default async function HomePage() {
   const featured = await getFeaturedProject();
   const artists = await getArtists();
 
   return (
-    <div className="relative" style={{ background: "#E8DDD0" }}>
-      <div className="pointer-events-none fixed inset-0 z-50 opacity-50" style={grainStyle} />
-
+    <div style={{ background: "#1A1610" }}>
       {/* ============================================
-          HERO — Front cover + texte
-          Fond beige/crème comme le recto
+          HERO — Le blouson Avirex en studio, plein écran
+          Fdy de dos, casque, micro, en pleine session
           ============================================ */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden" style={{ height: "100vh", minHeight: "600px", maxHeight: "1100px" }}>
+        <img
+          src={AVIREX_STUDIO}
+          alt="Fdy Phenomen en studio — blouson Avirex"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "center 20%" }}
+        />
+        {/* Overlay sombre en bas pour le texte */}
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(170deg, #D8CCBE 0%, #E8DDD0 30%, #D0C4B5 60%, #E0D5C8 100%)",
+            background: "linear-gradient(to bottom, rgba(26,22,16,0.2) 0%, transparent 30%, transparent 45%, rgba(26,22,16,0.7) 70%, rgba(26,22,16,0.95) 90%, #1A1610 100%)",
           }}
         />
+        {/* Overlay latéral */}
         <div
-          className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full blur-[120px]"
-          style={{ background: "rgba(58,90,138,0.1)" }}
+          className="absolute inset-0 hidden md:block"
+          style={{
+            background: "linear-gradient(to right, rgba(26,22,16,0.5) 0%, transparent 30%, transparent 70%, rgba(26,22,16,0.3) 100%)",
+          }}
         />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 md:py-16">
-          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
-            <div className="flex justify-center">
-              <div
-                className="w-full max-w-[520px] overflow-hidden rounded-lg"
-                style={{ boxShadow: "0 30px 80px rgba(26,26,26,0.2), 0 0 0 1px rgba(26,26,26,0.08)" }}
-              >
-                <img src={COVER_FRONT} alt="Fdy Phenomen — Chanteur de Rap" className="block h-auto w-full" />
+        {/* Contenu bas */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-10 md:pb-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-xl">
+                <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
+                  Shoptazik pr&eacute;sente
+                </p>
+                <h1 className="mt-3 text-4xl font-black tracking-tight text-white md:text-6xl">
+                  Chanteur de Rap
+                </h1>
+                <p className="mt-2 text-lg text-white/50">
+                  Le nouvel album de Fdy Phenomen &mdash; 10 titres
+                </p>
               </div>
-            </div>
-
-            <div className="text-center md:text-left">
-              <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#3A5A8A" }}>
-                Shoptazik pr&eacute;sente
-              </p>
-              <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl lg:text-6xl" style={{ color: "#1A1A1A" }}>
-                Le nouvel album
-              </h2>
-              <p className="mt-2 text-lg" style={{ color: "#3A5A8A" }}>
-                Fdy Phenomen &mdash; Chanteur de Rap
-              </p>
-              <p className="mx-auto mt-6 max-w-md leading-relaxed md:mx-0" style={{ color: "#6A5A4A" }}>
-                L&apos;&eacute;criture comme arme, le storytelling comme art.
-                10 titres de rap d&apos;auteur dans sa forme la plus aboutie.
-              </p>
-
-              <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
+              <div className="flex gap-3">
                 <Link
                   href="/artists/fdy-phenomen/chanteur-de-rap"
-                  className="rounded-xl px-8 py-4 font-bold text-white transition hover:brightness-110"
-                  style={{ background: "linear-gradient(135deg, #3A5A8A, #2A4A7A)", boxShadow: "0 6px 30px rgba(58,90,138,0.35)" }}
+                  className="rounded-xl px-7 py-3.5 font-bold text-black transition hover:brightness-110 md:px-8 md:py-4"
+                  style={{ background: "linear-gradient(135deg, #C8A050, #A08030)", boxShadow: "0 6px 25px rgba(200,160,80,0.3)" }}
                 >
                   D&eacute;couvrir l&apos;album
                 </Link>
                 <Link
                   href="/artists/fdy-phenomen"
-                  className="rounded-xl px-8 py-4 font-semibold transition hover:bg-black/5"
-                  style={{ border: "1px solid rgba(26,26,26,0.15)", color: "#4A4A4A" }}
+                  className="rounded-xl border border-white/15 px-7 py-3.5 font-semibold text-white/60 transition hover:border-white/30 hover:text-white md:px-8 md:py-4"
                 >
                   Discographie
                 </Link>
@@ -87,85 +76,127 @@ export default async function HomePage() {
       </section>
 
       {/* ============================================
-          SECTION VERSO — Fond ambre/ocre doré
-          L'univers du verso de l'album
+          SECTION — Pochette front + présentation
+          Transition du studio vers l'album
           ============================================ */}
-      <section className="relative overflow-hidden">
-        {/* Fond ambre/ocre du verso */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(170deg, #C8880A, #D49830, #B87820)" }} />
-        {/* Image verso floutée en fond */}
-        <div className="absolute inset-0 overflow-hidden">
-          <img src={COVER_BACK} alt="" className="h-full w-full scale-110 object-cover blur-[60px]" style={{ opacity: 0.3 }} />
-        </div>
+      <section className="relative overflow-hidden px-4 py-16 md:py-20">
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #201A14, #1A1610)" }} />
+        {/* Lueur ambre subtile */}
+        <div className="absolute -right-40 top-0 h-[400px] w-[400px] rounded-full blur-[120px]" style={{ background: "rgba(200,160,80,0.06)" }} />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:py-20">
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            {/* Mockups CD */}
-            <div className="flex flex-col items-center gap-6">
-              <div className="w-full max-w-[500px] overflow-hidden rounded-lg" style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.3)" }}>
-                <img src={COVER_BACK} alt="Verso — Chanteur de Rap" className="block h-auto w-full" />
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+            <div className="flex justify-center">
+              <div className="w-full max-w-[460px] overflow-hidden rounded-lg" style={{ boxShadow: "0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)" }}>
+                <img src={COVER_FRONT} alt="Chanteur de Rap — Pochette" className="block h-auto w-full" />
               </div>
             </div>
 
-            {/* Texte sur fond ambre */}
-            <div className="text-center md:text-left">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
-                Le verso
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
+                L&apos;album
               </p>
-              <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
-                Dans les coulisses de l&apos;album
+              <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">
+                Le rap d&apos;auteur dans sa forme la plus aboutie
               </h2>
-              <p className="mt-4 leading-relaxed text-white/70">
-                Chanteur de Rap, c&apos;est aussi un objet. La veste, la boutique,
-                l&apos;univers visuel. Chaque d&eacute;tail du packaging raconte
-                une histoire. Du rap d&apos;auteur jusqu&apos;au bout des doigts.
+              <p className="mt-4 leading-relaxed text-white/50">
+                Chanteur de Rap, c&apos;est le manifeste de Fdy Phenomen. Le blouson Avirex
+                sur le dos, le micro devant, la plume en main. 10 titres qui traversent
+                les g&eacute;n&eacute;rations du hip-hop, du storytelling &agrave;
+                l&apos;introspection, des collaborations l&eacute;gendaires avec
+                Sir Samuel, Arsenik, IAM.
               </p>
-
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                <div className="overflow-hidden rounded-lg" style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.2)" }}>
-                  <img src={COVER_MOCKUP} alt="CD Front mockup" className="block h-auto w-full" />
-                </div>
-                <div className="overflow-hidden rounded-lg" style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.2)" }}>
-                  <img src={COVER_INSIDE} alt="CD Inside" className="block h-auto w-full" />
-                </div>
-              </div>
+              <Link
+                href="/artists/fdy-phenomen/chanteur-de-rap"
+                className="mt-6 inline-block text-sm font-semibold transition hover:opacity-70"
+                style={{ color: "#C8A050" }}
+              >
+                Voir le projet complet &rarr;
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* ============================================
-          FORMATS / PRODUITS — Transition ambre → beige
+          SECTION — Le blouson Avirex, l'univers
+          Photo fdy_life.jpg en plein écran
+          ============================================ */}
+      <section className="relative overflow-hidden" style={{ height: "80vh", minHeight: "500px", maxHeight: "900px" }}>
+        <img
+          src={AVIREX_LIFE}
+          alt="L'univers de Fdy Phenomen — blouson Avirex, vinyles, discographie"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "center center" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to bottom, rgba(26,22,16,0.4), rgba(26,22,16,0.3), rgba(26,22,16,0.8), #1A1610)",
+          }}
+        />
+        <div
+          className="absolute inset-0 hidden md:block"
+          style={{
+            background: "linear-gradient(to right, rgba(26,22,16,0.7) 0%, transparent 40%, transparent 100%)",
+          }}
+        />
+
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-12 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:pb-0">
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-lg">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
+                L&apos;univers
+              </p>
+              <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">
+                Le blouson Avirex
+              </h2>
+              <p className="mt-4 leading-relaxed text-white/60">
+                Le blouson Avirex, c&apos;est le symbole. Celui des freestyles l&eacute;gendaires,
+                des sessions studio, du crew Ghet&apos; 7 dans le dos.
+                Il traverse les &eacute;poques, les albums, les sc&egrave;nes.
+                Il est l&agrave;, sur la pochette, sur le dos de l&apos;artiste,
+                au milieu des vinyles et des souvenirs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          FORMATS / PRODUITS
           ============================================ */}
       {featured && featured.products.length > 0 && (
         <section className="relative overflow-hidden px-4 py-20">
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #C8880A, #D8CCBE, #E0D5C8)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #201A14)" }} />
+          {/* Avirex studio floutée en arrière-plan */}
+          <div className="absolute inset-0 overflow-hidden">
+            <img src={AVIREX_STUDIO} alt="" className="h-full w-full scale-125 object-cover blur-[80px]" style={{ opacity: 0.08 }} />
+          </div>
 
           <div className="relative mx-auto max-w-5xl">
-            <h2 className="mb-10 text-2xl font-bold text-white">
-              Formats disponibles
-            </h2>
+            <h2 className="mb-10 text-2xl font-bold text-white">Formats disponibles</h2>
 
             <div className="space-y-4">
               {featured.products.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center gap-5 rounded-xl border p-5 backdrop-blur-sm transition hover:border-white/30"
-                  style={{ borderColor: "rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.15)" }}
+                  className="flex items-center gap-5 rounded-xl border p-5 transition hover:border-[#C8A050]/30"
+                  style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.05)" }}
                 >
                   <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg">
                     <img src={product.image_url} alt={product.name} className="h-full w-full object-cover" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-semibold" style={{ color: "#1A1A1A" }}>{product.name}</h3>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs" style={{ color: "#5A4A3A" }}>
+                    <h3 className="font-semibold text-white">{product.name}</h3>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-white/30">
                       <span>{categoryLabel(product.category)}</span>
-                      {product.is_limited && <span className="font-semibold" style={{ color: "#3A5A8A" }}>Edition limit&eacute;e</span>}
+                      {product.is_limited && <span style={{ color: "#C8A050" }}>Edition limit&eacute;e</span>}
                       {product.edition_info && <span>&middot; {product.edition_info}</span>}
                     </div>
-                    <p className="mt-1 hidden text-sm sm:block" style={{ color: "#6A5A4A" }}>{product.description}</p>
+                    <p className="mt-1 hidden text-sm text-white/30 sm:block">{product.description}</p>
                   </div>
-                  <span className="shrink-0 text-xl font-bold" style={{ color: "#1A1A1A" }}>{formatPrice(product.price)}</span>
+                  <span className="shrink-0 text-xl font-bold text-white">{formatPrice(product.price)}</span>
                 </div>
               ))}
             </div>
@@ -173,8 +204,8 @@ export default async function HomePage() {
             <div className="mt-8 text-center">
               <Link
                 href="/artists/fdy-phenomen/chanteur-de-rap"
-                className="inline-block rounded-xl px-8 py-4 font-bold text-white transition hover:brightness-110"
-                style={{ background: "linear-gradient(135deg, #3A5A8A, #2A4A7A)", boxShadow: "0 6px 30px rgba(58,90,138,0.35)" }}
+                className="inline-block rounded-xl px-8 py-4 font-bold text-black transition hover:brightness-110"
+                style={{ background: "linear-gradient(135deg, #C8A050, #A08030)", boxShadow: "0 6px 25px rgba(200,160,80,0.3)" }}
               >
                 Voir tous les formats
               </Link>
@@ -188,41 +219,35 @@ export default async function HomePage() {
           ============================================ */}
       {featured && (
         <section className="relative px-4 py-16">
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #E0D5C8, #E8DDD0)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #201A14, #1A1610)" }} />
 
           <div className="relative mx-auto max-w-5xl">
             <div className="grid gap-8 md:grid-cols-5 md:gap-12">
               <div className="hidden md:col-span-2 md:block">
-                <div className="sticky top-24 overflow-hidden rounded-xl" style={{ boxShadow: "0 20px 50px rgba(26,26,26,0.15)" }}>
+                <div className="sticky top-24 overflow-hidden rounded-xl" style={{ boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
                   <img src={COVER_FRONT} alt="Chanteur de Rap" className="block h-auto w-full" />
                 </div>
               </div>
 
               <div className="md:col-span-3">
                 <div className="mb-6 flex items-center justify-between">
-                  <h2 className="text-2xl font-bold" style={{ color: "#1A1A1A" }}>Tracklist</h2>
-                  <span className="text-sm" style={{ color: "#8A7A6A" }}>{featured.tracklist.length} titres</span>
+                  <h2 className="text-2xl font-bold text-white">Tracklist</h2>
+                  <span className="text-sm text-white/30">{featured.tracklist.length} titres</span>
                 </div>
 
-                <div className="overflow-hidden rounded-xl border" style={{ borderColor: "rgba(26,26,26,0.08)", background: "rgba(255,255,255,0.4)" }}>
+                <div className="overflow-hidden rounded-xl border" style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.04)" }}>
                   {featured.tracklist.map((track, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-4 px-5 py-4 transition hover:bg-white/40"
-                      style={{ borderBottom: i !== featured.tracklist.length - 1 ? "1px solid rgba(26,26,26,0.06)" : "none" }}
+                      className="flex items-center gap-4 px-5 py-4 transition hover:bg-white/[0.03]"
+                      style={{ borderBottom: i !== featured.tracklist.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
                     >
-                      <span className="w-8 text-right text-sm font-bold" style={{ color: "rgba(58,90,138,0.4)" }}>
+                      <span className="w-8 text-right text-sm font-bold" style={{ color: "rgba(200,160,80,0.4)" }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="flex-1 text-sm" style={{ color: "#3A3A3A" }}>{track}</span>
+                      <span className="flex-1 text-sm text-white/60">{track}</span>
                     </div>
                   ))}
-                </div>
-
-                <div className="mt-6 text-center md:text-left">
-                  <Link href="/artists/fdy-phenomen/chanteur-de-rap" className="text-sm font-semibold transition hover:opacity-70" style={{ color: "#3A5A8A" }}>
-                    Voir le projet complet &rarr;
-                  </Link>
                 </div>
               </div>
             </div>
@@ -231,42 +256,26 @@ export default async function HomePage() {
       )}
 
       {/* ============================================
-          CITATION
-          ============================================ */}
-      <section className="relative overflow-hidden py-16">
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #E8DDD0, #D8CCBE)" }} />
-        <div className="relative mx-auto max-w-3xl px-6 text-center">
-          <blockquote className="text-xl font-light italic leading-relaxed md:text-2xl" style={{ color: "#2A3A4A" }}>
-            &laquo;&nbsp;Le rap, c&apos;est de la litt&eacute;rature qui se chante.
-            Cet album, c&apos;est la preuve.&nbsp;&raquo;
-          </blockquote>
-          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: "#3A5A8A" }}>
-            Fdy Phenomen
-          </p>
-        </div>
-      </section>
-
-      {/* ============================================
           ARTISTE
           ============================================ */}
       <section className="relative px-4 py-20">
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #D8CCBE, #D0C4B5)" }} />
+        <div className="absolute inset-0" style={{ background: "#1A1610" }} />
         <div className="relative mx-auto max-w-7xl">
-          <h2 className="mb-10 text-2xl font-bold" style={{ color: "#1A1A1A" }}>L&apos;artiste</h2>
+          <h2 className="mb-10 text-2xl font-bold text-white">L&apos;artiste</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {artists.map((artist) => (
               <Link
                 key={artist.id}
                 href={`/artists/${artist.slug}`}
-                className="group overflow-hidden rounded-xl border p-6 transition hover:border-[#3A5A8A]/30"
-                style={{ borderColor: "rgba(26,26,26,0.08)", background: "rgba(255,255,255,0.4)" }}
+                className="group overflow-hidden rounded-xl border p-6 transition hover:border-[#C8A050]/30"
+                style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.04)" }}
               >
-                <div className="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-black/5 transition group-hover:ring-[#3A5A8A]/30">
+                <div className="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-white/10 transition group-hover:ring-[#C8A050]/40">
                   <img src={artist.image_url} alt={artist.name} className="h-full w-full object-cover" />
                 </div>
-                <h3 className="text-xl font-bold transition group-hover:text-[#3A5A8A]" style={{ color: "#1A1A1A" }}>{artist.name}</h3>
-                <p className="mt-2 line-clamp-3 text-sm" style={{ color: "#6A5A4A" }}>{artist.bio}</p>
-                <p className="mt-4 text-sm font-medium" style={{ color: "#3A5A8A" }}>Voir la discographie &rarr;</p>
+                <h3 className="text-xl font-bold text-white transition group-hover:text-[#C8A050]">{artist.name}</h3>
+                <p className="mt-2 line-clamp-3 text-sm text-white/40">{artist.bio}</p>
+                <p className="mt-4 text-sm font-medium" style={{ color: "#C8A050" }}>Voir la discographie &rarr;</p>
               </Link>
             ))}
           </div>
