@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://shoptazik.vercel.app";
+
   try {
     const body = await req.json();
     const { items, tracks } = body;
@@ -13,22 +16,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Le panier est vide" }, { status: 400 });
     }
 
-    // Lire la clé au runtime (pas au build time)
-    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://shoptazik.vercel.app";
-
     if (!stripeSecretKey) {
       return NextResponse.json({
-        url: null,
-        success: true,
-        message: "Stripe non configuré",
-      });
+        error: "Stripe non configuré",
+        debug: "STRIPE_SECRET_KEY is missing",
+      }, { status: 500 });
     }
 
     const stripe = new Stripe(stripeSecretKey);
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
-    // Produits physiques (vinyle, CD, merch)
     if (hasItems) {
       for (const item of items) {
         line_items.push({
@@ -38,7 +35,7 @@ export async function POST(req: NextRequest) {
               name: item.product.name,
               description: item.variant
                 ? `${item.product.description} — ${item.variant.label}`
-                : item.product.description,
+                : (item.product.description || "Produit Shoptazik"),
             },
             unit_amount: item.product.price + (item.variant?.price_modifier ?? 0),
           },
@@ -47,7 +44,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Tracks digitaux (achat à l'unité)
     if (hasTracks) {
       for (const track of tracks) {
         line_items.push({
@@ -74,7 +70,6 @@ export async function POST(req: NextRequest) {
       locale: "fr",
     };
 
-    // Adresse de livraison uniquement pour les produits physiques
     if (!isDigitalOnly) {
       sessionParams.shipping_address_collection = {
         allowed_countries: ["FR", "BE", "CH", "LU", "MC", "GP", "MQ", "RE", "GF"],
@@ -84,9 +79,10 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create(sessionParams);
     return NextResponse.json({ url: session.url });
   } catch (error) {
-    console.error("Checkout error:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("Checkout error:", message);
     return NextResponse.json(
-      { error: "Erreur lors du checkout" },
+      { error: "Erreur lors du checkout", debug: message, hasKey: !!stripeSecretKey },
       { status: 500 }
     );
   }
