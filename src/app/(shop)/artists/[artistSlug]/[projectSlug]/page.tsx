@@ -112,7 +112,7 @@ const themes: Record<string, {
       },
       {
         title: "Secteur A",
-        text: "Arsenik le fait entrer chez Secteur A Miziks, le label de Kenzy (Ministère AMER). Fdy rejoint la famille aux côtés de Lino et JoeyStarr. Le premier album devient inévitable.",
+        text: "Arsenik le fait entrer chez Secteur Ä, le label de Kenzy (Ministère AMER). Fdy rejoint la famille aux côtés de Lino. Le premier album devient inévitable.",
       },
       {
         title: "22 titres, un destin",

@@ -104,6 +104,9 @@ export default function Header() {
                 <Link href="/artists/fdy-phenomen/chanteur-de-rap" onClick={() => setOpenMenu(null)} className="block px-4 py-2 text-sm transition hover:bg-white/10" style={{ color: t.linkColor }}>
                   CD
                 </Link>
+                <Link href="/artists/fdy-phenomen" onClick={() => setOpenMenu(null)} className="block px-4 py-2 text-sm transition hover:bg-white/10" style={{ color: t.linkColor }}>
+                  Digital
+                </Link>
                 <div className="border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
                   <span className="block px-4 py-2 text-xs font-semibold uppercase tracking-wider" style={{ color: t.accentColor, opacity: 0.5 }}>
                     Merchandising

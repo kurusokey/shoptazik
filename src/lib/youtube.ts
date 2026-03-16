@@ -16,8 +16,7 @@ const youtubeIds: Record<string, string> = {
   "iam": "28ZlgFlOp7w",
 
   // === Flamboyant ===
-  "nécessaire": "_FjToHvLvBc",
-  "necessaire": "_FjToHvLvBc",
+  "bo kay mwen": "_FjToHvLvBc",
 
   // === Qui Peut Tuer la Rage d'un Assassin ===
   "trop près": "g6ftPTKcgko",
