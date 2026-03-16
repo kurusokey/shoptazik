@@ -310,9 +310,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     {isSingle && (
                       <span className="rounded-full px-2 py-0.5 text-xs" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
                     )}
-                    {ytId && !isSingle && (
-                      <span className="hidden rounded-full px-2 py-0.5 text-xs sm:inline-block" style={{ background: "rgba(212,25,32,0.1)", color: "rgba(212,25,32,0.6)" }}>
-                        Clip
+                    {ytId && (
+                      <span className="hidden rounded-full px-2 py-0.5 text-xs sm:inline-block" style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.3)" }}>
+                        YouTube
                       </span>
                     )}
                   </div>
