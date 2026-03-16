@@ -192,25 +192,63 @@ const themes: Record<string, {
     ],
   },
   "rimeurs-a-gages": {
-    bg: "#1A1500",
-    headerBg: "linear-gradient(170deg, #D4B830, #A89020, #1A1500)",
+    bg: "#2A2200",
+    headerBg: "linear-gradient(170deg, #D4B830, #B8A020, #2A2200)",
     accent: "#1A3A7A",
     accentMuted: "rgba(26,58,122,0.12)",
     textPrimary: "#1A1A1A",
-    textSecondary: "rgba(26,26,26,0.6)",
+    textSecondary: "rgba(26,26,26,0.55)",
     cardBg: "rgba(26,58,122,0.06)",
     border: "rgba(26,58,122,0.15)",
     shadow: "0 30px 70px rgba(0,0,0,0.3)",
-    quote: "Rimeurs à Gages, c'est le début de tout. Le crew originel : Fdy Phenomen, Fouta Barge, Mossy, JM Dee — et un certain Disiz la Peste. Inédits, remix, morceaux perdus... et retrouvés. 1995-2022.",
-    quoteAuthor: "WillMuch, Fdy Phenomen & JMDee Beat",
+    quote: "Inédits, remix, morceaux perdus... et retrouvés. Rimeurs à Gages, c'est le crew originel : Fdy Phenomen, Fouta Barge, Mossy, JM Dee — et un certain Disiz la Peste. Tout a commencé là.",
+    quoteAuthor: "La M.U.G & Much-Zone présentent — 1995-2022",
     story: [
       {
-        title: "Les origines (1995)",
-        text: "Au milieu des années 90, dans la banlieue parisienne, se forme un crew : les Rimeurs à Gages. Fdy Phenomen, Fouta Barge, Mossy, JM Dee. Un quatrième larron les rejoint vite : Disiz la Peste. Ensemble, ils écument les compilations — Homecore, Première Classe, BOSS — et forgent leur flow dans les freestyles de rue.",
+        title: "Le crew originel (1995)",
+        text: "Milieu des années 90, banlieue parisienne. Fdy Phenomen, Fouta Barge, Mossy et JM Dee forment les Rimeurs à Gages. Un quatrième larron les rejoint : Disiz la Peste, de passage depuis Évry. Le crew écume les open mics, les freestyles de rue, les battles. Le rap est brut, sans filtre, sans studio.",
       },
       {
-        title: "L'anthologie (1995-2022)",
-        text: "Présentée par La M.U.G et Much-Zone, cette anthologie rassemble ce qui restait : des inédits, des remix, des morceaux perdus puis retrouvés. 27 ans d'histoire compressés en une mixtape. La preuve que le crew n'a jamais vraiment disparu.",
+        title: "Les compilations",
+        text: "Le nom « Rimeurs à Gages » circule. Ils apparaissent sur la mixtape « What's The Flavor? #25 » de DJ Poska, puis sur la compilation « Nouvelle Donne ». Homecore, Première Classe, BOSS — le crew s'infiltre partout. Chaque titre est un contrat rempli.",
+      },
+      {
+        title: "Les routes se séparent",
+        text: "Disiz part en solo et connaît le succès que l'on sait. Fdy prend la voie de Secteur A avec Lino et Arsenik. Les Rimeurs à Gages n'existent plus sur le papier. Mais les morceaux restent, quelque part, sur des cassettes, des maxis, des disques durs oubliés.",
+      },
+      {
+        title: "L'anthologie (2022)",
+        text: "27 ans plus tard, WillMuch, Fdy et JMDee Beat rassemblent ce qui restait. Des inédits retrouvés, des remix dépoussiérés, des morceaux perdus puis exhumés. 17 titres. La preuve que le crew n'a jamais vraiment disparu — il dormait, c'est tout.",
+      },
+    ],
+  },
+  // ============================================
+  // EP
+  // ============================================
+  "hors-serie": {
+    bg: "#1A100A",
+    headerBg: "linear-gradient(170deg, #8A4035, #6A3028, #1A100A)",
+    accent: "#D4A030",
+    accentMuted: "rgba(212,160,48,0.12)",
+    textPrimary: "white",
+    textSecondary: "rgba(255,255,255,0.5)",
+    cardBg: "rgba(212,160,48,0.06)",
+    border: "rgba(212,160,48,0.12)",
+    shadow: "0 30px 70px rgba(138,64,53,0.4)",
+    quote: "H(OR)S-Série — le OR est en or. Un projet hors cadre, hors format, hors normes. 12 titres sélectionnés à travers la discographie, réunis sur un seul disque. L'essentiel, concentré.",
+    quoteAuthor: "Fdy Phenomen — Addictive Music, 2021",
+    story: [
+      {
+        title: "L'or dans le titre",
+        text: "H(OR)S-SÉRIE. Le « OR » est en lettres d'or sur la pochette. Un jeu de mots qui dit tout : ce projet est en or. Photo signée Bruce Serbin — Fdy de profil, lunettes miroir, fond terre cuite. La classe, l'élégance, la maturité d'un artiste qui sait ce qu'il vaut.",
+      },
+      {
+        title: "Un condensé de carrière",
+        text: "Hors Série pioche dans toute la discographie. « Problème cardiaque » remonte à Ça d'vait arriver (2002). « Illusion » avec Singuila vient de Qui Peut Tuer (2011). « Viens pas me compliquer » et « Trop » sont issus de The Prequel (2013). 12 titres triés sur le volet — le best-of non officiel.",
+      },
+      {
+        title: "Addictive Music",
+        text: "Sorti sur le label Addictive Music en juillet 2021, Hors Série marque le retour de Fdy dans le circuit après Flamboyant (2018). Un tremplin vers ce qui deviendra, quatre ans plus tard, Chanteur de Rap.",
       },
     ],
   },

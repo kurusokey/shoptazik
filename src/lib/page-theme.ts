@@ -154,6 +154,25 @@ const themes: Record<string, PageTheme> = {
     footerText: "rgba(26,26,26,0.5)",
     footerMuted: "rgba(26,58,122,0.15)",
   },
+  // Hors Série — terracotta/or
+  "hors-serie": {
+    headerBg: "rgba(26,16,10,0.92)",
+    headerBorder: "1px solid rgba(212,160,48,0.12)",
+    logo: "#D4A030",
+    linkColor: "rgba(255,255,255,0.4)",
+    linkHover: "white",
+    accentName: "H(or)s-Série",
+    accentHref: "/artists/fdy-phenomen/hors-serie",
+    accentColor: "#D4A030",
+    cartBg: "rgba(212,160,48,0.08)",
+    cartBorder: "1px solid rgba(212,160,48,0.12)",
+    badgeBg: "#D4A030",
+    badgeText: "black",
+    footerBg: "#140C06",
+    footerBorder: "1px solid rgba(212,160,48,0.1)",
+    footerText: "rgba(255,255,255,0.35)",
+    footerMuted: "rgba(212,160,48,0.1)",
+  },
 };
 
 // Thème par défaut — page accueil / Chanteur de Rap — ambre/or chaud
