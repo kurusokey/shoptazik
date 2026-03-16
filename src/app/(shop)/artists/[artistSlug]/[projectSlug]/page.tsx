@@ -192,15 +192,15 @@ const themes: Record<string, {
     ],
   },
   "rimeurs-a-gages": {
-    bg: "#2A2200",
-    headerBg: "linear-gradient(170deg, #D4B830, #B8A020, #2A2200)",
-    accent: "#1A3A7A",
-    accentMuted: "rgba(26,58,122,0.12)",
-    textPrimary: "#1A1A1A",
-    textSecondary: "rgba(26,26,26,0.55)",
-    cardBg: "rgba(26,58,122,0.06)",
-    border: "rgba(26,58,122,0.15)",
-    shadow: "0 30px 70px rgba(0,0,0,0.3)",
+    bg: "#C8B020",
+    headerBg: "linear-gradient(170deg, #D4B830, #C8B020, #B8A010)",
+    accent: "#0A2A6A",
+    accentMuted: "rgba(10,42,106,0.1)",
+    textPrimary: "#0A2A6A",
+    textSecondary: "rgba(10,42,106,0.6)",
+    cardBg: "rgba(10,42,106,0.06)",
+    border: "rgba(10,42,106,0.15)",
+    shadow: "0 30px 70px rgba(0,0,0,0.25)",
     quote: "Ils arpentaient les coins et recoins de la région parisienne de sorte à performer partout où c'était possible, façon opération freestyle permanente.",
     quoteAuthor: "Rimeurs à Gages — 1995-2022",
     story: [
@@ -300,9 +300,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <div className="relative mx-auto max-w-7xl">
           <nav className="mb-8 flex items-center gap-2 text-sm" style={{ color: theme.textSecondary }}>
-            <Link href="/" className="transition hover:text-white">Accueil</Link>
+            <Link href="/" className="transition hover:opacity-70">Accueil</Link>
             <span>/</span>
-            <Link href={`/artists/${artistSlug}`} className="transition hover:text-white">{project.artist.name}</Link>
+            <Link href={`/artists/${artistSlug}`} className="transition hover:opacity-70">{project.artist.name}</Link>
             <span>/</span>
             <span style={{ color: theme.accent }}>{project.title}</span>
           </nav>
@@ -326,7 +326,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {project.artist.name}
               </Link>
 
-              <h1 className="mt-1 text-3xl font-black text-white md:text-5xl">{project.title}</h1>
+              <h1 className="mt-1 text-3xl font-black md:text-5xl" style={{ color: theme.textPrimary }}>{project.title}</h1>
 
               <p className="mt-4 leading-relaxed" style={{ color: theme.textSecondary }}>{project.description}</p>
 
@@ -366,7 +366,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {theme.story && theme.story.length > 0 && (
         <section className="relative px-4 py-16">
           <div className="relative mx-auto max-w-4xl">
-            <h2 className="mb-12 text-center text-2xl font-black text-white md:text-3xl">
+            <h2 className="mb-12 text-center text-2xl font-black md:text-3xl" style={{ color: theme.textPrimary }}>
               L&apos;histoire
             </h2>
 
@@ -382,7 +382,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     )}
                   </div>
                   <div className="pb-4">
-                    <h3 className="text-lg font-bold text-white">{chapter.title}</h3>
+                    <h3 className="text-lg font-bold" style={{ color: theme.textPrimary }}>{chapter.title}</h3>
                     <p className="mt-2 leading-relaxed" style={{ color: theme.textSecondary }}>{chapter.text}</p>
                   </div>
                 </div>
@@ -397,7 +397,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ============================================ */}
       {singles.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-12">
-          <h2 className="mb-6 text-xl font-bold text-white">Singles extraits de l&apos;album</h2>
+          <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>Singles extraits de l&apos;album</h2>
           <div className="grid gap-6 sm:grid-cols-2">
             {singles.map((single) => (
               <Link
@@ -411,7 +411,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
                 <div className="flex flex-col justify-center">
                   <span className="mb-1 inline-block w-fit rounded-full px-2 py-0.5 text-xs font-semibold" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
-                  <h3 className="text-lg font-bold text-white">{single.title}</h3>
+                  <h3 className="text-lg font-bold" style={{ color: theme.textPrimary }}>{single.title}</h3>
                   <p className="mt-1 line-clamp-2 text-sm" style={{ color: theme.textSecondary }}>{single.description}</p>
                 </div>
               </Link>
@@ -433,7 +433,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           <div className="md:col-span-3">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">Tracklist</h2>
+              <h2 className="text-2xl font-bold" style={{ color: theme.textPrimary }}>Tracklist</h2>
               <span className="text-sm" style={{ color: theme.textSecondary }}>{project.tracklist.length} titres</span>
             </div>
 
@@ -456,7 +456,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         {String(i + 1).padStart(2, "0")}
                       </span>
                     )}
-                    <span className={`flex-1 text-sm ${isSingle ? "font-medium" : ""}`} style={{ color: isSingle ? theme.accent : "rgba(255,255,255,0.6)" }}>
+                    <span className={`flex-1 text-sm ${isSingle ? "font-medium" : ""}`} style={{ color: isSingle ? theme.accent : theme.textSecondary }}>
                       {track}
                     </span>
                     {isSingle && (
@@ -481,7 +481,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ============================================ */}
       {products.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-12">
-          <h2 className="mb-6 text-xl font-bold text-white">Acheter ce projet</h2>
+          <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>Acheter ce projet</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
