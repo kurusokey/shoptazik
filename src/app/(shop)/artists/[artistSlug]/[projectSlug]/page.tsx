@@ -6,9 +6,12 @@ import {
 } from "@/lib/supabase-data";
 import ProductCard from "@/components/ui/ProductCard";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
+import BuyTrackButton from "@/components/ui/BuyTrackButton";
 import { projectTypeLabel } from "@/lib/utils";
 import { getYouTubeId } from "@/lib/youtube";
 import Link from "next/link";
+
+const TRACK_PRICE = 129; // 1,29€ par titre
 
 interface ProjectPageProps {
   params: Promise<{ artistSlug: string; projectSlug: string }>;
@@ -308,13 +311,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       {track}
                     </span>
                     {isSingle && (
-                      <span className="rounded-full px-2 py-0.5 text-xs" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
+                      <span className="shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
                     )}
-                    {ytId && (
-                      <span className="shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)" }}>
-                        YouTube
-                      </span>
-                    )}
+                    <BuyTrackButton
+                      title={track}
+                      artist={project.artist.name}
+                      album={project.title}
+                      price={TRACK_PRICE}
+                    />
                   </div>
                 );
               })}

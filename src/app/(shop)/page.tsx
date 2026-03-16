@@ -3,9 +3,12 @@ import { getFeaturedProject, getArtists } from "@/lib/supabase-data";
 import { formatPrice, categoryLabel } from "@/lib/utils";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
+import BuyTrackButton from "@/components/ui/BuyTrackButton";
 import { getYouTubeId } from "@/lib/youtube";
 
 export const dynamic = "force-dynamic";
+
+const TRACK_PRICE = 129;
 
 const COVER_FRONT = "/images/projects/album_chanteur_de_rap.jpg";
 const AVIREX_STUDIO = "/images/projects/avirex.png";
@@ -252,11 +255,12 @@ export default async function HomePage() {
                         </span>
                       )}
                       <span className="flex-1 text-sm text-white/60">{track}</span>
-                      {ytId && (
-                        <span className="shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)" }}>
-                          YouTube
-                        </span>
-                      )}
+                      <BuyTrackButton
+                        title={track}
+                        artist="Fdy Phenomen"
+                        album="Chanteur de Rap"
+                        price={TRACK_PRICE}
+                      />
                     </div>
                     );
                   })}
