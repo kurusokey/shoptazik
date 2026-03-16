@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
+export const maxDuration = 30;
+
 export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://shoptazik.vercel.app";
@@ -17,13 +19,14 @@ export async function POST(req: NextRequest) {
     }
 
     if (!stripeSecretKey) {
-      return NextResponse.json({
-        error: "Stripe non configuré",
-        debug: "STRIPE_SECRET_KEY is missing",
-      }, { status: 500 });
+      return NextResponse.json({ error: "Stripe non configuré" }, { status: 500 });
     }
 
-    const stripe = new Stripe(stripeSecretKey);
+    const stripe = new Stripe(stripeSecretKey, {
+      timeout: 20000,
+      maxNetworkRetries: 3,
+    });
+
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
     if (hasItems) {
@@ -82,7 +85,7 @@ export async function POST(req: NextRequest) {
     const message = error instanceof Error ? error.message : "Unknown error";
     console.error("Checkout error:", message);
     return NextResponse.json(
-      { error: "Erreur lors du checkout", debug: message, hasKey: !!stripeSecretKey },
+      { error: "Erreur lors du checkout", debug: message },
       { status: 500 }
     );
   }
