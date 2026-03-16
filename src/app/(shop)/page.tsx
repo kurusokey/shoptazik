@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getFeaturedProject, getArtists } from "@/lib/supabase-data";
 import { formatPrice, categoryLabel } from "@/lib/utils";
+import AddToCartButton from "@/components/ui/AddToCartButton";
 
 export const dynamic = "force-dynamic";
 
@@ -196,19 +197,16 @@ export default async function HomePage() {
                     </div>
                     <p className="mt-1 hidden text-sm text-white/30 sm:block">{product.description}</p>
                   </div>
-                  <span className="shrink-0 text-xl font-bold text-white">{formatPrice(product.price)}</span>
+                  <div className="flex shrink-0 flex-col items-end gap-2">
+                    <span className="text-xl font-bold text-white">{formatPrice(product.price)}</span>
+                    <AddToCartButton
+                      product={product}
+                      className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+                      style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
+                    />
+                  </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-8 text-center">
-              <Link
-                href="/artists/fdy-phenomen/chanteur-de-rap"
-                className="inline-block rounded-xl px-8 py-4 font-bold text-black transition hover:brightness-110"
-                style={{ background: "linear-gradient(135deg, #C8A050, #A08030)", boxShadow: "0 6px 25px rgba(200,160,80,0.3)" }}
-              >
-                Voir tous les formats
-              </Link>
             </div>
           </div>
         </section>

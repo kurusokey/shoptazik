@@ -34,8 +34,8 @@ export default function Header() {
           </svg>
           Panier
           {totalItems() > 0 && (
-            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-black"
-              style={{ background: "#C8A050", boxShadow: "0 2px 8px rgba(200,160,80,0.4)" }}
+            <span className="absolute -right-2 -top-2 flex h-6 w-6 animate-pulse items-center justify-center rounded-full text-xs font-bold text-black"
+              style={{ background: "#C8A050", boxShadow: "0 2px 12px rgba(200,160,80,0.6)" }}
             >
               {totalItems()}
             </span>
