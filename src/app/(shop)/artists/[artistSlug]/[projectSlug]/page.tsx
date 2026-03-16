@@ -5,7 +5,9 @@ import {
   getChildProjects,
 } from "@/lib/supabase-data";
 import ProductCard from "@/components/ui/ProductCard";
+import YouTubePlayer from "@/components/ui/YouTubePlayer";
 import { projectTypeLabel } from "@/lib/utils";
+import { getYouTubeId } from "@/lib/youtube";
 import Link from "next/link";
 
 interface ProjectPageProps {
@@ -288,20 +290,30 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 const isSingle = singles.some(
                   (s) => s.title.toLowerCase() === track.toLowerCase() || track.toLowerCase().includes(s.title.toLowerCase())
                 );
+                const ytId = getYouTubeId(track);
                 return (
                   <div
                     key={i}
-                    className="flex items-center gap-4 px-5 py-3.5 transition hover:bg-white/[0.03]"
+                    className="flex items-center gap-3 px-5 py-3.5 transition hover:bg-white/[0.03]"
                     style={{ borderBottom: i !== project.tracklist.length - 1 ? `1px solid ${theme.border}` : "none" }}
                   >
-                    <span className="w-8 text-right text-sm font-bold" style={{ color: `${theme.accent}55` }}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                    {ytId ? (
+                      <YouTubePlayer videoId={ytId} trackTitle={track} />
+                    ) : (
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-right text-sm font-bold" style={{ color: `${theme.accent}55` }}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    )}
                     <span className={`flex-1 text-sm ${isSingle ? "font-medium" : ""}`} style={{ color: isSingle ? theme.accent : "rgba(255,255,255,0.6)" }}>
                       {track}
                     </span>
                     {isSingle && (
                       <span className="rounded-full px-2 py-0.5 text-xs" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
+                    )}
+                    {ytId && !isSingle && (
+                      <span className="hidden rounded-full px-2 py-0.5 text-xs sm:inline-block" style={{ background: "rgba(212,25,32,0.1)", color: "rgba(212,25,32,0.6)" }}>
+                        Clip
+                      </span>
                     )}
                   </div>
                 );
