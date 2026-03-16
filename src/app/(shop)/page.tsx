@@ -70,12 +70,6 @@ export default async function HomePage() {
                 >
                   D&eacute;couvrir l&apos;album
                 </Link>
-                <Link
-                  href="/artists/fdy-phenomen"
-                  className="rounded-xl border border-white/15 px-7 py-3.5 font-semibold text-white/60 transition hover:border-white/30 hover:text-white md:px-8 md:py-4"
-                >
-                  Discographie
-                </Link>
               </div>
             </div>
           </div>
