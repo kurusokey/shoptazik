@@ -1,9 +1,44 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getArtistBySlug, getProjectsByArtist } from "@/lib/supabase-data";
 import ProjectCard from "@/components/ui/ProjectCard";
 
 interface ArtistPageProps {
   params: Promise<{ artistSlug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ArtistPageProps): Promise<Metadata> {
+  const { artistSlug } = await params;
+  const artist = await getArtistBySlug(artistSlug);
+
+  if (!artist) {
+    return { title: "Artiste introuvable" };
+  }
+
+  const title = `${artist.name} | Shoptazik`;
+  const description =
+    artist.bio || `Discographie complète de ${artist.name} sur Shoptazik.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "profile",
+      images: artist.image_url ? [{ url: artist.image_url }] : [],
+      siteName: "Shoptazik",
+      locale: "fr_FR",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: artist.image_url ? [artist.image_url] : [],
+    },
+  };
 }
 
 export default async function ArtistPage({ params }: ArtistPageProps) {

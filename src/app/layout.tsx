@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +14,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shoptazik — La boutique du rap francophone",
+  title: {
+    default: "Shoptazik — La boutique du rap francophone",
+    template: "%s | Shoptazik",
+  },
   description:
     "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Shoptazik",
+    title: "Shoptazik — La boutique du rap francophone",
+    description:
+      "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shoptazik — La boutique du rap francophone",
+    description:
+      "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
+  },
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL ?? "https://shoptazik.com"
+  ),
 };
 
 export default function RootLayout({
@@ -29,6 +50,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

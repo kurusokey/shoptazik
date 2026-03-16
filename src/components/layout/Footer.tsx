@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getPageTheme } from "@/lib/page-theme";
+import Newsletter from "@/components/ui/Newsletter";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -11,7 +12,7 @@ export default function Footer() {
   return (
     <footer style={{ background: t.footerBg, borderTop: t.footerBorder }}>
       <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
-        <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+        <div className="grid gap-6 md:grid-cols-4 md:gap-8">
           <div>
             <h3 className="text-lg font-bold text-white/90">
               SHOP<span style={{ color: t.logo }}>TAZIK</span>
@@ -45,13 +46,26 @@ export default function Footer() {
 
           <div>
             <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/50">
-              Informations
+              Informations l&eacute;gales
             </h4>
             <ul className="space-y-2 text-sm" style={{ color: t.footerText }}>
-              <li>Livraison en France et DOM-TOM</li>
-              <li>Paiement sécurisé par Stripe</li>
-              <li>Contact : contact@shoptazik.com</li>
+              <li>
+                <Link href="/cgv" className="transition hover:text-white/70">Conditions G&eacute;n&eacute;rales de Vente</Link>
+              </li>
+              <li>
+                <Link href="/confidentialite" className="transition hover:text-white/70">Confidentialit&eacute;</Link>
+              </li>
+              <li>
+                <Link href="/a-propos" className="transition hover:text-white/70">&Agrave; propos</Link>
+              </li>
+              <li className="pt-1 text-xs" style={{ color: t.footerText }}>
+                Contact : contact@shoptazik.com
+              </li>
             </ul>
+          </div>
+
+          <div>
+            <Newsletter />
           </div>
         </div>
 

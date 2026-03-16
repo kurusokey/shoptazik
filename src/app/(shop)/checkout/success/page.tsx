@@ -1,48 +1,74 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useCartStore } from "@/lib/cart-store";
 
-export default function CheckoutSuccessPage() {
+function SuccessContent() {
   const clearCart = useCartStore((s) => s.clearCart);
+  const searchParams = useSearchParams();
+  const sessionId = searchParams.get("session_id");
 
   useEffect(() => {
     clearCart();
   }, [clearCart]);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-20 text-center">
-      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-900/30 text-green-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="h-10 w-10"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m4.5 12.75 6 6 9-13.5"
-          />
+    <div className="mx-auto max-w-3xl px-4 py-16 text-center md:py-20" style={{ background: "#1A1610" }}>
+      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full" style={{ background: "rgba(200,160,80,0.1)" }}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="#C8A050" className="h-10 w-10">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
         </svg>
       </div>
-      <h1 className="text-3xl font-bold text-white">Commande confirmée !</h1>
-      <p className="mt-4 text-zinc-400">
-        Merci pour ta commande ! Tu recevras un e-mail de confirmation avec les
-        détails de livraison sous peu.
+      <h1 className="text-2xl font-bold text-white md:text-3xl">Commande confirmée !</h1>
+      <p className="mt-4 text-white/40">
+        Merci pour ta commande ! Un reçu Stripe t&apos;a été envoyé par e-mail.
       </p>
-      <p className="mt-2 text-sm text-zinc-500">
-        Un reçu Stripe t&apos;a été envoyé par e-mail.
-      </p>
-      <Link
-        href="/"
-        className="mt-8 inline-block rounded-lg bg-amber-400 px-6 py-3 font-semibold text-black transition hover:bg-amber-300"
-      >
-        Retour à la boutique
-      </Link>
+
+      {/* Si achat digital, proposer le téléchargement */}
+      <div className="mt-8 rounded-xl border p-6" style={{ borderColor: "rgba(200,160,80,0.1)", background: "rgba(200,160,80,0.04)" }}>
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full" style={{ background: "rgba(200,160,80,0.1)" }}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#C8A050" className="h-6 w-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+        </div>
+        <h2 className="mt-4 text-lg font-bold text-white">Téléchargement digital</h2>
+        <p className="mt-2 text-sm text-white/40">
+          Si tu as acheté un album ou un titre en téléchargement, tu recevras le lien
+          de téléchargement par e-mail dans les prochaines minutes.
+        </p>
+        {sessionId && (
+          <p className="mt-3 text-xs text-white/20">
+            Réf. commande : {sessionId.slice(0, 20)}...
+          </p>
+        )}
+      </div>
+
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+        <Link
+          href="/"
+          className="rounded-xl px-6 py-3 font-bold text-black transition hover:brightness-110"
+          style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
+        >
+          Retour à la boutique
+        </Link>
+        <Link
+          href="/artists/fdy-phenomen"
+          className="rounded-xl border px-6 py-3 font-semibold text-white/60 transition hover:text-white"
+          style={{ borderColor: "rgba(200,160,80,0.15)" }}
+        >
+          Voir la discographie
+        </Link>
+      </div>
     </div>
+  );
+}
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense>
+      <SuccessContent />
+    </Suspense>
   );
 }

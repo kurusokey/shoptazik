@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
   getProjectBySlug,
   getProductsByProject,
@@ -8,6 +9,8 @@ import ProductCard from "@/components/ui/ProductCard";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
 import BuyTrackButton from "@/components/ui/BuyTrackButton";
 import BuyAlbumDigital from "@/components/ui/BuyAlbumDigital";
+import StreamingLinks from "@/components/ui/StreamingLinks";
+import ShareButtons from "@/components/ui/ShareButtons";
 import { projectTypeLabel } from "@/lib/utils";
 import { getYouTubeId } from "@/lib/youtube";
 import Link from "next/link";
@@ -16,6 +19,39 @@ const TRACK_PRICE = 129; // 1,29€ par titre
 
 interface ProjectPageProps {
   params: Promise<{ artistSlug: string; projectSlug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { artistSlug, projectSlug } = await params;
+  const project = await getProjectBySlug(artistSlug, projectSlug);
+
+  if (!project) {
+    return { title: "Projet introuvable" };
+  }
+
+  const title = `${project.title} — ${project.artist.name} | Shoptazik`;
+  const description = project.description;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "music.album",
+      images: project.cover_url ? [{ url: project.cover_url }] : [],
+      siteName: "Shoptazik",
+      locale: "fr_FR",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: project.cover_url ? [project.cover_url] : [],
+    },
+  };
 }
 
 // ============================================
@@ -334,6 +370,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <div className="mt-6 text-sm" style={{ color: theme.textSecondary }}>
                 {project.tracklist.length} titres
                 {singles.length > 0 && <span> &middot; {singles.length} single{singles.length > 1 ? "s" : ""}</span>}
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <StreamingLinks artistName={project.artist.name} projectTitle={project.title} />
+                <ShareButtons title={`${project.title} — ${project.artist.name}`} />
               </div>
             </div>
           </div>
