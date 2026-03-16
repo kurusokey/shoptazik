@@ -201,24 +201,40 @@ const themes: Record<string, {
     cardBg: "rgba(26,58,122,0.06)",
     border: "rgba(26,58,122,0.15)",
     shadow: "0 30px 70px rgba(0,0,0,0.3)",
-    quote: "Inédits, remix, morceaux perdus... et retrouvés. Rimeurs à Gages, c'est le crew originel : Fdy Phenomen, Fouta Barge, Mossy, JM Dee — et un certain Disiz la Peste. Tout a commencé là.",
-    quoteAuthor: "La M.U.G & Much-Zone présentent — 1995-2022",
+    quote: "Ils arpentaient les coins et recoins de la région parisienne de sorte à performer partout où c'était possible, façon opération freestyle permanente.",
+    quoteAuthor: "Rimeurs à Gages — 1995-2022",
     story: [
       {
-        title: "Le crew originel (1995)",
-        text: "Milieu des années 90, banlieue parisienne. Fdy Phenomen, Fouta Barge, Mossy et JM Dee forment les Rimeurs à Gages. Un quatrième larron les rejoint : Disiz la Peste, de passage depuis Évry. Le crew écume les open mics, les freestyles de rue, les battles. Le rap est brut, sans filtre, sans studio.",
+        title: "La formation (1994-1995)",
+        text: "Au milieu des années 90, dans la banlieue parisienne, un trio se forme : Fdy Phenomen, Fouta Barge et Mossy. Ils s'appellent les Rimeurs à Gages. JMDee-Beat, producteur singulier au style hérité de DJ Premier — micro-samples, groove à la Erick Sermon, sons synthétiques — prend les commandes. DJ Will Much pose les platines. Un quatrième MC les rejoint vite : Disiz la Peste, venu d'Évry.",
       },
       {
-        title: "Les compilations",
-        text: "Le nom « Rimeurs à Gages » circule. Ils apparaissent sur la mixtape « What's The Flavor? #25 » de DJ Poska, puis sur la compilation « Nouvelle Donne ». Homecore, Première Classe, BOSS — le crew s'infiltre partout. Chaque titre est un contrat rempli.",
+        title: "L'opération freestyle permanente",
+        text: "Le crew écume chaque recoin de la région parisienne. Pas de studio, pas de label — juste le micro et la rue. Ils performent partout où c'est possible. Les premiers enregistrements naissent entre 1995 et 1998 : « Produits de la Cave », enregistré et mixé dans la cave.",
       },
       {
-        title: "Les routes se séparent",
-        text: "Disiz part en solo et connaît le succès que l'on sait. Fdy prend la voie de Secteur A avec Lino et Arsenik. Les Rimeurs à Gages n'existent plus sur le papier. Mais les morceaux restent, quelque part, sur des cassettes, des maxis, des disques durs oubliés.",
+        title: "Les premières compilations (1997)",
+        text: "1997, deux événements fondateurs. D'abord, le freestyle sur la mixtape mythique « What's The Flavor? #25 » de DJ Poska — Disiz, Fdy et Fouta Barge au micro. Puis « Trajectoire » feat. Eloquence sur la compilation « Nouvelle Donne », aux côtés de Mafia K'1 Fry et des Sages Poètes de la Rue. Le nom Rimeurs à Gages commence à circuler dans le milieu.",
       },
       {
-        title: "L'anthologie (2022)",
-        text: "27 ans plus tard, WillMuch, Fdy et JMDee Beat rassemblent ce qui restait. Des inédits retrouvés, des remix dépoussiérés, des morceaux perdus puis exhumés. 17 titres. La preuve que le crew n'a jamais vraiment disparu — il dormait, c'est tout.",
+        title: "Les routes individuelles (1999)",
+        text: "1999. Fdy décroche un titre sur Homecore — « Laisse seulement » avec Disiz — puis apparaît sur BOSS (le label de Joey Starr), Première Classe vol. 1 (« Paraît qu't'es hardcore » avec Delta, Cynefro, Karlito et MC Jean Gab'1), L'Univers des Lascars, et la BO de Yamakazi. Son premier maxi solo « Tous du même sexe » sort chez Boom Staff.",
+      },
+      {
+        title: "La séparation",
+        text: "Un conflit éclate entre JMDee et Fouta Barge lors d'une première partie de Lord Finesse à Bruxelles. La réconciliation échoue. Le crew se disloque. Disiz sort son maxi « C'que les gens veulent entendre », découvert par Joey Starr. En 2000, « Le Poisson Rouge » avec le hit « J'pète les plombs » — un loop de JMDee — dépasse les 250 000 ventes. Double disque d'or.",
+      },
+      {
+        title: "Fdy chez Secteur A",
+        text: "Arsenik fait entrer Fdy chez Secteur A Miziks, le label de Kenzy. Le maxi « Ma logik / J'gagne tant que j'respire » feat. Lino sort en 2001. En février 2002, l'album « Ça d'vait arriver » paraît chez EMI — feat. Lino, JoeyStarr, Neg' Marrons. Le Rimeur à Gages est devenu soliste.",
+      },
+      {
+        title: "JMDee — le producteur dans l'ombre",
+        text: "JMDee continue de produire dans l'ombre. Il crée le label Gazdemall, produit l'EP « Symetrikman » de Maj Trafyk (2002). Mais son studio de Stains est cambriolé — les voleurs emportent tout le matériel et un album inédit de Maj Trafyk. Il sort la mixtape « Illegal Mix », puis le silence.",
+      },
+      {
+        title: "L'Anthologik Mixtape (2022)",
+        text: "9 septembre 2022. Vingt-sept ans après la formation du crew, La M.U.G et Much-Zone présentent « Rimeurs à Gages : Anthologik Mixtape ». Fdy, JMDee-Beat et DJ Will Much ont exhumé les archives. 17 titres : le freestyle DJ Poska de 1997, « Trajectoire » de Nouvelle Donne, « Laisse seulement » avec Disiz, « Tous du même zgueg » avec Lino, et même « Rage Musik » avec Fouta Barge — la preuve que les liens n'ont jamais été totalement rompus.",
       },
     ],
   },
