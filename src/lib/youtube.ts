@@ -4,7 +4,7 @@
 
 const youtubeIds: Record<string, string> = {
   // === Chanteur de Rap ===
-  "patate de mike": "FkkgIdTeOq9SnVeZ", // ID potentiellement invalide, à vérifier
+  "patate de mike": "cNe0Mnnx98g",
   "og country club": "gVvjXiU485w",
   "chanteur de rap": "I7W2vTPFheI",
   "borderline": "N7M1GsEIlQg",
@@ -22,13 +22,15 @@ const youtubeIds: Record<string, string> = {
   // === Qui Peut Tuer la Rage d'un Assassin ===
   "trop près": "g6ftPTKcgko",
   "trop pres": "g6ftPTKcgko",
+
+  // === Divers ===
+  "viens pas me compliquer": "mmkZ3wC3nWw",
 };
 
 export function getYouTubeId(trackTitle: string): string | null {
   const lower = trackTitle.toLowerCase();
   for (const [key, id] of Object.entries(youtubeIds)) {
     if (lower.includes(key)) {
-      // Vérifier que l'ID a bien 11 caractères (format YouTube standard)
       if (id.length === 11) return id;
     }
   }
