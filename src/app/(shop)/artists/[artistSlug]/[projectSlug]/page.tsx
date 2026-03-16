@@ -119,6 +119,101 @@ const themes: Record<string, {
       },
     ],
   },
+  // ============================================
+  // MIXTAPES
+  // ============================================
+  tropikal: {
+    bg: "#2A1500",
+    headerBg: "linear-gradient(170deg, #E87020, #C85A10, #2A1500)",
+    accent: "#E87020",
+    accentMuted: "rgba(232,112,32,0.15)",
+    textPrimary: "white",
+    textSecondary: "rgba(255,255,255,0.6)",
+    cardBg: "rgba(232,112,32,0.08)",
+    border: "rgba(232,112,32,0.15)",
+    shadow: "0 30px 70px rgba(200,90,16,0.4)",
+    quote: "Tropikal F, c'est les mix des meilleurs titres afro-caribéens de Fdy Phenomen. Inédits et trouvailles. Tout bitin si kontrol.",
+    quoteAuthor: "Selecta Black Kymbo & Fdy Phenomen",
+    story: [
+      {
+        title: "Les racines caribéennes",
+        text: "Présentée par La M.U.G et Blackwarell, mixée par Selecta Black Kymbo, Tropikal F est une plongée dans les racines afro-caribéennes de Fdy Phenomen. Dancehall, reggae, sonorités tropicales — le soleil des Antilles rencontre le bitume parisien.",
+      },
+      {
+        title: "Tout bitin si kontrol",
+        text: "« Tout est sous contrôle » en créole. La mixtape rassemble des inédits, des trouvailles et des titres rares. C'est Fdy sous le soleil, les pieds dans le sable, le flow ensoleillé mais la plume toujours acérée.",
+      },
+    ],
+  },
+  "the-prequel": {
+    bg: "#1a1a18",
+    headerBg: "linear-gradient(170deg, #3A3830, #2A2820, #1a1a18)",
+    accent: "#8B1A1A",
+    accentMuted: "rgba(139,26,26,0.12)",
+    textPrimary: "white",
+    textSecondary: "rgba(255,255,255,0.45)",
+    cardBg: "rgba(139,26,26,0.06)",
+    border: "rgba(255,255,255,0.08)",
+    shadow: "0 30px 70px rgba(0,0,0,0.5)",
+    quote: "The Prequel, c'est les origines. Des freestyles et inédits enregistrés entre les concerts de l'Egomaniac Tour avec Joey Starr. 13 titres, le feu au micro.",
+    quoteAuthor: "DJ Phaxx & Fdy Phenomen",
+    story: [
+      {
+        title: "L'Egomaniac Tour",
+        text: "2012. Joey Starr invite Fdy sur son album et sur l'Egomaniac Tour — 15 dates en France et en Europe. Sur la route, entre les concerts, Fdy et DJ Phaxx enregistrent. Des freestyles, des inédits, des brûlots. The Prequel naît dans les loges et les chambres d'hôtel.",
+      },
+      {
+        title: "Avant le retour",
+        text: "The Prequel raconte ce qui s'est passé avant le retour. 13 titres bruts, entre le deuxième album et ce qui viendra après. La route, la scène, le micro. DJ Phaxx aux platines, Fdy au micro. Pas de filtre, pas de studio luxueux — juste le rap.",
+      },
+    ],
+  },
+  charcutier: {
+    bg: "#1a0808",
+    headerBg: "linear-gradient(170deg, #D41920, #8B1010, #1a0808)",
+    accent: "#D41920",
+    accentMuted: "rgba(212,25,32,0.12)",
+    textPrimary: "white",
+    textSecondary: "rgba(255,255,255,0.5)",
+    cardBg: "rgba(212,25,32,0.06)",
+    border: "rgba(212,25,32,0.12)",
+    shadow: "0 30px 70px rgba(212,25,32,0.3)",
+    quote: "Le Charcutier, c'est Fdy qui découpe. Freestyles, inédits, feats, remix. Après deux ans de tournée en France et à l'étranger, la lame est affûtée.",
+    quoteAuthor: "Fdy Phenomen",
+    story: [
+      {
+        title: "Après la tournée",
+        text: "2005. Deux ans après « Ça d'vait arriver », Fdy a écumé les scènes de France et de l'étranger. La route a aiguisé le flow. Le Charcutier, c'est le résultat : des freestyles sauvages, des inédits brûlants, des feats avec Tandem et Maj Trafyk.",
+      },
+      {
+        title: "La découpe",
+        text: "26 titres. Le Charcutier tranche dans le vif. Fdy découpe les instrus, débite les punchlines, émince les beats. Une mixtape brute et sans compromis, le couteau entre les dents.",
+      },
+    ],
+  },
+  "rimeurs-a-gages": {
+    bg: "#1A1500",
+    headerBg: "linear-gradient(170deg, #D4B830, #A89020, #1A1500)",
+    accent: "#1A3A7A",
+    accentMuted: "rgba(26,58,122,0.12)",
+    textPrimary: "#1A1A1A",
+    textSecondary: "rgba(26,26,26,0.6)",
+    cardBg: "rgba(26,58,122,0.06)",
+    border: "rgba(26,58,122,0.15)",
+    shadow: "0 30px 70px rgba(0,0,0,0.3)",
+    quote: "Rimeurs à Gages, c'est le début de tout. Le crew originel : Fdy Phenomen, Fouta Barge, Mossy, JM Dee — et un certain Disiz la Peste. Inédits, remix, morceaux perdus... et retrouvés. 1995-2022.",
+    quoteAuthor: "WillMuch, Fdy Phenomen & JMDee Beat",
+    story: [
+      {
+        title: "Les origines (1995)",
+        text: "Au milieu des années 90, dans la banlieue parisienne, se forme un crew : les Rimeurs à Gages. Fdy Phenomen, Fouta Barge, Mossy, JM Dee. Un quatrième larron les rejoint vite : Disiz la Peste. Ensemble, ils écument les compilations — Homecore, Première Classe, BOSS — et forgent leur flow dans les freestyles de rue.",
+      },
+      {
+        title: "L'anthologie (1995-2022)",
+        text: "Présentée par La M.U.G et Much-Zone, cette anthologie rassemble ce qui restait : des inédits, des remix, des morceaux perdus puis retrouvés. 27 ans d'histoire compressés en une mixtape. La preuve que le crew n'a jamais vraiment disparu.",
+      },
+    ],
+  },
 };
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
