@@ -68,29 +68,28 @@ export async function POST(req: NextRequest) {
     const isDigitalOnly = !hasItems && hasTracks;
 
     // Appel direct à l'API Stripe via fetch
-    const params: string[] = [];
-    const add = (key: string, value: string) => {
-      params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
-    };
+    const successUrl = `https://shoptazik.vercel.app/checkout/success?session_id={CHECKOUT_SESSION_ID}`;
+    const cancelUrl = `https://shoptazik.vercel.app/cart`;
 
-    add("mode", "payment");
-    add("locale", "fr");
-
-    // Les URLs Stripe doivent garder {CHECKOUT_SESSION_ID} tel quel
-    params.push(`success_url=${encodeURIComponent(`${baseUrl}/checkout/success`)}%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D`);
-    params.push(`cancel_url=${encodeURIComponent(`${baseUrl}/cart`)}`);
+    const formParts: string[] = [
+      `mode=payment`,
+      `locale=fr`,
+      `success_url=${encodeURIComponent(successUrl)}`,
+      `cancel_url=${encodeURIComponent(cancelUrl)}`,
+    ];
 
     line_items.forEach((item, i) => {
-      add(`line_items[${i}][price_data][currency]`, item.price_data.currency);
-      add(`line_items[${i}][price_data][product_data][name]`, item.price_data.product_data.name);
-      add(`line_items[${i}][price_data][product_data][description]`, item.price_data.product_data.description);
-      add(`line_items[${i}][price_data][unit_amount]`, String(item.price_data.unit_amount));
-      add(`line_items[${i}][quantity]`, String(item.quantity));
+      const p = `line_items[${i}]`;
+      formParts.push(`${encodeURIComponent(`${p}[price_data][currency]`)}=eur`);
+      formParts.push(`${encodeURIComponent(`${p}[price_data][product_data][name]`)}=${encodeURIComponent(item.price_data.product_data.name)}`);
+      formParts.push(`${encodeURIComponent(`${p}[price_data][product_data][description]`)}=${encodeURIComponent(item.price_data.product_data.description)}`);
+      formParts.push(`${encodeURIComponent(`${p}[price_data][unit_amount]`)}=${item.price_data.unit_amount}`);
+      formParts.push(`${encodeURIComponent(`${p}[quantity]`)}=${item.quantity}`);
     });
 
     if (!isDigitalOnly) {
       ["FR", "BE", "CH", "LU", "MC", "GP", "MQ", "RE", "GF"].forEach((c, i) => {
-        add(`shipping_address_collection[allowed_countries][${i}]`, c);
+        formParts.push(`${encodeURIComponent(`shipping_address_collection[allowed_countries][${i}]`)}=${c}`);
       });
     }
 
@@ -100,7 +99,7 @@ export async function POST(req: NextRequest) {
         "Authorization": `Bearer ${stripeSecretKey}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: params.join("&"),
+      body: formParts.join("&"),
     });
 
     const session = await response.json();
