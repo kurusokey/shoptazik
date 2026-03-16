@@ -7,6 +7,7 @@ import {
 import ProductCard from "@/components/ui/ProductCard";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
 import BuyTrackButton from "@/components/ui/BuyTrackButton";
+import BuyAlbumDigital from "@/components/ui/BuyAlbumDigital";
 import { projectTypeLabel } from "@/lib/utils";
 import { getYouTubeId } from "@/lib/youtube";
 import Link from "next/link";
@@ -477,18 +478,27 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </section>
 
       {/* ============================================
-          PRODUITS
+          FORMATS DISPONIBLES
           ============================================ */}
-      {products.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 py-12">
-          <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>Acheter ce projet</h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto max-w-7xl px-4 py-12">
+        <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>Formats disponibles</h2>
+
+        {products.length > 0 && (
+          <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-        </section>
-      )}
+        )}
+
+        {/* Album numérique */}
+        <BuyAlbumDigital
+          title={project.title}
+          artist={project.artist.name}
+          trackCount={project.tracklist.length}
+          price={999}
+        />
+      </section>
     </div>
   );
 }

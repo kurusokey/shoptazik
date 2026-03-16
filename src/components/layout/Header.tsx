@@ -4,11 +4,38 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/cart-store";
 import { getPageTheme } from "@/lib/page-theme";
+import { useState, useRef, useEffect } from "react";
 
 export default function Header() {
   const totalItems = useCartStore((s) => s.totalItems);
   const pathname = usePathname();
   const t = getPageTheme(pathname);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const menuRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenu(null);
+      }
+    };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  useEffect(() => {
+    if (searchOpen && searchRef.current) searchRef.current.focus();
+  }, [searchOpen]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
+    }
+  };
 
   return (
     <header
@@ -20,20 +47,101 @@ export default function Header() {
           SHOP<span style={{ color: t.logo }}>TAZIK</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-5 md:flex" ref={menuRef}>
           <Link href="/" className="text-sm transition hover:text-white" style={{ color: t.linkColor }}>
             Accueil
           </Link>
-          <Link href="/artists/fdy-phenomen" className="text-sm transition hover:text-white" style={{ color: t.linkColor }}>
-            Artistes
-          </Link>
-          <Link
-            href={t.accentHref}
-            className="text-sm font-semibold transition hover:opacity-80"
-            style={{ color: t.accentColor }}
-          >
-            {t.accentName}
-          </Link>
+
+          {/* Menu Artistes */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenMenu(openMenu === "artistes" ? null : "artistes")}
+              className="flex items-center gap-1 text-sm transition hover:text-white"
+              style={{ color: t.linkColor }}
+            >
+              Artistes
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+                <path fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+              </svg>
+            </button>
+            {openMenu === "artistes" && (
+              <div
+                className="absolute left-0 top-full mt-2 w-48 overflow-hidden rounded-lg py-1 shadow-xl"
+                style={{ background: t.headerBg, border: t.headerBorder }}
+              >
+                <Link
+                  href="/artists/fdy-phenomen"
+                  onClick={() => setOpenMenu(null)}
+                  className="block px-4 py-2 text-sm transition hover:bg-white/10"
+                  style={{ color: t.linkColor }}
+                >
+                  Fdy Phenomen
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Menu Produits */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenMenu(openMenu === "produits" ? null : "produits")}
+              className="flex items-center gap-1 text-sm transition hover:text-white"
+              style={{ color: t.linkColor }}
+            >
+              Produits
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+                <path fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+              </svg>
+            </button>
+            {openMenu === "produits" && (
+              <div
+                className="absolute left-0 top-full mt-2 w-48 overflow-hidden rounded-lg py-1 shadow-xl"
+                style={{ background: t.headerBg, border: t.headerBorder }}
+              >
+                <Link href="/artists/fdy-phenomen/chanteur-de-rap" onClick={() => setOpenMenu(null)} className="block px-4 py-2 text-sm transition hover:bg-white/10" style={{ color: t.linkColor }}>
+                  Vinyle
+                </Link>
+                <Link href="/artists/fdy-phenomen/chanteur-de-rap" onClick={() => setOpenMenu(null)} className="block px-4 py-2 text-sm transition hover:bg-white/10" style={{ color: t.linkColor }}>
+                  CD
+                </Link>
+                <Link href="/artists/fdy-phenomen/chanteur-de-rap" onClick={() => setOpenMenu(null)} className="block px-4 py-2 text-sm transition hover:bg-white/10" style={{ color: t.linkColor }}>
+                  Merchandising
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Recherche */}
+          {searchOpen ? (
+            <form onSubmit={handleSearch} className="flex items-center gap-2">
+              <input
+                ref={searchRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Rechercher..."
+                className="w-40 rounded-lg px-3 py-1.5 text-sm text-white outline-none placeholder:text-white/30"
+                style={{ background: "rgba(255,255,255,0.08)", border: `1px solid ${t.accentColor}33` }}
+                onBlur={() => { if (!searchQuery) setSearchOpen(false); }}
+              />
+              <button type="button" onClick={() => { setSearchOpen(false); setSearchQuery(""); }} className="text-white/30 hover:text-white/60">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                  <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                </svg>
+              </button>
+            </form>
+          ) : (
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="flex items-center gap-1.5 text-sm transition hover:text-white"
+              style={{ color: t.linkColor }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clipRule="evenodd" />
+              </svg>
+              Recherche
+            </button>
+          )}
         </nav>
 
         <Link

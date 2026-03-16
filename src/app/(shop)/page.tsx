@@ -4,6 +4,7 @@ import { formatPrice, categoryLabel } from "@/lib/utils";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
 import BuyTrackButton from "@/components/ui/BuyTrackButton";
+import BuyAlbumDigital from "@/components/ui/BuyAlbumDigital";
 import { getYouTubeId } from "@/lib/youtube";
 
 export const dynamic = "force-dynamic";
@@ -52,13 +53,13 @@ export default async function HomePage() {
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="max-w-xl">
                 <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
-                  Frero Prod pr&eacute;sente
+                  Frero Prod pr&eacute;sente :
                 </p>
                 <h1 className="mt-3 text-4xl font-black tracking-tight text-white md:text-6xl">
                   Chanteur de Rap
                 </h1>
                 <p className="mt-2 text-lg text-white/50">
-                  Le nouvel album de Fdy Phenomen &mdash; 10 titres
+                  Le nouvel album de Fdy Phenomen
                 </p>
               </div>
               <div className="flex gap-3">
@@ -184,7 +185,16 @@ export default async function HomePage() {
             <h2 className="mb-10 text-2xl font-bold text-white">Formats disponibles</h2>
 
             <div className="space-y-4">
-              {featured.products.map((product) => (
+              {featured.products.map((product) => {
+                const isVinyle = product.category === "vinyle";
+                const isCD = product.category === "cd";
+                const externalUrl = isVinyle
+                  ? "https://www.centrevillerecords.be/product/fdy-phenomen-chanteur-de-rap"
+                  : isCD
+                    ? "https://www.centrevillerecords.be/product/fdy"
+                    : null;
+
+                return (
                 <div
                   key={product.id}
                   className="flex items-center gap-5 rounded-xl border p-5 transition hover:border-[#C8A050]/30"
@@ -204,14 +214,35 @@ export default async function HomePage() {
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-2">
                     <span className="text-xl font-bold text-white">{formatPrice(product.price)}</span>
-                    <AddToCartButton
-                      product={product}
-                      className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
-                      style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
-                    />
+                    {externalUrl ? (
+                      <a
+                        href={externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110"
+                        style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
+                      >
+                        Commander
+                      </a>
+                    ) : (
+                      <AddToCartButton
+                        product={product}
+                        className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+                        style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
+                      />
+                    )}
                   </div>
                 </div>
-              ))}
+                );
+              })}
+
+              {/* Album numérique */}
+              <BuyAlbumDigital
+                title="Chanteur de Rap"
+                artist="Fdy Phenomen"
+                trackCount={featured.tracklist.length}
+                price={999}
+              />
             </div>
           </div>
         </section>
