@@ -543,9 +543,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </FadeIn>
 
       {/* ============================================
-          FORMATS DISPONIBLES
+          FORMATS DISPONIBLES (uniquement Chanteur de Rap)
           ============================================ */}
-      <FadeIn>
+      {projectSlug === "chanteur-de-rap" && <FadeIn>
         <section className="mx-auto max-w-7xl px-4 py-12">
           <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>
             {projectSlug === "chanteur-de-rap" ? "Formats disponibles" : "Format disponible"}
@@ -621,18 +621,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           )}
 
-          {/* Album digital — masqué pour le moment */}
-          {projectSlug !== "chanteur-de-rap" && (
-            <BuyAlbumDigital
-              title={project.title}
-              artist={project.artist.name}
-              trackCount={project.tracklist.length}
-              price={999}
-              coverUrl={project.cover_url}
-            />
-          )}
         </section>
-      </FadeIn>
+      </FadeIn>}
     </div>
   );
 }
