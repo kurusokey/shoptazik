@@ -553,7 +553,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           {/* Produits physiques uniquement pour Chanteur de Rap (sans t-shirt) */}
           {projectSlug === "chanteur-de-rap" && products.length > 0 && (
-            <div className="space-y-3">
+            <div className="grid gap-3 sm:grid-cols-3">
               {products
                 .filter((p) => p.category !== "tshirt")
                 .sort((a, b) => b.price - a.price)
@@ -568,52 +568,50 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           ? "https://www.centrevillerecords.be/product/fdy-phenomen-chanteur-de-rap-cd"
                           : null;
 
+                  const label = isPretium ? "Pretium Edition" : product.category === "cd" ? "CD" : "Classic Edition";
+
                   return (
                     <div
                       key={product.id}
-                      className="flex items-center gap-4 rounded-xl border p-4 transition hover:border-white/10 sm:gap-5 sm:p-5"
+                      className="flex flex-col overflow-hidden rounded-xl border transition hover:border-white/10"
                       style={{
-                        borderColor: isPretium ? "rgba(200,160,80,0.25)" : theme.border,
-                        background: isPretium ? "rgba(200,160,80,0.06)" : theme.cardBg,
+                        borderColor: isPretium ? `${theme.accent}40` : theme.border,
+                        background: isPretium ? `${theme.accent}0F` : theme.cardBg,
                       }}
                     >
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20">
+                      <div className="relative aspect-square overflow-hidden">
                         <Image src={product.image_url} alt={product.name} fill={true} className="object-cover" />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-sm font-semibold sm:text-base" style={{ color: theme.textPrimary }}>{product.name}</h3>
+                      <div className="flex flex-1 flex-col p-3 sm:p-4">
+                        <div className="flex items-start justify-between gap-2">
+                          <h3 className="text-sm font-semibold leading-tight" style={{ color: theme.textPrimary }}>{label}</h3>
                           {isPretium && (
-                            <span
-                              className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest"
-                              style={{ border: `1px solid ${theme.accent}80`, color: theme.accent }}
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-2.5 w-2.5">
+                            <span className="inline-flex shrink-0 items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest" style={{ border: `1px solid ${theme.accent}80`, color: theme.accent }}>
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-2 w-2">
                                 <path fillRule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clipRule="evenodd" />
                               </svg>
                               Pretium
                             </span>
                           )}
                         </div>
-                        <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-xs" style={{ color: theme.textSecondary }}>
-                          {product.is_limited && <span style={{ color: theme.accent }}>Edition limit&eacute;e</span>}
-                          {product.edition_info && <span>&middot; {product.edition_info}</span>}
-                        </div>
-                        <p className="mt-1 hidden text-sm sm:block" style={{ color: theme.textSecondary }}>{product.description}</p>
-                      </div>
-                      <div className="flex shrink-0 flex-col items-end gap-1.5">
-                        <span className="text-lg font-bold sm:text-xl" style={{ color: theme.textPrimary }}>{formatPrice(product.price)}</span>
-                        {externalUrl ? (
-                          <a href={externalUrl} target="_blank" rel="noopener noreferrer" className="rounded-lg px-4 py-1.5 text-xs font-bold transition hover:brightness-110 sm:text-sm" style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}cc)`, color: theme.bg }}>
-                            Commander
-                          </a>
-                        ) : (
-                          <AddToCartButton
-                            product={product}
-                            className="rounded-lg px-4 py-1.5 text-xs font-bold transition hover:brightness-110 sm:text-sm"
-                            style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}cc)`, color: theme.bg }}
-                          />
+                        <p className="mt-1 text-[11px] leading-relaxed sm:text-xs" style={{ color: theme.textSecondary }}>{product.description}</p>
+                        {product.edition_info && (
+                          <p className="mt-0.5 text-[11px]" style={{ color: theme.accent }}>{product.edition_info}</p>
                         )}
+                        <div className="mt-auto flex items-center justify-between pt-3">
+                          <span className="text-lg font-bold" style={{ color: theme.textPrimary }}>{formatPrice(product.price)}</span>
+                          {externalUrl ? (
+                            <a href={externalUrl} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-bold transition hover:brightness-110" style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}cc)`, color: theme.bg }}>
+                              Commander
+                            </a>
+                          ) : (
+                            <AddToCartButton
+                              product={product}
+                              className="rounded-lg px-3 py-1.5 text-xs font-bold transition hover:brightness-110"
+                              style={{ background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}cc)`, color: theme.bg }}
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
