@@ -184,18 +184,47 @@ export default async function HomePage() {
             <h2 className="mb-10 text-2xl font-bold text-white">Formats disponibles</h2>
 
             <div className="space-y-4">
-              {featured.products
-                .filter((product) => product.category !== "tshirt")
-                .map((product) => {
-                const isVinyle = product.category === "vinyle";
-                const isCD = product.category === "cd";
-                const externalUrl = isVinyle
-                  ? "https://www.centrevillerecords.be/product/fdy-phenomen-chanteur-de-rap"
-                  : isCD
-                    ? "https://www.centrevillerecords.be/product/fdy"
-                    : null;
+              {/* === VINYLE PRETIUM EDITION — MIS EN AVANT === */}
+              {featured.products.filter((p) => p.slug === "vinyle-chanteur-de-rap-pretium").map((product) => (
+                <div
+                  key={product.id}
+                  className="relative overflow-hidden rounded-xl border p-5 sm:p-6"
+                  style={{ borderColor: "rgba(200,160,80,0.3)", background: "linear-gradient(135deg, rgba(200,160,80,0.1), rgba(200,160,80,0.03))" }}
+                >
+                  {/* Badge premium */}
+                  <div className="absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-bold" style={{ background: "linear-gradient(135deg, #C8A050, #A08030)", color: "#1A1610" }}>
+                    PREMIUM
+                  </div>
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+                    <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg sm:h-28 sm:w-28">
+                      <Image src={product.image_url} alt={product.name} fill={true} className="object-cover" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-lg font-bold text-white">{product.name}</h3>
+                      <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
+                        <span style={{ color: "#C8A050" }}>Edition limit&eacute;e</span>
+                        <span className="text-white/30">&middot; {product.edition_info}</span>
+                      </div>
+                      <p className="mt-2 text-sm text-white/40">{product.description}</p>
+                    </div>
+                    <div className="flex shrink-0 flex-col items-end gap-2">
+                      <span className="text-2xl font-black text-white">{formatPrice(product.price)}</span>
+                      <a
+                        href="https://www.centrevillerecords.be/product/fdy-phenomen-chanteur-de-rap"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-lg px-6 py-2.5 text-sm font-bold text-black transition hover:brightness-110"
+                        style={{ background: "linear-gradient(135deg, #C8A050, #A08030)", boxShadow: "0 4px 15px rgba(200,160,80,0.3)" }}
+                      >
+                        Commander
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
 
-                return (
+              {/* === VINYLE CLASSIC EDITION === */}
+              {featured.products.filter((p) => p.slug === "vinyle-chanteur-de-rap-classic").map((product) => (
                 <div
                   key={product.id}
                   className="flex flex-col gap-4 rounded-xl border p-4 transition hover:border-[#C8A050]/30 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
@@ -206,38 +235,41 @@ export default async function HomePage() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3 className="font-semibold text-white">{product.name}</h3>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-white/30">
-                      <span>{categoryLabel(product.category)}</span>
-                      {product.is_limited && <span style={{ color: "#C8A050" }}>Edition limit&eacute;e</span>}
-                      {product.edition_info && <span>&middot; {product.edition_info}</span>}
-                    </div>
-                    <p className="mt-1 hidden text-sm text-white/30 sm:block">{product.description}</p>
+                    <p className="mt-1 text-sm text-white/30">{product.description}</p>
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-2">
                     <span className="text-xl font-bold text-white">{formatPrice(product.price)}</span>
-                    {externalUrl ? (
-                      <a
-                        href={externalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110"
-                        style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
-                      >
-                        Commander
-                      </a>
-                    ) : (
-                      <AddToCartButton
-                        product={product}
-                        className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
-                        style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
-                      />
-                    )}
+                    <a href="https://www.centrevillerecords.be/product/fdy" target="_blank" rel="noopener noreferrer" className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110" style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}>
+                      Commander
+                    </a>
                   </div>
                 </div>
-                );
-              })}
+              ))}
 
-              {/* Album digital */}
+              {/* === CD === */}
+              {featured.products.filter((p) => p.category === "cd").map((product) => (
+                <div
+                  key={product.id}
+                  className="flex flex-col gap-4 rounded-xl border p-4 transition hover:border-[#C8A050]/30 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
+                  style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.05)" }}
+                >
+                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20">
+                    <Image src={product.image_url} alt={product.name} fill={true} className="object-cover" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-semibold text-white">{product.name}</h3>
+                    <p className="mt-1 text-sm text-white/30">{product.description}</p>
+                  </div>
+                  <div className="flex shrink-0 flex-col items-end gap-2">
+                    <span className="text-xl font-bold text-white">{formatPrice(product.price)}</span>
+                    <a href="https://www.centrevillerecords.be/product/fdy-phenomen-chanteur-de-rap-cd" target="_blank" rel="noopener noreferrer" className="rounded-lg px-5 py-2 text-sm font-bold text-black transition hover:brightness-110" style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}>
+                      Commander
+                    </a>
+                  </div>
+                </div>
+              ))}
+
+              {/* === Album digital === */}
               <BuyAlbumDigital
                 title="Chanteur de Rap"
                 artist="Fdy Phenomen"
