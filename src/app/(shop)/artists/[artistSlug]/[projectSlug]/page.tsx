@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   getProjectBySlug,
   getProductsByProject,
@@ -14,6 +15,7 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { projectTypeLabel } from "@/lib/utils";
 import { getYouTubeId } from "@/lib/youtube";
 import Link from "next/link";
+import FadeIn from "@/components/ui/FadeIn";
 
 const TRACK_PRICE = 129; // 1,29€ par titre
 
@@ -331,7 +333,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <section className="relative overflow-hidden px-4 py-10 md:py-16" style={{ background: theme.headerBg }}>
         {/* Pochette floutée en fond */}
         <div className="absolute inset-0 overflow-hidden">
-          <img src={project.cover_url} alt="" className="h-full w-full scale-125 object-cover blur-[80px]" style={{ opacity: 0.12 }} />
+          <Image src={project.cover_url} alt="" fill={true} className="scale-125 object-cover blur-[80px]" style={{ opacity: 0.12 }} />
           <div className="absolute inset-0" style={{ background: `${theme.bg}cc` }} />
         </div>
 
@@ -347,7 +349,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="grid gap-6 md:grid-cols-2 md:gap-10">
             <div className="flex items-center justify-center">
               <div className="w-full max-w-[320px] overflow-hidden rounded-xl md:max-w-[460px]" style={{ boxShadow: theme.shadow }}>
-                <img src={project.cover_url} alt={project.title} className="block h-auto w-full" />
+                <Image src={project.cover_url} alt={project.title} width={600} height={600} className="block h-auto w-full" />
               </div>
             </div>
 
@@ -359,9 +361,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <span className="text-sm" style={{ color: theme.textSecondary }}>{project.release_year}</span>
               </div>
 
-              <Link href={`/artists/${artistSlug}`} className="mt-3 text-sm font-semibold transition hover:opacity-80" style={{ color: theme.accent }}>
-                {project.artist.name}
-              </Link>
+              <div className="mt-3 flex items-center gap-2">
+                <Link href={`/artists/${artistSlug}`} className="text-sm font-semibold transition hover:opacity-80" style={{ color: theme.accent }}>
+                  {project.artist.name}
+                </Link>
+                <a
+                  href="https://fdy.art"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs transition hover:opacity-80"
+                  style={{ background: theme.accentMuted, color: theme.accent }}
+                >
+                  fdy.art
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-3 w-3">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                </a>
+              </div>
 
               <h1 className="mt-1 text-2xl font-black md:text-5xl" style={{ color: theme.textPrimary }}>{project.title}</h1>
 
@@ -385,21 +401,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           CITATION
           ============================================ */}
       {theme.quote && (
-        <section className="relative overflow-hidden py-16">
-          <div className="absolute inset-0 overflow-hidden">
-            <img src={project.cover_url} alt="" className="h-full w-full object-cover" style={{ objectPosition: "center 40%", opacity: 0.06 }} />
-          </div>
-          <div className="relative mx-auto max-w-3xl px-6 text-center">
-            <blockquote className="text-lg font-light italic leading-relaxed md:text-2xl" style={{ color: theme.accent }}>
-              &laquo;&nbsp;{theme.quote}&nbsp;&raquo;
-            </blockquote>
-            {theme.quoteAuthor && (
-              <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: theme.textSecondary }}>
-                {theme.quoteAuthor}
-              </p>
-            )}
-          </div>
-        </section>
+        <FadeIn>
+          <section className="relative overflow-hidden py-16">
+            <div className="absolute inset-0 overflow-hidden">
+              <Image src={project.cover_url} alt="" fill={true} className="object-cover" style={{ objectPosition: "center 40%", opacity: 0.06 }} />
+            </div>
+            <div className="relative mx-auto max-w-3xl px-6 text-center">
+              <blockquote className="text-lg font-light italic leading-relaxed md:text-2xl" style={{ color: theme.accent }}>
+                &laquo;&nbsp;{theme.quote}&nbsp;&raquo;
+              </blockquote>
+              {theme.quoteAuthor && (
+                <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: theme.textSecondary }}>
+                  {theme.quoteAuthor}
+                </p>
+              )}
+            </div>
+          </section>
+        </FadeIn>
       )}
 
       {/* ============================================
@@ -414,20 +432,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             <div className="space-y-12">
               {theme.story.map((chapter, i) => (
-                <div key={i} className="flex gap-6">
-                  <div className="flex flex-col items-center">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ background: theme.accentMuted, color: theme.accent }}>
-                      {String(i + 1).padStart(2, "0")}
+                <FadeIn key={i} delay={i * 100}>
+                  <div className="flex gap-6">
+                    <div className="flex flex-col items-center">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ background: theme.accentMuted, color: theme.accent }}>
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      {i < theme.story!.length - 1 && (
+                        <div className="mt-2 w-px flex-1" style={{ background: theme.border }} />
+                      )}
                     </div>
-                    {i < theme.story!.length - 1 && (
-                      <div className="mt-2 w-px flex-1" style={{ background: theme.border }} />
-                    )}
+                    <div className="pb-4">
+                      <h3 className="text-lg font-bold" style={{ color: theme.textPrimary }}>{chapter.title}</h3>
+                      <p className="mt-2 leading-relaxed" style={{ color: theme.textSecondary }}>{chapter.text}</p>
+                    </div>
                   </div>
-                  <div className="pb-4">
-                    <h3 className="text-lg font-bold" style={{ color: theme.textPrimary }}>{chapter.title}</h3>
-                    <p className="mt-2 leading-relaxed" style={{ color: theme.textSecondary }}>{chapter.text}</p>
-                  </div>
-                </div>
+                </FadeIn>
               ))}
             </div>
           </div>
@@ -448,8 +468,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 className="group flex gap-5 overflow-hidden rounded-xl border p-4 transition hover:border-white/15"
                 style={{ borderColor: theme.border, background: theme.cardBg }}
               >
-                <div className="h-28 w-28 shrink-0 overflow-hidden rounded-lg">
-                  <img src={single.cover_url} alt={single.title} className="h-full w-full object-cover transition group-hover:scale-105" />
+                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-lg">
+                  <Image src={single.cover_url} alt={single.title} fill={true} className="object-cover transition group-hover:scale-105" />
                 </div>
                 <div className="flex flex-col justify-center">
                   <span className="mb-1 inline-block w-fit rounded-full px-2 py-0.5 text-xs font-semibold" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
@@ -465,87 +485,91 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {/* ============================================
           TRACKLIST
           ============================================ */}
-      <section className="mx-auto max-w-7xl px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-5 md:gap-12">
-          <div className="hidden md:col-span-2 md:block">
-            <div className="sticky top-24 overflow-hidden rounded-xl" style={{ boxShadow: theme.shadow }}>
-              <img src={project.cover_url} alt={project.title} className="block h-auto w-full" />
-            </div>
-          </div>
-
-          <div className="md:col-span-3">
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold" style={{ color: theme.textPrimary }}>Tracklist</h2>
-              <span className="text-sm" style={{ color: theme.textSecondary }}>{project.tracklist.length} titres</span>
+      <FadeIn>
+        <section className="mx-auto max-w-7xl px-4 py-12">
+          <div className="grid gap-8 md:grid-cols-5 md:gap-12">
+            <div className="hidden md:col-span-2 md:block">
+              <div className="sticky top-24 overflow-hidden rounded-xl" style={{ boxShadow: theme.shadow }}>
+                <Image src={project.cover_url} alt={project.title} width={600} height={600} className="block h-auto w-full" />
+              </div>
             </div>
 
-            <div className="overflow-hidden rounded-xl border" style={{ borderColor: theme.border, background: theme.cardBg }}>
-              {project.tracklist.map((track, i) => {
-                const isSingle = singles.some(
-                  (s) => s.title.toLowerCase() === track.toLowerCase() || track.toLowerCase().includes(s.title.toLowerCase())
-                );
-                const ytId = getYouTubeId(track);
-                return (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 px-5 py-3.5 transition hover:bg-white/[0.03]"
-                    style={{ borderBottom: i !== project.tracklist.length - 1 ? `1px solid ${theme.border}` : "none" }}
-                  >
-                    {ytId ? (
-                      <YouTubePlayer videoId={ytId} trackTitle={track} />
-                    ) : (
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-right text-sm font-bold" style={{ color: `${theme.accent}55` }}>
-                        {String(i + 1).padStart(2, "0")}
+            <div className="md:col-span-3">
+              <div className="mb-6 flex items-center justify-between">
+                <h2 className="text-2xl font-bold" style={{ color: theme.textPrimary }}>Tracklist</h2>
+                <span className="text-sm" style={{ color: theme.textSecondary }}>{project.tracklist.length} titres</span>
+              </div>
+
+              <div className="overflow-hidden rounded-xl border" style={{ borderColor: theme.border, background: theme.cardBg }}>
+                {project.tracklist.map((track, i) => {
+                  const isSingle = singles.some(
+                    (s) => s.title.toLowerCase() === track.toLowerCase() || track.toLowerCase().includes(s.title.toLowerCase())
+                  );
+                  const ytId = getYouTubeId(track);
+                  return (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 px-5 py-3.5 transition hover:bg-white/[0.03]"
+                      style={{ borderBottom: i !== project.tracklist.length - 1 ? `1px solid ${theme.border}` : "none" }}
+                    >
+                      {ytId ? (
+                        <YouTubePlayer videoId={ytId} trackTitle={track} />
+                      ) : (
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center text-right text-sm font-bold" style={{ color: `${theme.accent}55` }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      )}
+                      <span className={`flex-1 text-sm ${isSingle ? "font-medium" : ""}`} style={{ color: isSingle ? theme.accent : theme.textSecondary }}>
+                        {track}
                       </span>
-                    )}
-                    <span className={`flex-1 text-sm ${isSingle ? "font-medium" : ""}`} style={{ color: isSingle ? theme.accent : theme.textSecondary }}>
-                      {track}
-                    </span>
-                    {isSingle && (
-                      <span className="shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
-                    )}
-                    <BuyTrackButton
-                      title={track}
-                      artist={project.artist.name}
-                      album={project.title}
-                      price={TRACK_PRICE}
-                    />
-                  </div>
-                );
-              })}
+                      {isSingle && (
+                        <span className="shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
+                      )}
+                      <BuyTrackButton
+                        title={track}
+                        artist={project.artist.name}
+                        album={project.title}
+                        price={TRACK_PRICE}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </FadeIn>
 
       {/* ============================================
           FORMATS DISPONIBLES
           ============================================ */}
-      <section className="mx-auto max-w-7xl px-4 py-12">
-        <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>
-          {projectSlug === "chanteur-de-rap" ? "Formats disponibles" : "Format disponible"}
-        </h2>
+      <FadeIn>
+        <section className="mx-auto max-w-7xl px-4 py-12">
+          <h2 className="mb-6 text-xl font-bold" style={{ color: theme.textPrimary }}>
+            {projectSlug === "chanteur-de-rap" ? "Formats disponibles" : "Format disponible"}
+          </h2>
 
-        {/* Produits physiques uniquement pour Chanteur de Rap (sans t-shirt) */}
-        {projectSlug === "chanteur-de-rap" && products.length > 0 && (
-          <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products
-              .filter((p) => p.category !== "tshirt")
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-          </div>
-        )}
+          {/* Produits physiques uniquement pour Chanteur de Rap (sans t-shirt) */}
+          {projectSlug === "chanteur-de-rap" && products.length > 0 && (
+            <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {products
+                .filter((p) => p.category !== "tshirt")
+                .map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+            </div>
+          )}
 
-        {/* Album digital */}
-        <BuyAlbumDigital
-          title={project.title}
-          artist={project.artist.name}
-          trackCount={project.tracklist.length}
-          price={999}
-          coverUrl={project.cover_url}
-        />
-      </section>
+          {/* Album digital */}
+          <BuyAlbumDigital
+            title={project.title}
+            artist={project.artist.name}
+            trackCount={project.tracklist.length}
+            price={999}
+            coverUrl={project.cover_url}
+          />
+        </section>
+      </FadeIn>
     </div>
   );
 }

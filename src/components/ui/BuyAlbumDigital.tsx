@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 interface BuyAlbumDigitalProps {
@@ -47,8 +48,8 @@ export default function BuyAlbumDigital({ title, artist, trackCount, price, cove
       style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.03)" }}
     >
       {coverUrl ? (
-        <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg">
-          <img src={coverUrl} alt={title} className="h-full w-full object-cover" />
+        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
+          <Image src={coverUrl} alt={title} fill={true} className="object-cover" />
         </div>
       ) : (
         <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-lg" style={{ background: "rgba(255,255,255,0.05)" }}>

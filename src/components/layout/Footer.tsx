@@ -20,6 +20,18 @@ export default function Footer() {
             <p className="mt-2 text-sm" style={{ color: t.footerText }}>
               La boutique du rap francophone. Vinyles, CD, K7 et merchandising officiel.
             </p>
+            <a
+              href="https://fdy.art"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm transition hover:opacity-80"
+              style={{ color: t.logo }}
+            >
+              Site officiel de l&apos;artiste &rarr; fdy.art
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-3.5 w-3.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
           </div>
 
           <div>

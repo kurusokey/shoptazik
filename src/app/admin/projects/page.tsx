@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Artist, Project, Product } from "@/types";
 
@@ -115,9 +116,9 @@ export default function AdminProjectsPage() {
                 <tr key={project.id} className="transition hover:bg-zinc-800/50">
                   <td className="whitespace-nowrap px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 overflow-hidden rounded-lg bg-zinc-800">
+                      <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-zinc-800">
                         {project.cover_url ? (
-                          <img src={project.cover_url} alt={project.title} className="h-full w-full object-cover" />
+                          <Image src={project.cover_url} alt={project.title} fill={true} className="object-cover" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center text-zinc-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5">

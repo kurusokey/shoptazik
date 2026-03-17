@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore } from "@/lib/cart-store";
 import { formatPrice, categoryLabel } from "@/lib/utils";
 import { useState } from "react";
@@ -10,6 +11,7 @@ export default function CartPage() {
     useCartStore();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutDone, setCheckoutDone] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
 
   const handleCheckout = async () => {
     setCheckoutLoading(true);
@@ -17,7 +19,7 @@ export default function CartPage() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, promoCode: promoCode.trim() || undefined }),
       });
       const data = await res.json();
       if (data.url) {
@@ -80,8 +82,8 @@ export default function CartPage() {
               className="flex gap-3 rounded-xl border p-3 md:gap-4 md:p-4"
               style={{ borderColor: "rgba(200,160,80,0.1)", background: "rgba(200,160,80,0.04)" }}
             >
-              <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg md:h-20 md:w-20">
-                <img src={item.product.image_url} alt={item.product.name} className="h-full w-full object-cover" />
+              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg md:h-20 md:w-20">
+                <Image src={item.product.image_url} alt={item.product.name} fill={true} className="object-cover" />
               </div>
 
               <div className="flex flex-1 flex-col justify-between min-w-0">
@@ -148,10 +150,25 @@ export default function CartPage() {
             </div>
           </div>
 
+          <div className="mt-5">
+            <label htmlFor="promo-code" className="mb-1.5 block text-xs font-medium text-white/40">
+              Code promo
+            </label>
+            <input
+              id="promo-code"
+              type="text"
+              placeholder="Entrer un code promo"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              className="w-full rounded-lg border bg-transparent px-3 py-2 text-sm text-white placeholder:text-white/20 focus:outline-none focus:ring-1"
+              style={{ borderColor: "rgba(200,160,80,0.15)" }}
+            />
+          </div>
+
           <button
             onClick={handleCheckout}
             disabled={checkoutLoading}
-            className="mt-6 w-full rounded-xl py-3 font-bold text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-4 w-full rounded-xl py-3 font-bold text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
             style={{ background: "linear-gradient(135deg, #C8A050, #A08030)" }}
           >
             {checkoutLoading ? "Traitement en cours..." : "Commander"}

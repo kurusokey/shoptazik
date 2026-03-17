@@ -1,0 +1,13 @@
+{
+  "name": "Shoptazik",
+  "short_name": "Shoptazik",
+  "description": "La boutique du rap francophone",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1610",
+  "theme_color": "#C8A050",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getArtists, getProjectsByArtist, getProductsByProject } from "@/lib/supabase-data";
 
 export const dynamic = "force-dynamic";
@@ -79,8 +80,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.04)" }}
               >
                 {r.image && (
-                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg">
-                    <img src={r.image} alt="" className="h-full w-full object-cover" />
+                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg">
+                    <Image src={r.image} alt="" fill={true} className="object-cover" />
                   </div>
                 )}
                 <div className="min-w-0 flex-1">

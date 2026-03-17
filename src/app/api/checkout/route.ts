@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { items, tracks } = body;
+    const { items, tracks, promoCode } = body;
 
     const hasItems = items && items.length > 0;
     const hasTracks = tracks && tracks.length > 0;
@@ -77,6 +77,11 @@ export async function POST(req: NextRequest) {
       `success_url=${encodeURIComponent(successUrl)}`,
       `cancel_url=${encodeURIComponent(cancelUrl)}`,
     ];
+
+    // Activer les codes promo Stripe si un code est fourni
+    if (promoCode) {
+      formParts.push(`allow_promotion_codes=true`);
+    }
 
     line_items.forEach((item, i) => {
       const p = `line_items[${i}]`;

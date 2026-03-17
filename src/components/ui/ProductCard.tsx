@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Product } from "@/types";
 import { formatPrice, categoryLabel } from "@/lib/utils";
 import { useCartStore } from "@/lib/cart-store";
@@ -14,10 +15,11 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group overflow-hidden rounded-xl border transition hover:border-white/15" style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.03)" }}>
       <div className="relative aspect-square overflow-hidden" style={{ background: "rgba(255,255,255,0.02)" }}>
-        <img
+        <Image
           src={product.image_url}
           alt={product.name}
-          className="h-full w-full object-cover transition group-hover:scale-105"
+          fill={true}
+          className="object-cover transition group-hover:scale-105"
         />
         {product.is_limited && (
           <span className="absolute left-3 top-3 rounded-full px-2 py-0.5 text-xs font-bold text-black" style={{ background: "#C8A050" }}>

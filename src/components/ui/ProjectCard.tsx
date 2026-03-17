@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Project } from "@/types";
 import { projectTypeLabel } from "@/lib/utils";
 
@@ -14,10 +15,11 @@ export default function ProjectCard({ project, artistSlug }: ProjectCardProps) {
       className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 transition hover:border-amber-400/50"
     >
       <div className="relative aspect-square overflow-hidden bg-zinc-800">
-        <img
+        <Image
           src={project.cover_url}
           alt={project.title}
-          className="h-full w-full object-cover transition group-hover:scale-105"
+          fill={true}
+          className="object-cover transition group-hover:scale-105"
         />
         <span className="absolute left-3 top-3 rounded-full bg-zinc-700 px-2 py-0.5 text-xs text-zinc-300">
           {projectTypeLabel(project.type)}

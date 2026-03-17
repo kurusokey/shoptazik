@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getArtistBySlug, getProjectsByArtist } from "@/lib/supabase-data";
 import ProjectCard from "@/components/ui/ProjectCard";
 
@@ -66,11 +67,12 @@ export default async function ArtistPage({ params }: ArtistPageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-400/5 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-7xl">
           <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
-            <div className="h-24 w-24 shrink-0 overflow-hidden rounded-full bg-zinc-700 md:h-40 md:w-40">
-              <img
+            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full bg-zinc-700 md:h-40 md:w-40">
+              <Image
                 src={artist.image_url}
                 alt={artist.name}
-                className="h-full w-full object-cover"
+                fill={true}
+                className="object-cover"
               />
             </div>
 

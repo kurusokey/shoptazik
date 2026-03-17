@@ -37,6 +37,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL ?? "https://shoptazik.com"
   ),
+  manifest: "/manifest.json",
+  other: {
+    "theme-color": "#1A1610",
+  },
 };
 
 export default function RootLayout({

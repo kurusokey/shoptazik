@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getFeaturedProject, getArtists } from "@/lib/supabase-data";
 import { formatPrice, categoryLabel } from "@/lib/utils";
 import AddToCartButton from "@/components/ui/AddToCartButton";
@@ -26,10 +27,12 @@ export default async function HomePage() {
           Fdy de dos, casque, micro, en pleine session
           ============================================ */}
       <section className="relative overflow-hidden" style={{ height: "85vh", minHeight: "500px", maxHeight: "1100px" }}>
-        <img
+        <Image
           src={AVIREX_STUDIO}
           alt="Fdy Phenomen en studio — blouson Avirex"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill={true}
+          priority={true}
+          className="object-cover"
           style={{ objectPosition: "center 20%" }}
         />
         {/* Overlay sombre en bas pour le texte */}
@@ -89,7 +92,7 @@ export default async function HomePage() {
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
             <div className="flex justify-center">
               <div className="w-full max-w-[460px] overflow-hidden rounded-lg" style={{ boxShadow: "0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)" }}>
-                <img src={COVER_FRONT} alt="Chanteur de Rap — Pochette" className="block h-auto w-full" />
+                <Image src={COVER_FRONT} alt="Chanteur de Rap — Pochette" width={600} height={600} className="block h-auto w-full" />
               </div>
             </div>
 
@@ -124,10 +127,12 @@ export default async function HomePage() {
           Photo fdy_life.jpg en plein écran
           ============================================ */}
       <section className="relative overflow-hidden" style={{ height: "70vh", minHeight: "400px", maxHeight: "900px" }}>
-        <img
+        <Image
           src={AVIREX_LIFE}
           alt="L'univers de Fdy Phenomen — blouson Avirex, vinyles, discographie"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill={true}
+          priority={true}
+          className="object-cover"
           style={{ objectPosition: "center center" }}
         />
         <div
@@ -172,7 +177,7 @@ export default async function HomePage() {
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #201A14)" }} />
           {/* Avirex studio floutée en arrière-plan */}
           <div className="absolute inset-0 overflow-hidden">
-            <img src={AVIREX_STUDIO} alt="" className="h-full w-full scale-125 object-cover blur-[80px]" style={{ opacity: 0.08 }} />
+            <Image src={AVIREX_STUDIO} alt="" fill={true} className="scale-125 object-cover blur-[80px]" style={{ opacity: 0.08 }} />
           </div>
 
           <div className="relative mx-auto max-w-5xl">
@@ -196,8 +201,8 @@ export default async function HomePage() {
                   className="flex flex-col gap-4 rounded-xl border p-4 transition hover:border-[#C8A050]/30 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
                   style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.05)" }}
                 >
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20">
-                    <img src={product.image_url} alt={product.name} className="h-full w-full object-cover" />
+                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20">
+                    <Image src={product.image_url} alt={product.name} fill={true} className="object-cover" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3 className="font-semibold text-white">{product.name}</h3>
@@ -256,7 +261,7 @@ export default async function HomePage() {
             <div className="grid gap-8 md:grid-cols-5 md:gap-12">
               <div className="hidden md:col-span-2 md:block">
                 <div className="sticky top-24 overflow-hidden rounded-xl" style={{ boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
-                  <img src={COVER_FRONT} alt="Chanteur de Rap" className="block h-auto w-full" />
+                  <Image src={COVER_FRONT} alt="Chanteur de Rap" width={600} height={600} className="block h-auto w-full" />
                 </div>
               </div>
 
@@ -314,8 +319,8 @@ export default async function HomePage() {
                 className="group overflow-hidden rounded-xl border p-6 transition hover:border-[#C8A050]/30"
                 style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.04)" }}
               >
-                <div className="mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-white/10 transition group-hover:ring-[#C8A050]/40">
-                  <img src={artist.image_url} alt={artist.name} className="h-full w-full object-cover" />
+                <div className="relative mb-4 h-20 w-20 overflow-hidden rounded-full ring-2 ring-white/10 transition group-hover:ring-[#C8A050]/40">
+                  <Image src={artist.image_url} alt={artist.name} fill={true} className="object-cover" />
                 </div>
                 <h3 className="text-xl font-bold text-white transition group-hover:text-[#C8A050]">{artist.name}</h3>
                 <p className="mt-2 line-clamp-3 text-sm text-white/40">{artist.bio}</p>
