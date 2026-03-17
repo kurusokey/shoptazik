@@ -483,9 +483,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       )}
 
       {/* ============================================
-          TRACKLIST
+          TRACKLIST (masquée si un seul titre / single)
           ============================================ */}
-      <FadeIn>
+      {project.tracklist.length > 1 && <FadeIn>
         <section className="mx-auto max-w-7xl px-4 py-12">
           <div className="grid gap-8 md:grid-cols-5 md:gap-12">
             <div className="hidden md:col-span-2 md:block">
@@ -540,7 +540,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
         </section>
-      </FadeIn>
+      </FadeIn>}
 
       {/* ============================================
           FORMATS DISPONIBLES (uniquement Chanteur de Rap)
