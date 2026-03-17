@@ -333,12 +333,14 @@ export default async function HomePage() {
                         </span>
                       )}
                       <span className="flex-1 text-sm text-white/60">{track}</span>
+                      {/* BuyTrackButton masqué pour le moment
                       <BuyTrackButton
                         title={track}
                         artist="Fdy Phenomen"
                         album="Chanteur de Rap"
                         price={TRACK_PRICE}
                       />
+                      */}
                     </div>
                     );
                   })}

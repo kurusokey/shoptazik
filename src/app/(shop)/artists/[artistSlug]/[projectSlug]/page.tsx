@@ -525,12 +525,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       {isSingle && (
                         <span className="shrink-0 rounded-full px-2 py-0.5 text-xs" style={{ background: theme.accentMuted, color: theme.accent }}>Single</span>
                       )}
+                      {/* BuyTrackButton masqué pour le moment
                       <BuyTrackButton
                         title={track}
                         artist={project.artist.name}
                         album={project.title}
                         price={TRACK_PRICE}
                       />
+                      */}
                     </div>
                   );
                 })}
