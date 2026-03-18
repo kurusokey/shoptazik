@@ -14,6 +14,24 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [homeUrl, setHomeUrl] = useState("/");
+
+  // Détecter le site d'origine et adapter le lien Accueil
+  useEffect(() => {
+    const stored = sessionStorage.getItem("boutique-origin");
+    if (stored) {
+      setHomeUrl(stored);
+      return;
+    }
+    const ref = document.referrer;
+    if (ref.includes("la-mug.com") && !ref.includes("boutique.la-mug.com")) {
+      sessionStorage.setItem("boutique-origin", "https://la-mug.com");
+      setHomeUrl("https://la-mug.com");
+    } else if (ref.includes("fdy.art")) {
+      sessionStorage.setItem("boutique-origin", "https://fdy.art");
+      setHomeUrl("https://fdy.art");
+    }
+  }, []);
   const menuRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -58,9 +76,9 @@ export default function Header() {
 
         {/* Navigation desktop */}
         <nav className="hidden items-center gap-5 md:flex" ref={menuRef}>
-          <Link href="/" className="text-sm transition hover:text-white" style={{ color: t.linkColor }}>
+          <a href={homeUrl} className="text-sm transition hover:text-white" style={{ color: t.linkColor }}>
             Accueil
-          </Link>
+          </a>
 
           {/* Menu Artistes */}
           <div className="relative">
@@ -199,7 +217,7 @@ export default function Header() {
             />
           </form>
 
-          <Link href="/" className="block py-2.5 text-sm" style={{ color: t.linkColor }}>Accueil</Link>
+          <a href={homeUrl} className="block py-2.5 text-sm" style={{ color: t.linkColor }}>Accueil</a>
 
           <p className="mt-2 text-xs font-semibold uppercase tracking-wider" style={{ color: t.accentColor, opacity: 0.5 }}>Artistes</p>
           <Link href="/artists/fdy-phenomen" className="block py-2.5 pl-3 text-sm" style={{ color: t.linkColor }}>Fdy Phenomen</Link>
