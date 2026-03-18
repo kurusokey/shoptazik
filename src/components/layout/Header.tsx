@@ -176,7 +176,7 @@ export default function Header() {
             {totalItems() > 0 && (
               <span
                 className="absolute -right-2.5 -top-2.5 flex h-6 w-6 animate-bounce items-center justify-center rounded-full text-[11px] font-black"
-                style={{ background: t.badgeBg, color: t.badgeText, boxShadow: `0 2px 12px ${t.accentColor}88` }}
+                style={{ background: "#FACC15", color: "#000000", boxShadow: "0 2px 12px rgba(250,204,21,0.6)" }}
               >
                 {totalItems()}
               </span>
