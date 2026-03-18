@@ -1,7 +1,7 @@
 {
-  "name": "Shoptazik",
-  "short_name": "Shoptazik",
-  "description": "La boutique du rap francophone",
+  "name": "La Mug Boutik'",
+  "short_name": "La Mug Boutik'",
+  "description": "La boutique de la culture urbaine",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1A1610",

@@ -77,6 +77,6 @@ export const useCartStore = create<CartStore>()(
           0
         ),
     }),
-    { name: "shoptazik-cart" }
+    { name: "lamug-boutik-cart" }
   )
 );
