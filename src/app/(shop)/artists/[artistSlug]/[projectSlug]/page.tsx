@@ -17,6 +17,8 @@ import { getYouTubeId } from "@/lib/youtube";
 import Link from "next/link";
 import FadeIn from "@/components/ui/FadeIn";
 
+export const revalidate = 60;
+
 const TRACK_PRICE = 129; // 1,29€ par titre
 
 interface ProjectPageProps {

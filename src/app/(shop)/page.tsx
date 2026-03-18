@@ -8,7 +8,7 @@ import BuyTrackButton from "@/components/ui/BuyTrackButton";
 import BuyAlbumDigital from "@/components/ui/BuyAlbumDigital";
 import { getYouTubeId } from "@/lib/youtube";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const TRACK_PRICE = 129;
 

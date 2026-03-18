@@ -6,6 +6,13 @@ import { useState, useEffect, useCallback } from "react";
 let currentlyPlaying: string | null = null;
 let stopCallbacks: Map<string, () => void> = new Map();
 
+// Callback global pour notifier le composant NowPlaying
+let onTrackChange: ((title: string | null) => void) | null = null;
+
+export function setOnTrackChange(cb: (title: string | null) => void) {
+  onTrackChange = cb;
+}
+
 function registerPlayer(id: string, stopFn: () => void) {
   stopCallbacks.set(id, stopFn);
 }
@@ -21,6 +28,16 @@ function stopAllExcept(id: string) {
   currentlyPlaying = id;
 }
 
+// Fonction exportée pour permettre l'arrêt depuis NowPlaying
+export function stopCurrentTrack() {
+  if (currentlyPlaying) {
+    const stopFn = stopCallbacks.get(currentlyPlaying);
+    if (stopFn) stopFn();
+    currentlyPlaying = null;
+    onTrackChange?.(null);
+  }
+}
+
 interface YouTubePlayerProps {
   videoId: string;
   trackTitle: string;
@@ -32,6 +49,7 @@ export default function YouTubePlayer({ videoId, trackTitle }: YouTubePlayerProp
 
   const stop = useCallback(() => {
     setPlaying(false);
+    // Note: onTrackChange is called by the new player, not here
   }, []);
 
   useEffect(() => {
@@ -43,12 +61,14 @@ export default function YouTubePlayer({ videoId, trackTitle }: YouTubePlayerProp
     if (playing) {
       setPlaying(false);
       currentlyPlaying = null;
+      onTrackChange?.(null);
     } else {
       // Stopper tout autre titre en cours
       stopAllExcept(instanceId);
       setPlaying(true);
+      onTrackChange?.(trackTitle);
     }
-  }, [playing, instanceId]);
+  }, [playing, instanceId, trackTitle]);
 
   return (
     <>

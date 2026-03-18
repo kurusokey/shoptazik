@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     description:
       "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
   },
+  verification: {
+    google: "GOOGLE_VERIFICATION_CODE_HERE",
+  },
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL ?? "https://boutique.la-mug.com"
   ),
