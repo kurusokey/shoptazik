@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 const TRACK_PRICE = 129;
 
 const COVER_FRONT = "/images/projects/album_chanteur_de_rap.jpg";
-const AVIREX_STUDIO = "/images/projects/avirex.png";
+const AVIREX_STUDIO = "/images/projects/avirex.jpg";
 const AVIREX_LIFE = "/images/projects/fdy_life.jpg";
 
 export default async function HomePage() {
