@@ -108,7 +108,7 @@ export default function Header() {
                   <span className="block px-4 py-2 text-xs font-semibold uppercase tracking-wider" style={{ color: t.accentColor, opacity: 0.5 }}>
                     Merchandising
                   </span>
-                  <Link href="/artists/fdy-phenomen/chanteur-de-rap" onClick={() => setOpenMenu(null)} className="block px-6 py-2 text-sm transition hover:bg-white/10" style={{ color: t.linkColor }}>
+                  <Link href="/products/tshirt-chanteur-de-rap" onClick={() => setOpenMenu(null)} className="block px-6 py-2 text-sm transition hover:bg-white/10" style={{ color: t.linkColor }}>
                     T-Shirt
                   </Link>
                 </div>
@@ -210,7 +210,7 @@ export default function Header() {
           {/* Digital masqué pour le moment */}
 
           <p className="mt-2 text-xs font-semibold uppercase tracking-wider" style={{ color: t.accentColor, opacity: 0.5 }}>Merchandising</p>
-          <Link href="/artists/fdy-phenomen/chanteur-de-rap" className="block py-2.5 pl-3 text-sm" style={{ color: t.linkColor }}>T-Shirt</Link>
+          <Link href="/products/tshirt-chanteur-de-rap" className="block py-2.5 pl-3 text-sm" style={{ color: t.linkColor }}>T-Shirt</Link>
         </div>
       )}
     </header>
