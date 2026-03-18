@@ -77,7 +77,7 @@ export default function TshirtProductPage({
             {/* Product image */}
             <div className="flex items-start justify-center">
               <div
-                className="w-full max-w-[500px] overflow-hidden rounded-xl"
+                className="w-full max-w-[320px] overflow-hidden rounded-xl md:max-w-[500px]"
                 style={{
                   boxShadow:
                     "0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)",

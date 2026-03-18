@@ -20,7 +20,7 @@ export default function NowPlaying() {
 
   return (
     <div
-      className="fixed bottom-14 left-0 right-0 z-40 px-4"
+      className="fixed bottom-16 left-0 right-0 z-40 px-4 sm:bottom-20"
       style={{ pointerEvents: "none" }}
     >
       <div

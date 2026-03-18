@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer style={{ background: t.footerBg, borderTop: t.footerBorder }}>
       <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
-        <div className="grid gap-6 md:grid-cols-4 md:gap-8">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
           {/* Colonne 1 : Marque + écosystème */}
           <div>
             <h3 className="text-lg font-bold text-white/90">
