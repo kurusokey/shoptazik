@@ -157,8 +157,8 @@ export default function Header() {
             <span className="hidden sm:inline">Panier</span>
             {totalItems() > 0 && (
               <span
-                className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold md:h-6 md:w-6"
-                style={{ background: t.badgeBg, color: t.badgeText, boxShadow: `0 2px 10px ${t.accentColor}66` }}
+                className="absolute -right-2.5 -top-2.5 flex h-6 w-6 animate-bounce items-center justify-center rounded-full text-[11px] font-black"
+                style={{ background: t.badgeBg, color: t.badgeText, boxShadow: `0 2px 12px ${t.accentColor}88` }}
               >
                 {totalItems()}
               </span>
