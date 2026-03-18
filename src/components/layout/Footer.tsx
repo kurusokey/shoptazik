@@ -169,12 +169,19 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Mention La M.U.G + copyright */}
+        {/* Mention La M.U.G + logo + copyright */}
         <div
-          className="mt-8 flex flex-col items-center gap-2 pt-8 text-center text-xs text-white/20"
+          className="mt-8 flex flex-col items-center gap-3 pt-8 text-center text-xs text-white/20"
           style={{ borderTop: `1px solid ${t.footerMuted}` }}
         >
-          <span className="font-medium uppercase tracking-widest" style={{ color: t.footerText }}>
+          <a href="https://la-mug.com" target="_blank" rel="noopener noreferrer">
+            <img
+              src="/images/logo-la-mug/logo-la-mug-white.png"
+              alt="La M.U.G — La Maison Urbaine Générale"
+              className="h-10 w-auto opacity-40 transition hover:opacity-70"
+            />
+          </a>
+          <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: t.footerText }}>
             Un projet &mdash; La M.U.G
           </span>
           <span>
