@@ -65,7 +65,7 @@ export default function AdminLayout({
         {/* Logo */}
         <div className="flex h-16 items-center border-b border-zinc-800 px-6">
           <Link href="/admin" className="text-lg font-bold tracking-tight text-white">
-            SHOP<span className="text-amber-400">TAZIK</span>{" "}
+            LA MUG<span className="text-amber-400"> - BOUTIK&apos;</span>{" "}
             <span className="text-xs font-normal text-zinc-500">Admin</span>
           </Link>
         </div>

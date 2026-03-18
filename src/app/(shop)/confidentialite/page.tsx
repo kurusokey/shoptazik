@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Politique de Confidentialité — Shoptazik",
+  title: "Politique de Confidentialité — La Mug - Boutik'",
   description:
-    "Politique de confidentialité et protection des données personnelles de Shoptazik.",
+    "Politique de confidentialité et protection des données personnelles de La Mug - Boutik'.",
 };
 
 export default function ConfidentialitePage() {
@@ -25,7 +25,7 @@ export default function ConfidentialitePage() {
             </h2>
             <p>
               Le responsable du traitement des donn&eacute;es personnelles collect&eacute;es
-              sur le site shoptazik.com est :
+              sur le site boutique.la-mug.com est :
             </p>
             <ul className="mt-2 list-inside list-disc space-y-1">
               <li>
@@ -37,8 +37,8 @@ export default function ConfidentialitePage() {
               </li>
               <li>
                 <span className="text-white/80">Contact DPO :</span>{" "}
-                <a href="mailto:contact@shoptazik.com" className="underline transition hover:text-white/80">
-                  contact@shoptazik.com
+                <a href="mailto:contact@la-mug.com" className="underline transition hover:text-white/80">
+                  contact@la-mug.com
                 </a>
               </li>
             </ul>
@@ -123,7 +123,7 @@ export default function ConfidentialitePage() {
               5. Cookies
             </h2>
             <p>
-              Le site shoptazik.com utilise des cookies strictement n&eacute;cessaires au
+              Le site boutique.la-mug.com utilise des cookies strictement n&eacute;cessaires au
               fonctionnement du site (panier, session) et des cookies analytiques pour
               mesurer la fr&eacute;quentation du site.
             </p>
@@ -236,8 +236,8 @@ export default function ConfidentialitePage() {
             <p className="mt-3">
               Pour exercer ces droits, contactez notre D&eacute;l&eacute;gu&eacute; &agrave;
               la Protection des Donn&eacute;es :{" "}
-              <a href="mailto:contact@shoptazik.com" className="underline transition hover:text-white/80">
-                contact@shoptazik.com
+              <a href="mailto:contact@la-mug.com" className="underline transition hover:text-white/80">
+                contact@la-mug.com
               </a>
             </p>
             <p className="mt-2">
@@ -284,8 +284,8 @@ export default function ConfidentialitePage() {
             <p>
               Pour toute question relative &agrave; cette politique de
               confidentialit&eacute;, contactez-nous &agrave; :{" "}
-              <a href="mailto:contact@shoptazik.com" className="underline transition hover:text-white/80">
-                contact@shoptazik.com
+              <a href="mailto:contact@la-mug.com" className="underline transition hover:text-white/80">
+                contact@la-mug.com
               </a>
             </p>
           </section>

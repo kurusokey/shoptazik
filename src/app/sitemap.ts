@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getArtists, getProjectsByArtist } from "@/lib/supabase-data";
 
-const BASE_URL = "https://shoptazik.vercel.app";
+const BASE_URL = "https://boutique.la-mug.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Pages statiques

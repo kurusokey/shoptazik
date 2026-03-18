@@ -4,7 +4,7 @@ export const maxDuration = 30;
 
 export async function POST(req: NextRequest) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://shoptazik.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://boutique.la-mug.com";
 
   try {
     const body = await req.json();
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
               name: item.product.name,
               description: item.variant
                 ? `${item.product.description} — ${item.variant.label}`
-                : (item.product.description || "Produit Shoptazik"),
+                : (item.product.description || "Produit La Mug - Boutik'"),
             },
             unit_amount: item.product.price + (item.variant?.price_modifier ?? 0),
           },
@@ -68,8 +68,8 @@ export async function POST(req: NextRequest) {
     const isDigitalOnly = !hasItems && hasTracks;
 
     // Appel direct à l'API Stripe via fetch
-    const successUrl = `https://shoptazik.vercel.app/checkout/success?session_id={CHECKOUT_SESSION_ID}`;
-    const cancelUrl = `https://shoptazik.vercel.app/cart`;
+    const successUrl = `https://boutique.la-mug.com/checkout/success?session_id={CHECKOUT_SESSION_ID}`;
+    const cancelUrl = `https://boutique.la-mug.com/cart`;
 
     const formParts: string[] = [
       `mode=payment`,

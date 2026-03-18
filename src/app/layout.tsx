@@ -15,27 +15,27 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Shoptazik — La boutique du rap francophone",
-    template: "%s | Shoptazik",
+    default: "La Mug - Boutik' — La boutique du rap francophone",
+    template: "%s | La Mug - Boutik'",
   },
   description:
     "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "Shoptazik",
-    title: "Shoptazik — La boutique du rap francophone",
+    siteName: "La Mug - Boutik'",
+    title: "La Mug - Boutik' — La boutique du rap francophone",
     description:
       "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shoptazik — La boutique du rap francophone",
+    title: "La Mug - Boutik' — La boutique du rap francophone",
     description:
       "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
   },
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL ?? "https://shoptazik.com"
+    process.env.NEXT_PUBLIC_BASE_URL ?? "https://boutique.la-mug.com"
   ),
   manifest: "/manifest.json",
   other: {

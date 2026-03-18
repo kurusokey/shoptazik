@@ -53,7 +53,7 @@ export default function Header() {
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:h-16">
         {/* Logo */}
         <Link href="/" className="text-lg font-bold tracking-tight text-white/90 md:text-xl">
-          SHOP<span style={{ color: t.logo }}>TAZIK</span>
+          LA MUG<span style={{ color: t.logo }}> - BOUTIK&apos;</span>
         </Link>
 
         {/* Navigation desktop */}

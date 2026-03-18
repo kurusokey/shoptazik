@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 // Webhook Stripe — reçoit les événements de paiement
 // Configure le webhook dans Stripe Dashboard → Developers → Webhooks
-// URL : https://shoptazik.vercel.app/api/webhook
+// URL : https://boutique.la-mug.com/api/webhook
 // Événement : checkout.session.completed
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";

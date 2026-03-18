@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "À propos — Shoptazik",
+  title: "À propos — La Mug - Boutik'",
   description:
-    "Shoptazik, la boutique du rap francophone. Créée par La M.U.G et Fdy Phenomen.",
+    "La Mug - Boutik', la boutique du rap francophone. Créée par La M.U.G et Fdy Phenomen.",
 };
 
 export default function AProposPage() {
@@ -28,7 +28,7 @@ export default function AProposPage() {
           </p>
           <h1 className="mt-4 text-4xl font-black text-white md:text-5xl">
             Bienvenue chez{" "}
-            <span style={{ color: "#C8A050" }}>Shoptazik</span>
+            <span style={{ color: "#C8A050" }}>La Mug - Boutik&apos;</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/50">
             Plus qu&apos;une boutique, un univers musical et artistique.
@@ -49,7 +49,7 @@ export default function AProposPage() {
           </h2>
           <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/60">
             <p>
-              Shoptazik est n&eacute;e d&apos;une vision simple : offrir aux amateurs de rap
+              La Mug - Boutik&apos; est n&eacute;e d&apos;une vision simple : offrir aux amateurs de rap
               fran&ccedil;ais un espace d&eacute;di&eacute; o&ugrave; la musique se touche, se
               collectionne et se vit. Vinyles, CD, t&eacute;l&eacute;chargements digitaux,
               merchandising &mdash; chaque produit raconte une histoire, celle d&apos;artistes
@@ -58,7 +58,7 @@ export default function AProposPage() {
             <p>
               Ici, pas d&apos;algorithmes froids ni de playlists jetables. Chaque album est
               pr&eacute;sent&eacute; comme une &oelig;uvre, chaque vinyle comme un objet
-              pr&eacute;cieux. Shoptazik, c&apos;est le disquaire en ligne pour ceux qui
+              pr&eacute;cieux. La Mug - Boutik&apos;, c&apos;est le disquaire en ligne pour ceux qui
               savent que le rap, &ccedil;a s&apos;&eacute;coute mais &ccedil;a se poss&egrave;de
               aussi.
             </p>
@@ -98,7 +98,7 @@ export default function AProposPage() {
               &eacute;v&eacute;nements et des rencontres en &Icirc;le-de-France.
             </p>
             <p>
-              Shoptazik est le prolongement naturel de cette d&eacute;marche : une boutique
+              La Mug - Boutik&apos; est le prolongement naturel de cette d&eacute;marche : une boutique
               qui finance et soutient les projets artistiques et associatifs de La M.U.G.
               Chaque achat contribue directement &agrave; la mission de l&apos;association.
             </p>

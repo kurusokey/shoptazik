@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Conditions Générales de Vente — Shoptazik",
+  title: "Conditions Générales de Vente — La Mug - Boutik'",
   description:
-    "Conditions Générales de Vente de Shoptazik, la boutique en ligne de La M.U.G.",
+    "Conditions Générales de Vente de La Mug - Boutik', la boutique en ligne de La M.U.G.",
 };
 
 export default function CGVPage() {
@@ -26,7 +26,7 @@ export default function CGVPage() {
             <p>
               Les pr&eacute;sentes Conditions G&eacute;n&eacute;rales de Vente (CGV) r&eacute;gissent
               l&apos;ensemble des ventes effectu&eacute;es sur le site{" "}
-              <span className="text-white/80">shoptazik.com</span>, op&eacute;r&eacute; par
+              <span className="text-white/80">boutique.la-mug.com</span>, op&eacute;r&eacute; par
               La&nbsp;M.U.G (La Maison Urbaine G&eacute;n&eacute;rale). Toute commande implique
               l&apos;acceptation pleine et enti&egrave;re des pr&eacute;sentes CGV.
             </p>
@@ -47,12 +47,12 @@ export default function CGVPage() {
               </li>
               <li>
                 <span className="text-white/80">Email :</span>{" "}
-                <a href="mailto:contact@shoptazik.com" className="underline transition hover:text-white/80">
-                  contact@shoptazik.com
+                <a href="mailto:contact@la-mug.com" className="underline transition hover:text-white/80">
+                  contact@la-mug.com
                 </a>
               </li>
               <li>
-                <span className="text-white/80">Site web :</span> shoptazik.com
+                <span className="text-white/80">Site web :</span> boutique.la-mug.com
               </li>
             </ul>
           </section>
@@ -63,7 +63,7 @@ export default function CGVPage() {
               3. Produits
             </h2>
             <p>
-              Shoptazik propose &agrave; la vente des produits li&eacute;s &agrave; la musique
+              La Mug - Boutik&apos; propose &agrave; la vente des produits li&eacute;s &agrave; la musique
               et &agrave; la culture hip-hop, notamment :
             </p>
             <ul className="mt-2 list-inside list-disc space-y-1">
@@ -87,7 +87,7 @@ export default function CGVPage() {
             <p>
               Les prix sont indiqu&eacute;s en euros (EUR), toutes taxes comprises (TTC).
               Les frais de livraison sont affich&eacute;s avant la validation de la commande.
-              Shoptazik se r&eacute;serve le droit de modifier ses prix &agrave; tout moment,
+              La Mug - Boutik&apos; se r&eacute;serve le droit de modifier ses prix &agrave; tout moment,
               mais les produits sont factur&eacute;s sur la base du tarif en vigueur au moment
               de la validation de la commande.
             </p>
@@ -192,8 +192,8 @@ export default function CGVPage() {
             </ul>
             <p className="mt-3">
               Pour exercer ce droit, contactez-nous &agrave;{" "}
-              <a href="mailto:contact@shoptazik.com" className="underline transition hover:text-white/80">
-                contact@shoptazik.com
+              <a href="mailto:contact@la-mug.com" className="underline transition hover:text-white/80">
+                contact@la-mug.com
               </a>{" "}
               en indiquant votre num&eacute;ro de commande. Les frais de retour sont &agrave;
               la charge de l&apos;acheteur.
@@ -247,7 +247,7 @@ export default function CGVPage() {
               12. Responsabilit&eacute;
             </h2>
             <p>
-              Shoptazik ne saurait &ecirc;tre tenu responsable des dommages r&eacute;sultant
+              La Mug - Boutik&apos; ne saurait &ecirc;tre tenu responsable des dommages r&eacute;sultant
               d&apos;une mauvaise utilisation des produits achet&eacute;s. La responsabilit&eacute;
               du vendeur est limit&eacute;e au montant de la commande en cas de litige.
             </p>
@@ -279,8 +279,8 @@ export default function CGVPage() {
             <p>
               Pour toute question relative aux pr&eacute;sentes CGV ou &agrave; votre
               commande, vous pouvez nous contacter &agrave; :{" "}
-              <a href="mailto:contact@shoptazik.com" className="underline transition hover:text-white/80">
-                contact@shoptazik.com
+              <a href="mailto:contact@la-mug.com" className="underline transition hover:text-white/80">
+                contact@la-mug.com
               </a>
             </p>
           </section>

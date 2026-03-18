@@ -65,7 +65,7 @@ export default function AdminDashboard() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-white">Tableau de bord</h1>
         <p className="mt-1 text-sm text-zinc-400">
-          Vue d&apos;ensemble de votre boutique Shoptazik
+          Vue d&apos;ensemble de votre boutique La Mug - Boutik&apos;
         </p>
       </div>
 

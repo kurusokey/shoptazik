@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="grid gap-6 md:grid-cols-4 md:gap-8">
           <div>
             <h3 className="text-lg font-bold text-white/90">
-              SHOP<span style={{ color: t.logo }}>TAZIK</span>
+              LA MUG<span style={{ color: t.logo }}> - BOUTIK&apos;</span>
             </h3>
             <p className="mt-2 text-sm" style={{ color: t.footerText }}>
               La boutique du rap francophone. Vinyles, CD, K7 et merchandising officiel.
@@ -71,7 +71,7 @@ export default function Footer() {
                 <Link href="/a-propos" className="transition hover:text-white/70">&Agrave; propos</Link>
               </li>
               <li className="pt-1 text-xs" style={{ color: t.footerText }}>
-                Contact : contact@shoptazik.com
+                Contact : contact@la-mug.com
               </li>
             </ul>
           </div>
@@ -85,7 +85,7 @@ export default function Footer() {
           className="mt-8 pt-8 text-center text-xs text-white/15"
           style={{ borderTop: `1px solid ${t.footerMuted}` }}
         >
-          &copy; {new Date().getFullYear()} Shoptazik. Tous droits réservés.
+          &copy; {new Date().getFullYear()} La Mug - Boutik&apos;. Tous droits réservés.
         </div>
       </div>
     </footer>
