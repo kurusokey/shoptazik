@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Politique de Confidentialité — La Mug - Boutik'",
+  title: "Politique de Confidentialité — La Mug Boutik'",
   description:
-    "Politique de confidentialité et protection des données personnelles de La Mug - Boutik'.",
+    "Politique de confidentialité et protection des données personnelles de La Mug Boutik'.",
 };
 
 export default function ConfidentialitePage() {

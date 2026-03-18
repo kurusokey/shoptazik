@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "À propos — La Mug - Boutik'",
+  title: "À propos — La Mug Boutik'",
   description:
-    "La Mug - Boutik', la boutique du rap francophone. Créée par La M.U.G et Fdy Phenomen.",
+    "La Mug Boutik', la boutique du rap francophone. Créée par La M.U.G et Fdy Phenomen.",
 };
 
 export default function AProposPage() {
@@ -45,7 +45,7 @@ export default function AProposPage() {
         />
         <div className="relative mx-auto max-w-3xl">
           <h2 className="text-2xl font-bold text-white">
-            La boutique du rap francophone
+            La boutique de la culture urbaine
           </h2>
           <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/60">
             <p>

@@ -33,7 +33,7 @@ export async function generateMetadata({
     return { title: "Projet introuvable" };
   }
 
-  const title = `${project.title} — ${project.artist.name} | La Mug - Boutik'`;
+  const title = `${project.title} — ${project.artist.name} | La Mug Boutik'`;
   const description = project.description;
 
   return {
@@ -44,7 +44,7 @@ export async function generateMetadata({
       description,
       type: "music.album",
       images: project.cover_url ? [{ url: project.cover_url }] : [],
-      siteName: "La Mug - Boutik'",
+      siteName: "La Mug Boutik'",
       locale: "fr_FR",
     },
     twitter: {

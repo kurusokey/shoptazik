@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Conditions Générales de Vente — La Mug - Boutik'",
+  title: "Conditions Générales de Vente — La Mug Boutik'",
   description:
-    "Conditions Générales de Vente de La Mug - Boutik', la boutique en ligne de La M.U.G.",
+    "Conditions Générales de Vente de La Mug Boutik', la boutique en ligne de La M.U.G.",
 };
 
 export default function CGVPage() {

@@ -15,22 +15,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "La Mug - Boutik' — La boutique du rap francophone",
-    template: "%s | La Mug - Boutik'",
+    default: "La Mug Boutik' — La boutique de la culture urbaine",
+    template: "%s | La Mug Boutik'",
   },
   description:
     "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "La Mug - Boutik'",
-    title: "La Mug - Boutik' — La boutique du rap francophone",
+    siteName: "La Mug Boutik'",
+    title: "La Mug Boutik' — La boutique de la culture urbaine",
     description:
       "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "La Mug - Boutik' — La boutique du rap francophone",
+    title: "La Mug Boutik' — La boutique de la culture urbaine",
     description:
       "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
   },

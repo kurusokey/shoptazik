@@ -18,9 +18,9 @@ export async function generateMetadata({
     return { title: "Artiste introuvable" };
   }
 
-  const title = `${artist.name} | La Mug - Boutik'`;
+  const title = `${artist.name} | La Mug Boutik'`;
   const description =
-    artist.bio || `Discographie complète de ${artist.name} sur La Mug - Boutik'.`;
+    artist.bio || `Discographie complète de ${artist.name} sur La Mug Boutik'.`;
 
   return {
     title,
@@ -30,7 +30,7 @@ export async function generateMetadata({
       description,
       type: "profile",
       images: artist.image_url ? [{ url: artist.image_url }] : [],
-      siteName: "La Mug - Boutik'",
+      siteName: "La Mug Boutik'",
       locale: "fr_FR",
     },
     twitter: {

@@ -15,10 +15,10 @@ export default function Footer() {
         <div className="grid gap-6 md:grid-cols-4 md:gap-8">
           <div>
             <h3 className="text-lg font-bold text-white/90">
-              LA MUG<span style={{ color: t.logo }}> - BOUTIK&apos;</span>
+              LA MUG<span style={{ color: t.logo }}> BOUTIK&apos;</span>
             </h3>
             <p className="mt-2 text-sm" style={{ color: t.footerText }}>
-              La boutique du rap francophone. Vinyles, CD, K7 et merchandising officiel.
+              La boutique de la culture urbaine. Vinyles, CD, K7 et merchandising officiel.
             </p>
             <a
               href="https://fdy.art"

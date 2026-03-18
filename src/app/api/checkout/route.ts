@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
               name: item.product.name,
               description: item.variant
                 ? `${item.product.description} — ${item.variant.label}`
-                : (item.product.description || "Produit La Mug - Boutik'"),
+                : (item.product.description || "Produit La Mug Boutik'"),
             },
             unit_amount: item.product.price + (item.variant?.price_modifier ?? 0),
           },
