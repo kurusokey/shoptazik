@@ -248,8 +248,8 @@ export default async function HomePage() {
                   className="flex flex-col overflow-hidden rounded-xl border transition hover:border-white/10"
                   style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(200,160,80,0.03)" }}
                 >
-                  <div className="relative aspect-square overflow-hidden">
-                    <Image src={product.image_url} alt={product.name} fill={true} className="object-cover" />
+                  <div className="relative aspect-square overflow-hidden" style={{ background: "#201A14" }}>
+                    <Image src={product.image_url} alt={product.name} fill={true} className="object-contain" />
                   </div>
                   <div className="flex flex-1 flex-col p-3 sm:p-4">
                     <h3 className="text-sm font-semibold text-white leading-tight">CD</h3>
