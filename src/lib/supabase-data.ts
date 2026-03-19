@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { Artist, Project, Product, ProductVariant } from "@/types";
+import type { Artist, Project, Product, ProductVariant, Atelier } from "@/types";
 
 // ============================================
 // Fonctions d'accès aux données via Supabase
@@ -123,6 +123,51 @@ export async function getFeaturedProject(): Promise<
 
   const products = await getProductsByProject(project.id);
   return { ...project, artist, products };
+}
+
+// ============================================
+// News / Actualités
+// ============================================
+
+export interface NewsItem {
+  id: string;
+  title: string;
+  description: string;
+  type: "concert" | "sortie" | "atelier" | "evenement" | "autre";
+  date: string | null;
+  location: string | null;
+  link: string | null;
+  image_url: string | null;
+  published: boolean;
+  created_at: string;
+}
+
+export async function getNews(limit = 5): Promise<NewsItem[]> {
+  const { data, error } = await supabase
+    .from("news")
+    .select("*")
+    .eq("published", true)
+    .order("date", { ascending: false })
+    .limit(limit);
+  if (error) {
+    console.error("Error fetching news:", error.message);
+    return [];
+  }
+  return data ?? [];
+}
+
+// ============================================
+// Ateliers
+// ============================================
+
+export async function getAteliers(): Promise<Atelier[]> {
+  const { data, error } = await supabase
+    .from("ateliers")
+    .select("*")
+    .eq("published", true)
+    .order("title");
+  if (error) throw error;
+  return data ?? [];
 }
 
 // ============================================

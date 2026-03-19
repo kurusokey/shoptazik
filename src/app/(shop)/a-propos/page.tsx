@@ -102,6 +102,28 @@ export default function AProposPage() {
               qui finance et soutient les projets artistiques et associatifs de La M.U.G.
               Chaque achat contribue directement &agrave; la mission de l&apos;association.
             </p>
+            <p>
+              D&eacute;couvrez les{" "}
+              <a
+                href="https://la-mug.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-white"
+                style={{ color: "#C8A050" }}
+              >
+                ateliers et la mission de La M.U.G sur la-mug.com
+              </a>
+              {" "}&mdash; rap, enregistrement studio, clip vid&eacute;o, d&eacute;bats
+              et podcasts pour collectivit&eacute;s et particuliers. Vous pouvez aussi{" "}
+              <Link
+                href="/ateliers"
+                className="underline transition hover:text-white"
+                style={{ color: "#C8A050" }}
+              >
+                consulter nos ateliers directement sur la boutique
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </section>
@@ -157,6 +179,20 @@ export default function AProposPage() {
               de tout un parcours. 10 titres entre storytelling et introspection, avec des
               featurings d&apos;exception : Sir Samuel, Arsenik, IAM. L&apos;album est produit
               par <span className="text-white/80">Frero Prod</span>.
+            </p>
+            <p>
+              Retrouvez toute l&apos;actualit&eacute; de Fdy Phenomen &mdash; concerts,
+              sorties, vid&eacute;os &mdash; sur{" "}
+              <a
+                href="https://fdy.art"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-white"
+                style={{ color: "#C8A050" }}
+              >
+                fdy.art
+              </a>
+              .
             </p>
           </div>
         </div>
@@ -302,6 +338,32 @@ export default function AProposPage() {
             >
               Chanteur de Rap
             </Link>
+          </div>
+
+          {/* Liens croisés */}
+          <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-white/30">
+            <a
+              href="https://la-mug.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:text-white/60"
+            >
+              la-mug.com &mdash; Ateliers &amp; Mission
+            </a>
+            <a
+              href="https://fdy.art"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:text-white/60"
+            >
+              fdy.art &mdash; Actus &amp; Concerts
+            </a>
+            <a
+              href="https://boutique.la-mug.com"
+              className="transition hover:text-white/60"
+            >
+              boutique.la-mug.com &mdash; La Boutik&apos;
+            </a>
           </div>
         </div>
       </section>

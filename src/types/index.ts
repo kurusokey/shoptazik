@@ -75,5 +75,19 @@ export interface OrderItem {
   unit_price: number;
 }
 
+export interface Atelier {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  duration: string;
+  max_participants: number;
+  price: number; // en centimes
+  category: "rap" | "enregistrement" | "clip" | "debat" | "sur-mesure";
+  image_url: string | null;
+  published: boolean;
+  created_at: string;
+}
+
 export type ProjectWithProducts = Project & { products: Product[] };
 export type ArtistWithProjects = Artist & { projects: Project[] };

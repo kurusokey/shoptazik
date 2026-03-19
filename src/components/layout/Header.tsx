@@ -140,6 +140,10 @@ export default function Header() {
             )}
           </div>
 
+          <Link href="/ateliers" className="text-sm transition hover:text-white" style={{ color: t.linkColor }}>
+            Ateliers
+          </Link>
+
           {/* Recherche desktop */}
           {searchOpen ? (
             <form onSubmit={handleSearch} className="flex items-center gap-2">
@@ -227,6 +231,8 @@ export default function Header() {
 
           <p className="mt-2 text-xs font-semibold uppercase tracking-wider" style={{ color: t.accentColor, opacity: 0.5 }}>Artistes</p>
           <Link href="/artists/fdy-phenomen" className="block py-2.5 pl-3 text-sm" style={{ color: t.linkColor }}>Fdy Phenomen</Link>
+
+          <Link href="/ateliers" className="block py-2.5 text-sm" style={{ color: t.linkColor }}>Ateliers</Link>
 
           <p className="mt-2 text-xs font-semibold uppercase tracking-wider" style={{ color: t.accentColor, opacity: 0.5 }}>Produits</p>
           <Link href="/artists/fdy-phenomen/chanteur-de-rap" className="block py-2.5 pl-3 text-sm" style={{ color: t.linkColor }}>Vinyle</Link>

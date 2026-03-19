@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getFeaturedProject, getArtists } from "@/lib/supabase-data";
+import { getFeaturedProject, getArtists, getNews, type NewsItem } from "@/lib/supabase-data";
 import { formatPrice, categoryLabel } from "@/lib/utils";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
@@ -19,6 +19,7 @@ const AVIREX_LIFE = "/images/projects/fdy_life.jpg";
 export default async function HomePage() {
   const featured = await getFeaturedProject();
   const artists = await getArtists();
+  const news = await getNews(5);
 
   return (
     <div style={{ background: "#1A1610" }}>
@@ -356,6 +357,146 @@ export default async function HomePage() {
                 <p className="mt-4 text-sm font-medium" style={{ color: "#C8A050" }}>Voir la discographie &rarr;</p>
               </Link>
             ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <a
+              href="https://fdy.art"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition hover:bg-[#C8A050]/10"
+              style={{ borderColor: "#C8A050", color: "#C8A050" }}
+            >
+              D&eacute;couvrir l&apos;artiste &rarr; fdy.art
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          ACTUALITES & EVENEMENTS
+          ============================================ */}
+      {news.length > 0 && (
+        <section className="relative px-4 py-20">
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #1E1812, #1A1610)" }} />
+          <div className="relative mx-auto max-w-5xl">
+            <div className="mb-10 text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
+                Agenda
+              </p>
+              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">
+                Actualit&eacute;s &amp; &Eacute;v&eacute;nements
+              </h2>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {news.map((item: NewsItem) => {
+                const typeBadgeColors: Record<string, { bg: string; text: string }> = {
+                  concert: { bg: "rgba(200,160,80,0.15)", text: "#C8A050" },
+                  sortie: { bg: "rgba(100,180,100,0.15)", text: "#6AB46A" },
+                  atelier: { bg: "rgba(120,140,220,0.15)", text: "#8090E0" },
+                  evenement: { bg: "rgba(200,120,80,0.15)", text: "#D09060" },
+                  autre: { bg: "rgba(160,160,160,0.15)", text: "#A0A0A0" },
+                };
+                const badge = typeBadgeColors[item.type] || typeBadgeColors.autre;
+                const formattedDate = item.date
+                  ? new Date(item.date).toLocaleDateString("fr-FR", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  : null;
+
+                const CardContent = (
+                  <div
+                    className="flex h-full flex-col overflow-hidden rounded-xl border p-5 transition hover:border-[#C8A050]/30"
+                    style={{
+                      borderColor: "rgba(255,255,255,0.06)",
+                      background: "rgba(200,160,80,0.04)",
+                    }}
+                  >
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      {formattedDate && (
+                        <span className="text-xs font-medium text-white/30">
+                          {formattedDate}
+                        </span>
+                      )}
+                      <span
+                        className="shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                        style={{ background: badge.bg, color: badge.text }}
+                      >
+                        {item.type}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-white leading-tight">
+                      {item.title}
+                    </h3>
+                    {item.description && (
+                      <p className="mt-2 text-sm leading-relaxed text-white/40">
+                        {item.description}
+                      </p>
+                    )}
+                    {item.location && (
+                      <p className="mt-2 flex items-center gap-1.5 text-xs text-white/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5 shrink-0" style={{ color: "#C8A050", opacity: 0.6 }}>
+                          <path fillRule="evenodd" d="m9.69 18.933.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.274 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003ZM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5Z" clipRule="evenodd" />
+                        </svg>
+                        {item.location}
+                      </p>
+                    )}
+                    {item.link && (
+                      <p className="mt-auto pt-3 text-xs font-semibold" style={{ color: "#C8A050" }}>
+                        En savoir plus &rarr;
+                      </p>
+                    )}
+                  </div>
+                );
+
+                return item.link ? (
+                  <a
+                    key={item.id}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    {CardContent}
+                  </a>
+                ) : (
+                  <div key={item.id}>{CardContent}</div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ============================================
+          ATELIERS LA M.U.G
+          ============================================ */}
+      <section className="relative px-4 py-20">
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #161210)" }} />
+        <div className="relative mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
+            La M.U.G
+          </p>
+          <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">
+            Ateliers La M.U.G
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-white/45">
+            Rap, enregistrement, clip vid&eacute;o, d&eacute;bats &mdash; La M.U.G propose des ateliers
+            pour collectivit&eacute;s et particuliers.
+          </p>
+          <div className="mt-8">
+            <a
+              href="https://la-mug.com#contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition hover:bg-[#C8A050]/10"
+              style={{ borderColor: "#C8A050", color: "#C8A050" }}
+            >
+              R&eacute;server un atelier &rarr;
+            </a>
           </div>
         </div>
       </section>
