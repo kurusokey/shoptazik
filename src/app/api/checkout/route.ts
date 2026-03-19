@@ -68,7 +68,8 @@ export async function POST(req: NextRequest) {
     const isDigitalOnly = !hasItems && hasTracks;
 
     // Appel direct à l'API Stripe via fetch
-    const successUrl = `https://boutique.la-mug.com/checkout/success?session_id={CHECKOUT_SESSION_ID}`;
+    const orderType = isDigitalOnly ? "digital" : hasTracks ? "mixed" : "physical";
+    const successUrl = `https://boutique.la-mug.com/checkout/success?session_id={CHECKOUT_SESSION_ID}&type=${orderType}`;
     const cancelUrl = `https://boutique.la-mug.com/cart`;
 
     const formParts: string[] = [
