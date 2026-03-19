@@ -16,6 +16,15 @@ function SuccessContent() {
 
   useEffect(() => {
     clearCart();
+    // Forcer le vidage dans localStorage au cas où Zustand persist ne se sync pas
+    try {
+      const stored = localStorage.getItem("lamug-boutik-cart");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        parsed.state.items = [];
+        localStorage.setItem("lamug-boutik-cart", JSON.stringify(parsed));
+      }
+    } catch {}
   }, [clearCart]);
 
   return (
