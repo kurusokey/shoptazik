@@ -581,8 +581,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         background: isPretium ? `${theme.accent}0F` : theme.cardBg,
                       }}
                     >
-                      <div className="relative aspect-square overflow-hidden" style={{ background: product.category === "cd" ? theme.bg : undefined }}>
-                        <Image src={product.image_url} alt={product.name} fill={true} className={product.category === "cd" ? "object-contain p-4" : "object-cover"} />
+                      <div className="relative aspect-square overflow-hidden">
+                        <Image src={product.image_url} alt={product.name} fill={true} className="object-cover" />
                       </div>
                       <div className="flex flex-1 flex-col p-3 sm:p-4">
                         <div className="flex items-start justify-between gap-2">
