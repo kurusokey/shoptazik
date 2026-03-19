@@ -27,12 +27,14 @@ export const metadata: Metadata = {
     title: "La Mug Boutik' — La boutique de la culture urbaine",
     description:
       "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "La Mug Boutik' — La boutique de la culture urbaine" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "La Mug Boutik' — La boutique de la culture urbaine",
     description:
       "Vinyles, CD, K7 et merchandising officiel. Rap francophone, artistes indépendants, éditions limitées.",
+    images: ["/og-image.jpg"],
   },
   verification: {
     google: "google2e515f7fb447b8d7",
