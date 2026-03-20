@@ -10,6 +10,7 @@ export interface PageTheme {
   accentName: string;
   accentHref: string;
   accentColor: string;
+  accentSecondary: string; // secondary accent (leather/warm brown)
   cartBg: string;
   cartBorder: string;
   badgeBg: string;
@@ -31,6 +32,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "Flamboyant",
     accentHref: "/artists/fdy-phenomen/flamboyant",
     accentColor: "#C07088",
+    accentSecondary: "#8B3050",
     cartBg: "rgba(90,48,69,0.2)",
     cartBorder: "1px solid rgba(90,32,64,0.25)",
     badgeBg: "linear-gradient(135deg, #8B3050, #5A2040)",
@@ -50,6 +52,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "Qui Peut Tuer...",
     accentHref: "/artists/fdy-phenomen/qui-peut-tuer-la-rage-dun-assassin",
     accentColor: "#D41920",
+    accentSecondary: "#8B1010",
     cartBg: "rgba(212,25,32,0.08)",
     cartBorder: "1px solid rgba(212,25,32,0.12)",
     badgeBg: "#D41920",
@@ -69,6 +72,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "Ça D'vait Arriver",
     accentHref: "/artists/fdy-phenomen/ca-dvait-arriver",
     accentColor: "#C8A050",
+    accentSecondary: "#8B6914",
     cartBg: "rgba(200,160,80,0.08)",
     cartBorder: "1px solid rgba(200,160,80,0.12)",
     badgeBg: "#C8A050",
@@ -88,6 +92,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "Tropikal F",
     accentHref: "/artists/fdy-phenomen/tropikal",
     accentColor: "#E87020",
+    accentSecondary: "#A04E10",
     cartBg: "rgba(232,112,32,0.1)",
     cartBorder: "1px solid rgba(232,112,32,0.15)",
     badgeBg: "#E87020",
@@ -107,6 +112,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "The Prequel",
     accentHref: "/artists/fdy-phenomen/the-prequel",
     accentColor: "#8B1A1A",
+    accentSecondary: "#5A1010",
     cartBg: "rgba(139,26,26,0.08)",
     cartBorder: "1px solid rgba(139,26,26,0.12)",
     badgeBg: "#8B1A1A",
@@ -126,6 +132,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "Le Charcutier",
     accentHref: "/artists/fdy-phenomen/charcutier",
     accentColor: "#D41920",
+    accentSecondary: "#8B1010",
     cartBg: "rgba(212,25,32,0.1)",
     cartBorder: "1px solid rgba(212,25,32,0.15)",
     badgeBg: "#D41920",
@@ -145,6 +152,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "Rimeurs à Gages",
     accentHref: "/artists/fdy-phenomen/rimeurs-a-gages",
     accentColor: "#D4B830",
+    accentSecondary: "#8B7A14",
     cartBg: "rgba(212,184,48,0.08)",
     cartBorder: "1px solid rgba(212,184,48,0.12)",
     badgeBg: "#D4B830",
@@ -164,6 +172,7 @@ const themes: Record<string, PageTheme> = {
     accentName: "H(or)s-Série",
     accentHref: "/artists/fdy-phenomen/hors-serie",
     accentColor: "#D4A030",
+    accentSecondary: "#8B6914",
     cartBg: "rgba(212,160,48,0.08)",
     cartBorder: "1px solid rgba(212,160,48,0.12)",
     badgeBg: "#D4A030",
@@ -175,24 +184,27 @@ const themes: Record<string, PageTheme> = {
   },
 };
 
-// Thème par défaut — page accueil / Chanteur de Rap — ambre/or chaud
+// Thème par défaut — page accueil / Chanteur de Rap
+// Old-school hip-hop palette: black (#1A1610), gold (#C8A050),
+// warm leather brown (#8B6914), off-white (#F5E6C8)
 const defaultTheme: PageTheme = {
-  headerBg: "rgba(26,22,16,0.92)",
-  headerBorder: "1px solid rgba(200,160,80,0.1)",
+  headerBg: "rgba(26,22,16,0.95)",
+  headerBorder: "1px solid rgba(200,160,80,0.15)",
   logo: "#C8A050",
-  linkColor: "rgba(255,255,255,0.4)",
-  linkHover: "white",
+  linkColor: "rgba(245,230,200,0.4)",
+  linkHover: "#F5E6C8",
   accentName: "Chanteur de Rap",
   accentHref: "/artists/fdy-phenomen/chanteur-de-rap",
   accentColor: "#C8A050",
-  cartBg: "rgba(200,160,80,0.08)",
-  cartBorder: "1px solid rgba(200,160,80,0.12)",
-  badgeBg: "#C8A050",
-  badgeText: "black",
-  footerBg: "#141210",
-  footerBorder: "1px solid rgba(200,160,80,0.1)",
-  footerText: "rgba(255,255,255,0.3)",
-  footerMuted: "rgba(200,160,80,0.1)",
+  accentSecondary: "#8B6914",
+  cartBg: "rgba(200,160,80,0.1)",
+  cartBorder: "1px solid rgba(200,160,80,0.18)",
+  badgeBg: "linear-gradient(135deg, #C8A050, #8B6914)",
+  badgeText: "#1A1610",
+  footerBg: "#110F0B",
+  footerBorder: "1px solid rgba(200,160,80,0.12)",
+  footerText: "rgba(245,230,200,0.3)",
+  footerMuted: "rgba(139,105,20,0.2)",
 };
 
 export function getPageTheme(pathname: string): PageTheme {

@@ -10,7 +10,9 @@ export default function Footer() {
   const t = getPageTheme(pathname);
 
   return (
-    <footer style={{ background: t.footerBg, borderTop: t.footerBorder }}>
+    <footer style={{ background: t.footerBg }}>
+      {/* Gold stripe — bottom frame line, mirrors the TopBar gold line */}
+      <div style={{ height: "2px", background: `linear-gradient(90deg, transparent, ${t.logo} 20%, ${t.logo} 80%, transparent)` }} />
       <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
           {/* Colonne 1 : Marque + écosystème */}

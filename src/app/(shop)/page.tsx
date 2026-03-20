@@ -51,26 +51,56 @@ export default async function HomePage() {
           }}
         />
 
-        {/* Contenu bas */}
+        {/* Contenu bas — old-school hip-hop framing */}
         <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-10 md:pb-16">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-xl">
-                <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
+              <div
+                className="relative max-w-xl"
+                style={{
+                  borderLeft: "3px solid #C8A050",
+                  paddingLeft: "20px",
+                }}
+              >
+                {/* Gold corner frame — top-left */}
+                <div
+                  className="absolute -left-[1px] -top-3 h-[3px] w-10"
+                  style={{ background: "#C8A050" }}
+                />
+                <p
+                  className="text-xs font-bold uppercase"
+                  style={{
+                    color: "#C8A050",
+                    letterSpacing: "0.4em",
+                    borderBottom: "1px solid rgba(200,160,80,0.3)",
+                    paddingBottom: "6px",
+                    display: "inline-block",
+                  }}
+                >
                   Frero Prod pr&eacute;sente :
                 </p>
-                <h1 className="mt-3 text-3xl font-black tracking-tight text-white md:text-6xl">
+                <h1
+                  className="mt-4 text-3xl font-black uppercase text-white md:text-6xl"
+                  style={{
+                    letterSpacing: "0.03em",
+                    textShadow: "2px 2px 0 rgba(139,105,20,0.4), 0 0 40px rgba(200,160,80,0.15)",
+                  }}
+                >
                   Chanteur de Rap
                 </h1>
-                <p className="mt-2 text-lg text-white/50">
+                <p className="mt-2 text-lg font-medium" style={{ color: "rgba(245,230,200,0.5)" }}>
                   Le nouvel album de Fdy Phenomen
                 </p>
               </div>
               <div className="flex gap-3">
                 <Link
                   href="/artists/fdy-phenomen/chanteur-de-rap"
-                  className="rounded-xl px-7 py-3.5 font-bold text-black transition hover:brightness-110 md:px-8 md:py-4"
-                  style={{ background: "linear-gradient(135deg, #C8A050, #A08030)", boxShadow: "0 6px 25px rgba(200,160,80,0.3)" }}
+                  className="rounded-xl px-7 py-3.5 font-bold uppercase tracking-wider text-black transition hover:brightness-110 md:px-8 md:py-4"
+                  style={{
+                    background: "linear-gradient(135deg, #C8A050, #8B6914)",
+                    boxShadow: "0 6px 25px rgba(200,160,80,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+                    fontSize: "13px",
+                  }}
                 >
                   D&eacute;couvrir l&apos;album
                 </Link>
