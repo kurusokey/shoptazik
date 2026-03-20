@@ -6,7 +6,7 @@ import TshirtProductPage from "@/components/ui/TshirtProductPage";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const product = await getProductBySlug("tshirt-chanteur-de-rap");
+  const product = await getProductBySlug("tshirt-monde-nouvo");
 
   if (!product) {
     return { title: "Produit introuvable" };
@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TshirtPage() {
-  const product = await getProductBySlug("tshirt-chanteur-de-rap");
+  const product = await getProductBySlug("tshirt-monde-nouvo");
 
   if (!product) return notFound();
 
