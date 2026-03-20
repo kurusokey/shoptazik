@@ -7,7 +7,8 @@ import { getPageTheme } from "@/lib/page-theme";
 import { useState, useRef, useEffect } from "react";
 
 export default function Header() {
-  const totalItems = useCartStore((s) => s.totalItems);
+  const items = useCartStore((s) => s.items);
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const pathname = usePathname();
   const t = getPageTheme(pathname);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -183,12 +184,12 @@ export default function Header() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
             </svg>
             <span className="hidden sm:inline">Panier</span>
-            {hydrated && totalItems() > 0 && (
+            {hydrated && cartCount > 0 && (
               <span
                 className="absolute -right-2.5 -top-2.5 flex h-6 w-6 animate-bounce items-center justify-center rounded-full text-[11px] font-black"
                 style={{ background: "#FACC15", color: "#000000", boxShadow: "0 2px 12px rgba(250,204,21,0.6)" }}
               >
-                {totalItems()}
+                {cartCount}
               </span>
             )}
           </Link>
