@@ -34,6 +34,15 @@ function ensureYTApi() {
   };
 }
 
+// Stopper la musique quand l'onglet perd le focus
+if (typeof document !== "undefined") {
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && currentInstanceId) {
+      stopCurrentTrack();
+    }
+  });
+}
+
 function initSharedPlayer() {
   if (sharedPlayer) return;
 
