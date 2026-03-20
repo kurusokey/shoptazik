@@ -70,10 +70,10 @@ export default function CartPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 md:py-12" style={{ background: "#1A1610" }}>
-      <h1 className="mb-6 text-2xl font-bold text-white md:mb-8 md:text-3xl">Panier</h1>
+    <div className="mx-auto max-w-4xl px-3 py-6 sm:px-4 md:py-12" style={{ background: "#1A1610" }}>
+      <h1 className="mb-5 text-xl font-bold text-white sm:mb-6 sm:text-2xl md:mb-8 md:text-3xl">Panier</h1>
 
-      <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+      <div className="grid gap-5 lg:grid-cols-3 lg:gap-8">
         {/* Articles */}
         <div className="space-y-3 lg:col-span-2">
           {items.map((item) => (
@@ -88,30 +88,30 @@ export default function CartPage() {
 
               <div className="flex flex-1 flex-col justify-between min-w-0">
                 <div>
-                  <h3 className="truncate text-sm font-semibold text-white md:text-base">{item.product.name}</h3>
-                  <p className="text-xs text-white/30">
+                  <h3 className="truncate text-xs font-semibold text-white sm:text-sm md:text-base">{item.product.name}</h3>
+                  <p className="text-[11px] text-white/30 sm:text-xs">
                     {categoryLabel(item.product.category)}
                     {item.variant && ` — ${item.variant.label}`}
                   </p>
                 </div>
 
-                <div className="mt-2 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1">
                     <button
                       onClick={() => updateQuantity(item.product.id, item.quantity - 1, item.variant?.id)}
-                      className="flex h-7 w-7 items-center justify-center rounded-lg text-sm text-white/40 transition hover:text-white"
+                      className="flex h-6 w-6 items-center justify-center rounded-md text-xs text-white/40 transition hover:text-white sm:h-7 sm:w-7 sm:text-sm"
                       style={{ border: "1px solid rgba(200,160,80,0.15)" }}
                     >-</button>
-                    <span className="w-6 text-center text-sm text-white">{item.quantity}</span>
+                    <span className="w-5 text-center text-xs text-white sm:w-6 sm:text-sm">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.product.id, item.quantity + 1, item.variant?.id)}
-                      className="flex h-7 w-7 items-center justify-center rounded-lg text-sm text-white/40 transition hover:text-white"
+                      className="flex h-6 w-6 items-center justify-center rounded-md text-xs text-white/40 transition hover:text-white sm:h-7 sm:w-7 sm:text-sm"
                       style={{ border: "1px solid rgba(200,160,80,0.15)" }}
                     >+</button>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-bold text-white md:text-base">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <span className="text-xs font-bold text-white sm:text-sm md:text-base">
                       {formatPrice((item.product.price + (item.variant?.price_modifier ?? 0)) * item.quantity)}
                     </span>
                     <button onClick={() => removeItem(item.product.id, item.variant?.id)} className="text-white/20 transition hover:text-red-400">
@@ -127,8 +127,8 @@ export default function CartPage() {
         </div>
 
         {/* Résumé */}
-        <div className="h-fit rounded-xl border p-5" style={{ borderColor: "rgba(200,160,80,0.1)", background: "rgba(200,160,80,0.04)" }}>
-          <h2 className="text-lg font-bold text-white">Résumé</h2>
+        <div className="h-fit rounded-xl border p-4 sm:p-5" style={{ borderColor: "rgba(200,160,80,0.1)", background: "rgba(200,160,80,0.04)" }}>
+          <h2 className="text-base font-bold text-white sm:text-lg">Résumé</h2>
 
           <div className="mt-4 space-y-2 border-b pb-4" style={{ borderColor: "rgba(200,160,80,0.1)" }}>
             {items.map((item) => (

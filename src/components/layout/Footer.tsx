@@ -14,10 +14,10 @@ export default function Footer() {
       {/* Gold stripe — bottom frame line, mirrors the TopBar gold line */}
       <div style={{ height: "2px", background: `linear-gradient(90deg, transparent, ${t.logo} 20%, ${t.logo} 80%, transparent)` }} />
       <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
           {/* Colonne 1 : Marque + écosystème */}
           <div>
-            <h3 className="text-lg font-bold text-white/90">
+            <h3 className="text-base font-bold text-white/90 sm:text-lg">
               LA MUG<span style={{ color: t.logo }}> BOUTIK&apos;</span>
             </h3>
             <p className="mt-2 text-sm" style={{ color: t.footerText }}>
@@ -69,7 +69,7 @@ export default function Footer() {
               <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white/50">
                 Suivez-nous
               </h4>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                 {/* Instagram */}
                 <a
                   href="https://www.instagram.com/fdyphenomen/"

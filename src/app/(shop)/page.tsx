@@ -27,12 +27,13 @@ export default async function HomePage() {
           HERO — Le blouson Avirex en studio, plein écran
           Fdy de dos, casque, micro, en pleine session
           ============================================ */}
-      <section className="relative overflow-hidden" style={{ height: "85vh", minHeight: "500px", maxHeight: "1100px" }}>
+      <section className="relative overflow-hidden" style={{ height: "85vh", minHeight: "420px", maxHeight: "1100px" }}>
         <Image
           src={AVIREX_STUDIO}
           alt="Fdy Phenomen en studio — blouson Avirex"
           fill={true}
           priority={true}
+          sizes="100vw"
           className="object-cover"
           style={{ objectPosition: "center 20%" }}
         />
@@ -52,26 +53,26 @@ export default async function HomePage() {
         />
 
         {/* Contenu bas — old-school hip-hop framing */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-10 md:pb-16">
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-8 sm:px-6 md:pb-16">
           <div className="mx-auto max-w-7xl">
-            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
               <div
                 className="relative max-w-xl"
                 style={{
                   borderLeft: "3px solid #C8A050",
-                  paddingLeft: "20px",
+                  paddingLeft: "16px",
                 }}
               >
                 {/* Gold corner frame — top-left */}
                 <div
-                  className="absolute -left-[1px] -top-3 h-[3px] w-10"
+                  className="absolute -left-[1px] -top-3 h-[3px] w-8 sm:w-10"
                   style={{ background: "#C8A050" }}
                 />
                 <p
-                  className="text-xs font-bold uppercase"
+                  className="text-[10px] font-bold uppercase sm:text-xs"
                   style={{
                     color: "#C8A050",
-                    letterSpacing: "0.4em",
+                    letterSpacing: "0.25em",
                     borderBottom: "1px solid rgba(200,160,80,0.3)",
                     paddingBottom: "6px",
                     display: "inline-block",
@@ -80,7 +81,7 @@ export default async function HomePage() {
                   Frero Prod pr&eacute;sente :
                 </p>
                 <h1
-                  className="mt-4 text-3xl font-black uppercase text-white md:text-6xl"
+                  className="mt-3 text-2xl font-black uppercase text-white sm:text-3xl md:mt-4 md:text-6xl"
                   style={{
                     letterSpacing: "0.03em",
                     textShadow: "2px 2px 0 rgba(139,105,20,0.4), 0 0 40px rgba(200,160,80,0.15)",
@@ -88,14 +89,14 @@ export default async function HomePage() {
                 >
                   Chanteur de Rap
                 </h1>
-                <p className="mt-2 text-lg font-medium" style={{ color: "rgba(245,230,200,0.5)" }}>
+                <p className="mt-1.5 text-sm font-medium sm:mt-2 sm:text-lg" style={{ color: "rgba(245,230,200,0.5)" }}>
                   Le nouvel album de Fdy Phenomen
                 </p>
               </div>
               <div className="flex gap-3">
                 <Link
                   href="/artists/fdy-phenomen/chanteur-de-rap"
-                  className="rounded-xl px-7 py-3.5 font-bold uppercase tracking-wider text-black transition hover:brightness-110 md:px-8 md:py-4"
+                  className="w-full rounded-xl px-7 py-3 text-center font-bold uppercase tracking-wider text-black transition hover:brightness-110 sm:w-auto md:px-8 md:py-4"
                   style={{
                     background: "linear-gradient(135deg, #C8A050, #8B6914)",
                     boxShadow: "0 6px 25px rgba(200,160,80,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
@@ -114,15 +115,15 @@ export default async function HomePage() {
           SECTION — Pochette front + présentation
           Transition du studio vers l'album
           ============================================ */}
-      <section className="relative overflow-hidden px-4 py-16 md:py-20">
+      <section className="relative overflow-hidden px-4 py-12 md:py-20">
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #201A14, #1A1610)" }} />
         {/* Lueur ambre subtile */}
         <div className="absolute -right-40 top-0 h-[400px] w-[400px] rounded-full blur-[120px]" style={{ background: "rgba(200,160,80,0.06)" }} />
 
         <div className="relative mx-auto max-w-7xl">
-          <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
             <div className="flex justify-center">
-              <div className="w-full max-w-[460px] overflow-hidden rounded-lg" style={{ boxShadow: "0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)" }}>
+              <div className="w-full max-w-[320px] overflow-hidden rounded-lg sm:max-w-[460px]" style={{ boxShadow: "0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)" }}>
                 <Image src={COVER_FRONT} alt="Chanteur de Rap — Pochette" width={600} height={600} className="block h-auto w-full" />
               </div>
             </div>
@@ -131,10 +132,10 @@ export default async function HomePage() {
               <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
                 L&apos;album
               </p>
-              <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">
+              <h2 className="mt-2 text-2xl font-black text-white sm:mt-3 sm:text-3xl md:text-4xl">
                 Le rap d&apos;auteur dans sa forme la plus aboutie
               </h2>
-              <p className="mt-4 leading-relaxed text-white/50">
+              <p className="mt-3 text-sm leading-relaxed text-white/50 sm:mt-4 sm:text-base">
                 Chanteur de Rap, c&apos;est le manifeste de Fdy Phenomen. Le blouson Avirex
                 sur le dos, le micro devant, la plume en main. 10 titres qui traversent
                 les g&eacute;n&eacute;rations du hip-hop, du storytelling &agrave;
@@ -157,12 +158,13 @@ export default async function HomePage() {
           SECTION — Le blouson Avirex, l'univers
           Photo fdy_life.jpg en plein écran
           ============================================ */}
-      <section className="relative overflow-hidden" style={{ height: "70vh", minHeight: "400px", maxHeight: "900px" }}>
+      <section className="relative overflow-hidden" style={{ height: "70vh", minHeight: "380px", maxHeight: "900px" }}>
         <Image
           src={AVIREX_LIFE}
           alt="L'univers de Fdy Phenomen — blouson Avirex, vinyles, discographie"
           fill={true}
           priority={true}
+          sizes="100vw"
           className="object-cover"
           style={{ objectPosition: "center center" }}
         />
@@ -179,16 +181,16 @@ export default async function HomePage() {
           }}
         />
 
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-12 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:pb-0">
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-8 sm:px-6 sm:pb-12 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:pb-0">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-lg">
               <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
                 L&apos;univers
               </p>
-              <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">
+              <h2 className="mt-2 text-2xl font-black text-white sm:mt-3 sm:text-3xl md:text-4xl">
                 Le blouson Avirex
               </h2>
-              <p className="mt-4 leading-relaxed text-white/60">
+              <p className="mt-3 text-sm leading-relaxed text-white/60 sm:mt-4 sm:text-base">
                 Le blouson Avirex, c&apos;est le symbole. Celui des freestyles l&eacute;gendaires,
                 des sessions studio, du crew Ghet&apos; 7 dans le dos.
                 Il traverse les &eacute;poques, les albums, les sc&egrave;nes.
@@ -204,7 +206,7 @@ export default async function HomePage() {
           FORMATS / PRODUITS
           ============================================ */}
       {featured && featured.products.length > 0 && (
-        <section className="relative overflow-hidden px-4 py-20">
+        <section className="relative overflow-hidden px-4 py-14 md:py-20">
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #201A14)" }} />
           {/* Avirex studio floutée en arrière-plan */}
           <div className="absolute inset-0 overflow-hidden">
@@ -212,9 +214,9 @@ export default async function HomePage() {
           </div>
 
           <div className="relative mx-auto max-w-5xl">
-            <h2 className="mb-6 text-xl font-bold text-white md:mb-8 md:text-2xl">Formats disponibles</h2>
+            <h2 className="mb-5 text-lg font-bold text-white sm:mb-6 sm:text-xl md:mb-8 md:text-2xl">Formats disponibles</h2>
 
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-3 sm:gap-3">
               {/* === VINYLE PRETIUM EDITION === */}
               {featured.products.filter((p) => p.slug === "vinyle-chanteur-de-rap-pretium").map((product) => (
                 <div
@@ -335,7 +337,7 @@ export default async function HomePage() {
                     return (
                     <div
                       key={i}
-                      className="flex items-center gap-3 px-5 py-4 transition hover:bg-white/[0.03]"
+                      className="flex items-center gap-2 px-3 py-3 transition hover:bg-white/[0.03] sm:gap-3 sm:px-5 sm:py-4"
                       style={{ borderBottom: i !== featured.tracklist.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
                     >
                       {ytId ? (
@@ -367,10 +369,10 @@ export default async function HomePage() {
       {/* ============================================
           ARTISTE
           ============================================ */}
-      <section className="relative px-4 py-20">
+      <section className="relative px-4 py-14 md:py-20">
         <div className="absolute inset-0" style={{ background: "#1A1610" }} />
         <div className="relative mx-auto max-w-7xl">
-          <h2 className="mb-10 text-2xl font-bold text-white">L&apos;artiste</h2>
+          <h2 className="mb-6 text-xl font-bold text-white sm:mb-10 sm:text-2xl">L&apos;artiste</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {artists.map((artist) => (
               <Link
@@ -407,14 +409,14 @@ export default async function HomePage() {
           ACTUALITES & EVENEMENTS
           ============================================ */}
       {news.length > 0 && (
-        <section className="relative px-4 py-20">
+        <section className="relative px-4 py-14 md:py-20">
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #1E1812, #1A1610)" }} />
           <div className="relative mx-auto max-w-5xl">
-            <div className="mb-10 text-center">
+            <div className="mb-8 text-center md:mb-10">
               <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
                 Agenda
               </p>
-              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">
+              <h2 className="mt-2 text-xl font-bold text-white sm:mt-3 sm:text-2xl md:text-3xl">
                 Actualit&eacute;s &amp; &Eacute;v&eacute;nements
               </h2>
             </div>
@@ -504,25 +506,25 @@ export default async function HomePage() {
       {/* ============================================
           ATELIERS LA M.U.G
           ============================================ */}
-      <section className="relative px-4 py-20">
+      <section className="relative px-4 py-14 md:py-20">
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, #1A1610, #161210)" }} />
         <div className="relative mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em]" style={{ color: "#C8A050" }}>
             La M.U.G
           </p>
-          <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">
+          <h2 className="mt-2 text-xl font-bold text-white sm:mt-3 sm:text-2xl md:text-3xl">
             Ateliers La M.U.G
           </h2>
-          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-white/45">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/45 sm:mt-4 sm:text-base">
             Rap, enregistrement, clip vid&eacute;o, d&eacute;bats &mdash; La M.U.G propose des ateliers
             pour collectivit&eacute;s et particuliers.
           </p>
-          <div className="mt-8">
+          <div className="mt-6 sm:mt-8">
             <a
               href="https://la-mug.com#contact"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition hover:bg-[#C8A050]/10"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition hover:bg-[#C8A050]/10 sm:w-auto"
               style={{ borderColor: "#C8A050", color: "#C8A050" }}
             >
               R&eacute;server un atelier &rarr;

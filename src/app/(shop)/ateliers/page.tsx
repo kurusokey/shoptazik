@@ -33,7 +33,7 @@ export default async function AteliersPage() {
   return (
     <div style={{ background: "#1A1610" }} className="min-h-screen">
       {/* Hero */}
-      <section className="relative overflow-hidden px-4 py-20 md:py-32">
+      <section className="relative overflow-hidden px-4 py-14 sm:py-20 md:py-32">
         <div
           className="absolute inset-0"
           style={{
@@ -48,11 +48,11 @@ export default async function AteliersPage() {
           >
             La M.U.G pr&eacute;sente
           </p>
-          <h1 className="mt-4 text-4xl font-black text-white md:text-5xl">
+          <h1 className="mt-3 text-3xl font-black text-white sm:mt-4 sm:text-4xl md:text-5xl">
             Ateliers{" "}
             <span style={{ color: "#C8A050" }}>La M.U.G</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/50">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/50 sm:mt-6 sm:text-lg">
             Rap, enregistrement, clip vid&eacute;o, d&eacute;bats &mdash; des ateliers
             pour collectivit&eacute;s et particuliers.
           </p>
@@ -60,7 +60,7 @@ export default async function AteliersPage() {
       </section>
 
       {/* Grille d'ateliers */}
-      <section className="relative px-4 pb-20">
+      <section className="relative px-4 pb-14 sm:pb-20">
         <div
           className="absolute inset-0"
           style={{
@@ -68,7 +68,7 @@ export default async function AteliersPage() {
           }}
         />
         <div className="relative mx-auto max-w-5xl">
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
             {ateliers.map((atelier) => (
               <div
                 key={atelier.id}
@@ -78,7 +78,7 @@ export default async function AteliersPage() {
                   background: "rgba(200,160,80,0.04)",
                 }}
               >
-                <div className="flex flex-1 flex-col p-6">
+                <div className="flex flex-1 flex-col p-4 sm:p-6">
                   {/* Category badge */}
                   <div className="mb-4 flex items-center gap-2">
                     <svg
@@ -179,7 +179,7 @@ export default async function AteliersPage() {
       </section>
 
       {/* CTA section */}
-      <section className="relative px-4 py-20">
+      <section className="relative px-4 py-14 sm:py-20">
         <div
           className="absolute inset-0"
           style={{
@@ -191,20 +191,20 @@ export default async function AteliersPage() {
           style={{ background: "rgba(200,160,80,0.06)" }}
         />
         <div className="relative mx-auto max-w-3xl text-center">
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-xl font-bold text-white sm:text-2xl">
             Un atelier sur-mesure ?
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-white/50">
+          <p className="mt-3 text-sm leading-relaxed text-white/50 sm:mt-4">
             La M.U.G con&ccedil;oit des ateliers adapt&eacute;s &agrave; vos besoins :
             collectivit&eacute;s, &eacute;coles, centres sociaux, entreprises.
             Contactez-nous pour &eacute;tablir un programme personnalis&eacute;.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
             <a
               href="https://la-mug.com#contact"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl px-7 py-3.5 font-bold text-black transition hover:brightness-110"
+              className="rounded-xl px-7 py-3.5 text-center font-bold text-black transition hover:brightness-110"
               style={{
                 background: "linear-gradient(135deg, #C8A050, #A08030)",
                 boxShadow: "0 6px 25px rgba(200,160,80,0.3)",
@@ -216,7 +216,7 @@ export default async function AteliersPage() {
               href="https://la-mug.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border px-7 py-3.5 font-bold text-white/70 transition hover:border-[#C8A050]/40 hover:text-white"
+              className="rounded-xl border px-7 py-3.5 text-center font-bold text-white/70 transition hover:border-[#C8A050]/40 hover:text-white"
               style={{ borderColor: "rgba(255,255,255,0.1)" }}
             >
               D&eacute;couvrir La M.U.G

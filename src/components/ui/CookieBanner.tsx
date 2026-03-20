@@ -29,11 +29,11 @@ export default function CookieBanner() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-4"
+      className="fixed bottom-0 left-0 right-0 z-50 px-3 pb-3 sm:px-4 sm:pb-4"
       style={{ pointerEvents: "none" }}
     >
       <div
-        className="mx-auto flex max-w-3xl flex-col items-center gap-3 rounded-xl border px-5 py-4 backdrop-blur-md sm:flex-row sm:gap-4"
+        className="mx-auto flex max-w-3xl flex-col items-center gap-2.5 rounded-xl border px-4 py-3 backdrop-blur-md sm:flex-row sm:gap-4 sm:px-5 sm:py-4"
         style={{
           background: "rgba(26,22,16,0.95)",
           borderColor: "rgba(200,160,80,0.15)",
@@ -41,7 +41,7 @@ export default function CookieBanner() {
           pointerEvents: "auto",
         }}
       >
-        <p className="flex-1 text-center text-sm text-white/60 sm:text-left">
+        <p className="flex-1 text-center text-xs text-white/60 sm:text-left sm:text-sm">
           Ce site utilise des cookies analytiques pour am&eacute;liorer votre
           exp&eacute;rience.
         </p>
