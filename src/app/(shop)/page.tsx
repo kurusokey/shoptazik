@@ -4,13 +4,10 @@ import { getFeaturedProject, getArtists, getNews, type NewsItem } from "@/lib/su
 import { formatPrice, categoryLabel } from "@/lib/utils";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
-import BuyTrackButton from "@/components/ui/BuyTrackButton";
-import BuyAlbumDigital from "@/components/ui/BuyAlbumDigital";
 import { getYouTubeId } from "@/lib/youtube";
 
 export const revalidate = 60;
 
-const TRACK_PRICE = 129;
 
 const COVER_FRONT = "/images/projects/album_chanteur_de_rap.jpg";
 const AVIREX_STUDIO = "/images/projects/avirex.jpg";

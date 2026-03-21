@@ -7,7 +7,6 @@ import {
   getChildProjects,
 } from "@/lib/supabase-data";
 import YouTubePlayer from "@/components/ui/YouTubePlayer";
-import BuyTrackButton from "@/components/ui/BuyTrackButton";
 import BuyAlbumDigital from "@/components/ui/BuyAlbumDigital";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import StreamingLinks from "@/components/ui/StreamingLinks";
@@ -19,7 +18,6 @@ import FadeIn from "@/components/ui/FadeIn";
 
 export const revalidate = 60;
 
-const TRACK_PRICE = 129; // 1,29€ par titre
 
 interface ProjectPageProps {
   params: Promise<{ artistSlug: string; projectSlug: string }>;
