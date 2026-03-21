@@ -147,7 +147,7 @@ export async function getNews(limit = 5): Promise<NewsItem[]> {
     .from("news")
     .select("*")
     .eq("published", true)
-    .order("date", { ascending: false })
+    .order("date", { ascending: true })
     .limit(limit);
   if (error) {
     console.error("Error fetching news:", error.message);
