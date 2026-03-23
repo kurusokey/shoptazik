@@ -226,7 +226,7 @@ export default async function HomePage() {
                   </div>
                   <div className="flex flex-1 flex-col p-3 sm:p-4">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="text-sm font-semibold text-white leading-tight">Pretium Edition</h3>
+                      <h3 className="text-sm font-semibold text-white leading-tight">Premium Edition</h3>
                       <span
                         className="inline-flex shrink-0 items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest"
                         style={{ border: "1px solid rgba(200,160,80,0.5)", color: "#C8A050" }}

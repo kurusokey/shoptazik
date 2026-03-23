@@ -568,7 +568,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           ? "https://www.centrevillerecords.be/product/fdy-phenomen-chanteur-de-rap-cd"
                           : null;
 
-                  const label = isPretium ? "Pretium Edition" : product.category === "cd" ? "CD" : "Classic Edition";
+                  const label = isPretium ? "Premium Edition" : product.category === "cd" ? "CD" : "Classic Edition";
 
                   return (
                     <div
