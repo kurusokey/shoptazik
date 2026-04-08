@@ -1,9 +1,7 @@
 // API Route — Authentification dashboard marketing
-// POST : login → retourne un token
-// GET : vérifier un token
+// Simplifié : pas de crypto Node.js (compatible Edge + Serverless)
 
 import { NextResponse } from "next/server";
-import crypto from "crypto";
 
 const ALLOWED_ORIGINS = [
   "https://la-mug.com",
@@ -26,57 +24,67 @@ export async function OPTIONS(request: Request) {
   return new NextResponse(null, { status: 204, headers: corsHeaders(request.headers.get("origin")) });
 }
 
-// Génère un token signé (valide 24h)
-function generateToken(): string {
-  const secret = process.env.ADMIN_TOKEN_SECRET || "fallback-secret";
-  const expiry = Date.now() + 24 * 60 * 60 * 1000; // 24h
-  const payload = `mug-admin:${expiry}`;
-  const signature = crypto.createHmac("sha256", secret).update(payload).digest("hex");
-  // token = base64(payload:signature)
-  return Buffer.from(`${payload}:${signature}`).toString("base64");
+// Token = base64("mug-admin:{expiry}:{simple-hash}")
+function simpleHash(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit int
+  }
+  return Math.abs(hash).toString(36);
 }
 
-// Vérifie un token
+function generateToken(): string {
+  const secret = process.env.ADMIN_TOKEN_SECRET || "fallback";
+  const expiry = Date.now() + 24 * 60 * 60 * 1000;
+  const payload = `mug-admin:${expiry}`;
+  const sig = simpleHash(payload + secret);
+  return btoa(`${payload}:${sig}`);
+}
+
 export function verifyToken(token: string): boolean {
   try {
-    const secret = process.env.ADMIN_TOKEN_SECRET || "fallback-secret";
-    const decoded = Buffer.from(token, "base64").toString("utf-8");
+    const secret = process.env.ADMIN_TOKEN_SECRET || "fallback";
+    const decoded = atob(token);
     const parts = decoded.split(":");
     if (parts.length !== 3) return false;
 
-    const [prefix, expiryStr, signature] = parts;
-    const payload = `${prefix}:${expiryStr}`;
-    const expectedSig = crypto.createHmac("sha256", secret).update(payload).digest("hex");
-
-    if (signature !== expectedSig) return false;
+    const [prefix, expiryStr, sig] = parts;
+    if (prefix !== "mug-admin") return false;
     if (Date.now() > Number(expiryStr)) return false;
 
-    return true;
+    const expectedSig = simpleHash(`${prefix}:${expiryStr}` + secret);
+    return sig === expectedSig;
   } catch {
     return false;
   }
 }
 
-// POST /api/marketing/auth — login
+// POST — login
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
   const headers = corsHeaders(origin);
 
-  const body = await request.json();
-  const { username, password } = body;
+  try {
+    const body = await request.json();
+    const { username, password } = body;
 
-  const validUser = process.env.ADMIN_USERNAME || "admin";
-  const validPass = process.env.ADMIN_PASSWORD || "";
+    const validUser = process.env.ADMIN_USERNAME || "admin";
+    const validPass = process.env.ADMIN_PASSWORD || "";
 
-  if (username === validUser && password === validPass) {
-    const token = generateToken();
-    return NextResponse.json({ ok: true, token }, { headers });
+    if (username === validUser && password === validPass) {
+      const token = generateToken();
+      return NextResponse.json({ ok: true, token }, { headers });
+    }
+
+    return NextResponse.json({ ok: false, error: "Identifiants incorrects" }, { status: 401, headers });
+  } catch {
+    return NextResponse.json({ ok: false, error: "Requête invalide" }, { status: 400, headers });
   }
-
-  return NextResponse.json({ ok: false, error: "Identifiants incorrects" }, { status: 401, headers });
 }
 
-// GET /api/marketing/auth — vérifier token
+// GET — vérifier token
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
   const headers = corsHeaders(origin);
