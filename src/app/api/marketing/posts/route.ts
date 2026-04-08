@@ -5,6 +5,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { verifyToken } from "../auth/route";
 
 const ALLOWED_ORIGINS = [
   "https://la-mug.com",
@@ -19,7 +20,7 @@ function corsHeaders(origin: string | null) {
   return {
     "Access-Control-Allow-Origin": allowed,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 }
 
@@ -39,8 +40,19 @@ function getSupabase() {
   );
 }
 
+function checkAuth(request: Request, origin: string | null): NextResponse | null {
+  const authHeader = request.headers.get("authorization");
+  const token = authHeader?.replace("Bearer ", "");
+  if (!token || !verifyToken(token)) {
+    return NextResponse.json({ error: "Non autorisé" }, { status: 401, headers: corsHeaders(origin) });
+  }
+  return null;
+}
+
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
+  const denied = checkAuth(request, origin);
+  if (denied) return denied;
   const { searchParams } = new URL(request.url);
   const view = searchParams.get("view") || "recent";
   const limit = Number(searchParams.get("limit")) || 20;
@@ -98,6 +110,8 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
+  const denied = checkAuth(request, origin);
+  if (denied) return denied;
   const body = await request.json();
   const { action, id } = body;
   const supabase = getSupabase();

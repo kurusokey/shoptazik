@@ -1,23 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // ============================================
-// Dashboard Marketing — Validation mobile
+// Dashboard Marketing — Protégé par login
 // /admin/marketing
 // ============================================
+
+const API_BASE = "/api/marketing";
 
 interface Post {
   id: string;
   platform: string;
   post_type: string;
   text_content: string;
-  image_url?: string;
   score: number;
   impressions: number;
-  engagement: number;
   clicks: number;
-  campaign?: string;
   content_category: string;
   created_at: string;
 }
@@ -27,9 +26,7 @@ interface LibraryItem {
   type: string;
   title: string;
   content: string;
-  platform: string;
   approved: boolean;
-  tags: string[];
   created_at: string;
 }
 
@@ -39,7 +36,6 @@ interface Comment {
   text_content: string;
   sentiment: string;
   timestamp: string;
-  replied: boolean;
 }
 
 interface Stats {
@@ -51,7 +47,159 @@ interface Stats {
 
 type Tab = "dashboard" | "posts" | "library" | "comments";
 
+// ---- Auth helpers ----
+
+function getToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem("mug-admin-token");
+}
+
+function setToken(token: string) {
+  localStorage.setItem("mug-admin-token", token);
+}
+
+function clearToken() {
+  localStorage.removeItem("mug-admin-token");
+}
+
+async function authFetch(url: string, opts?: RequestInit) {
+  const token = getToken();
+  const headers: Record<string, string> = {
+    ...(opts?.headers as Record<string, string>),
+  };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+  if (opts?.method === "POST") headers["Content-Type"] = "application/json";
+
+  const res = await fetch(url, { ...opts, headers });
+  if (res.status === 401) {
+    clearToken();
+    window.location.reload();
+    throw new Error("Non autorisé");
+  }
+  return res;
+}
+
+// ---- Login Screen ----
+
+function LoginScreen({ onLogin }: { onLogin: () => void }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${API_BASE}/auth`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+
+      if (data.ok && data.token) {
+        setToken(data.token);
+        onLogin();
+      } else {
+        setError(data.error || "Identifiants incorrects");
+      }
+    } catch {
+      setError("Erreur de connexion");
+    }
+    setLoading(false);
+  }
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "#0A0A0A",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "20px",
+    }}>
+      <form onSubmit={handleSubmit} style={{
+        background: "#1A1A1A",
+        borderRadius: "12px",
+        padding: "32px",
+        width: "100%",
+        maxWidth: "360px",
+        border: "1px solid #333",
+      }}>
+        <div style={{ textAlign: "center", marginBottom: "24px" }}>
+          <h1 style={{ color: "#C8A050", fontSize: "20px", margin: "0 0 4px" }}>La M.U.G</h1>
+          <p style={{ color: "#888", fontSize: "13px" }}>Dashboard Marketing</p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <label style={{ display: "block", color: "#888", fontSize: "12px", marginBottom: "6px" }}>Identifiant</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px 12px",
+              background: "#0A0A0A",
+              border: "1px solid #333",
+              borderRadius: "8px",
+              color: "#F5E6C8",
+              fontSize: "14px",
+              outline: "none",
+            }}
+            autoFocus
+          />
+        </div>
+
+        <div style={{ marginBottom: "20px" }}>
+          <label style={{ display: "block", color: "#888", fontSize: "12px", marginBottom: "6px" }}>Mot de passe</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px 12px",
+              background: "#0A0A0A",
+              border: "1px solid #333",
+              borderRadius: "8px",
+              color: "#F5E6C8",
+              fontSize: "14px",
+              outline: "none",
+            }}
+          />
+        </div>
+
+        {error && (
+          <p style={{ color: "#f44336", fontSize: "13px", marginBottom: "12px", textAlign: "center" }}>{error}</p>
+        )}
+
+        <button type="submit" disabled={loading} style={{
+          width: "100%",
+          padding: "12px",
+          background: "#C8A050",
+          color: "#0A0A0A",
+          border: "none",
+          borderRadius: "8px",
+          fontWeight: "bold",
+          fontSize: "14px",
+          cursor: loading ? "wait" : "pointer",
+          opacity: loading ? 0.7 : 1,
+        }}>
+          {loading ? "Connexion..." : "Se connecter"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+// ---- Dashboard ----
+
 export default function MarketingDashboard() {
+  const [authed, setAuthed] = useState<boolean | null>(null);
   const [tab, setTab] = useState<Tab>("dashboard");
   const [posts, setPosts] = useState<Post[]>([]);
   const [library, setLibrary] = useState<LibraryItem[]>([]);
@@ -59,78 +207,55 @@ export default function MarketingDashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Check auth on mount
   useEffect(() => {
-    if (tab === "dashboard") loadStats();
-    if (tab === "posts") loadPosts();
-    if (tab === "library") loadLibrary();
-    if (tab === "comments") loadComments();
+    const token = getToken();
+    if (!token) { setAuthed(false); return; }
+    fetch(`${API_BASE}/auth`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => { setAuthed(r.ok); if (!r.ok) clearToken(); })
+      .catch(() => { setAuthed(false); clearToken(); });
+  }, []);
+
+  const loadData = useCallback(async () => {
+    setLoading(true);
+    try {
+      if (tab === "dashboard") {
+        const res = await authFetch(`${API_BASE}/posts?view=stats`);
+        setStats(await res.json());
+      } else if (tab === "posts") {
+        const res = await authFetch(`${API_BASE}/posts?view=recent`);
+        const data = await res.json();
+        setPosts(data.posts || []);
+      } else if (tab === "library") {
+        const res = await authFetch(`${API_BASE}/posts?view=library`);
+        const data = await res.json();
+        setLibrary(data.items || []);
+      } else if (tab === "comments") {
+        const res = await authFetch(`${API_BASE}/posts?view=comments`);
+        const data = await res.json();
+        setComments(data.comments || []);
+      }
+    } catch { /* auth redirect handled by authFetch */ }
+    setLoading(false);
   }, [tab]);
 
-  async function loadStats() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/marketing/posts?view=stats");
-      const data = await res.json();
-      setStats(data);
-    } catch { /* */ }
-    setLoading(false);
-  }
+  useEffect(() => { if (authed) loadData(); }, [authed, loadData]);
 
-  async function loadPosts() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/marketing/posts?view=recent");
-      const data = await res.json();
-      setPosts(data.posts || []);
-    } catch { /* */ }
-    setLoading(false);
-  }
+  if (authed === null) return <div style={{ minHeight: "100vh", background: "#0A0A0A" }} />;
+  if (!authed) return <LoginScreen onLogin={() => setAuthed(true)} />;
 
-  async function loadLibrary() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/marketing/posts?view=library");
-      const data = await res.json();
-      setLibrary(data.items || []);
-    } catch { /* */ }
-    setLoading(false);
-  }
-
-  async function loadComments() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/marketing/posts?view=comments");
-      const data = await res.json();
-      setComments(data.comments || []);
-    } catch { /* */ }
-    setLoading(false);
-  }
+  const sentimentEmoji: Record<string, string> = { positive: "💚", negative: "🔴", neutral: "⚪", question: "❓" };
 
   async function approveItem(id: string) {
-    await fetch("/api/marketing/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "approve", id }),
-    });
-    loadLibrary();
+    await authFetch(`${API_BASE}/posts`, { method: "POST", body: JSON.stringify({ action: "approve", id }) });
+    loadData();
   }
 
   async function rejectItem(id: string) {
     if (!confirm("Supprimer ce contenu ?")) return;
-    await fetch("/api/marketing/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "reject", id }),
-    });
-    loadLibrary();
+    await authFetch(`${API_BASE}/posts`, { method: "POST", body: JSON.stringify({ action: "reject", id }) });
+    loadData();
   }
-
-  const sentimentEmoji: Record<string, string> = {
-    positive: "💚",
-    negative: "🔴",
-    neutral: "⚪",
-    question: "❓",
-  };
 
   return (
     <div style={{
@@ -142,28 +267,27 @@ export default function MarketingDashboard() {
       maxWidth: "600px",
       margin: "0 auto",
     }}>
-      {/* Header */}
       <div style={{ textAlign: "center", padding: "20px 0", borderBottom: "2px solid #C8A050" }}>
         <h1 style={{ color: "#C8A050", fontSize: "20px", margin: 0 }}>La M.U.G — Marketing</h1>
-        <p style={{ color: "#888", fontSize: "12px", margin: "4px 0 0" }}>Dashboard de gestion</p>
+        <p style={{ color: "#888", fontSize: "12px", margin: "4px 0 0" }}>
+          Dashboard de gestion
+          <button onClick={() => { clearToken(); setAuthed(false); }} style={{
+            background: "none", border: "none", color: "#666", marginLeft: "12px", cursor: "pointer", fontSize: "11px",
+          }}>Déconnexion</button>
+        </p>
       </div>
 
-      {/* Tabs */}
       <div style={{ display: "flex", gap: "4px", padding: "12px 0", overflowX: "auto" }}>
         {(["dashboard", "posts", "library", "comments"] as Tab[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             style={{
-              padding: "8px 14px",
-              borderRadius: "6px",
-              border: "none",
+              padding: "8px 14px", borderRadius: "6px", border: "none",
               background: tab === t ? "#C8A050" : "#1A1A1A",
               color: tab === t ? "#0A0A0A" : "#888",
               fontWeight: tab === t ? "bold" : "normal",
-              fontSize: "13px",
-              cursor: "pointer",
-              whiteSpace: "nowrap",
+              fontSize: "13px", cursor: "pointer", whiteSpace: "nowrap",
             }}
           >
             {t === "dashboard" ? "Tableau de bord" : t === "posts" ? "Posts" : t === "library" ? "Bibliothèque" : "Commentaires"}
@@ -171,10 +295,10 @@ export default function MarketingDashboard() {
         ))}
       </div>
 
-      {loading && <p style={{ textAlign: "center", color: "#888" }}>Chargement...</p>}
+      {loading && <p style={{ textAlign: "center", color: "#888", padding: "40px 0" }}>Chargement...</p>}
 
       {/* Dashboard */}
-      {tab === "dashboard" && stats && (
+      {tab === "dashboard" && stats && !loading && (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", paddingTop: "12px" }}>
           {[
             { label: "Posts", value: stats.totalPosts, color: "#C8A050" },
@@ -182,12 +306,7 @@ export default function MarketingDashboard() {
             { label: "Impressions", value: stats.totalImpressions.toLocaleString(), color: "#2196F3" },
             { label: "Clics", value: stats.totalClicks.toLocaleString(), color: "#FF9800" },
           ].map((card) => (
-            <div key={card.label} style={{
-              background: "#1A1A1A",
-              borderRadius: "8px",
-              padding: "16px",
-              borderLeft: `3px solid ${card.color}`,
-            }}>
+            <div key={card.label} style={{ background: "#1A1A1A", borderRadius: "8px", padding: "16px", borderLeft: `3px solid ${card.color}` }}>
               <p style={{ color: "#888", fontSize: "12px", margin: 0 }}>{card.label}</p>
               <p style={{ color: card.color, fontSize: "24px", fontWeight: "bold", margin: "4px 0 0" }}>{card.value}</p>
             </div>
@@ -196,13 +315,11 @@ export default function MarketingDashboard() {
       )}
 
       {/* Posts */}
-      {tab === "posts" && (
+      {tab === "posts" && !loading && (
         <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "12px" }}>
           {posts.map((post) => (
             <div key={post.id} style={{
-              background: "#1A1A1A",
-              borderRadius: "8px",
-              padding: "12px",
+              background: "#1A1A1A", borderRadius: "8px", padding: "12px",
               borderLeft: `3px solid ${post.content_category === "promo" ? "#FF9800" : post.content_category === "communaute" ? "#4CAF50" : "#C8A050"}`,
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", color: "#888" }}>
@@ -221,23 +338,21 @@ export default function MarketingDashboard() {
               )}
             </div>
           ))}
-          {posts.length === 0 && !loading && <p style={{ color: "#888", textAlign: "center" }}>Aucun post enregistré.</p>}
+          {posts.length === 0 && <p style={{ color: "#888", textAlign: "center" }}>Aucun post enregistré.</p>}
         </div>
       )}
 
       {/* Library */}
-      {tab === "library" && (
+      {tab === "library" && !loading && (
         <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "12px" }}>
           {library.map((item) => (
             <div key={item.id} style={{
-              background: "#1A1A1A",
-              borderRadius: "8px",
-              padding: "12px",
+              background: "#1A1A1A", borderRadius: "8px", padding: "12px",
               border: item.approved ? "1px solid #333" : "1px solid #C8A050",
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", color: "#888" }}>
                 <span style={{ background: "#333", padding: "2px 6px", borderRadius: "4px" }}>{item.type}</span>
-                <span>{item.approved ? "✅ Approuvé" : "⏳ En attente"}</span>
+                <span>{item.approved ? "✅" : "⏳"}</span>
               </div>
               <p style={{ fontWeight: "bold", margin: "8px 0 4px", fontSize: "14px" }}>{item.title}</p>
               <p style={{ margin: 0, fontSize: "13px", color: "#aaa", lineHeight: "1.4" }}>
@@ -257,29 +372,23 @@ export default function MarketingDashboard() {
               )}
             </div>
           ))}
-          {library.length === 0 && !loading && <p style={{ color: "#888", textAlign: "center" }}>Bibliothèque vide.</p>}
+          {library.length === 0 && <p style={{ color: "#888", textAlign: "center" }}>Bibliothèque vide.</p>}
         </div>
       )}
 
       {/* Comments */}
-      {tab === "comments" && (
+      {tab === "comments" && !loading && (
         <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "12px" }}>
           {comments.map((c) => (
-            <div key={c.id} style={{
-              background: "#1A1A1A",
-              borderRadius: "8px",
-              padding: "12px",
-            }}>
+            <div key={c.id} style={{ background: "#1A1A1A", borderRadius: "8px", padding: "12px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", color: "#888" }}>
                 <span>{sentimentEmoji[c.sentiment] || "💬"} @{c.username}</span>
                 <span>{new Date(c.timestamp).toLocaleDateString("fr-FR")}</span>
               </div>
-              <p style={{ margin: "8px 0 0", fontSize: "14px", lineHeight: "1.4" }}>
-                &ldquo;{c.text_content}&rdquo;
-              </p>
+              <p style={{ margin: "8px 0 0", fontSize: "14px", lineHeight: "1.4" }}>&ldquo;{c.text_content}&rdquo;</p>
             </div>
           ))}
-          {comments.length === 0 && !loading && <p style={{ color: "#888", textAlign: "center" }}>Aucun commentaire en attente.</p>}
+          {comments.length === 0 && <p style={{ color: "#888", textAlign: "center" }}>Aucun commentaire en attente.</p>}
         </div>
       )}
     </div>
