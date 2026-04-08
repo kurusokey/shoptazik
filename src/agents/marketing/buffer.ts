@@ -37,9 +37,74 @@ async function askConfirmation(preview: string): Promise<boolean> {
   });
 }
 
+// ---- Contrôle de conformité charte La M.U.G ----
+// Vérifie qu'un post respecte l'identité de la marque
+
+function checkBrandCompliance(text: string): { ok: boolean; warnings: string[] } {
+  const warnings: string[] = [];
+  const lower = text.toLowerCase();
+
+  // Ton commercial agressif
+  const aggressivePatterns = [
+    /achet[ez]+\s*(maintenant|vite|tout de suite)/i,
+    /offre\s*(limitée|exclusive|exceptionnelle)/i,
+    /derni[eè]re\s*chance/i,
+    /ne\s*rat[ez]+\s*pas/i,
+    /urgent/i,
+    /stock\s*limit[ée]/i,
+    /prix\s*(cassé|barre|imbattable)/i,
+    /promo\s*(flash|exclusive|choc)/i,
+    /\b(incroyable|révolutionnaire|historique|époustouflant)\b/i,
+  ];
+  for (const pattern of aggressivePatterns) {
+    if (pattern.test(text)) {
+      warnings.push(`Ton commercial agressif détecté : "${text.match(pattern)?.[0]}". Reformule de manière sobre.`);
+    }
+  }
+
+  // Majuscules excessives (plus de 3 mots consécutifs en majuscules)
+  if (/[A-Z]{2,}\s+[A-Z]{2,}\s+[A-Z]{2,}/.test(text)) {
+    warnings.push("Majuscules excessives détectées. Écris normalement — pas besoin de crier.");
+  }
+
+  // Trop d'emojis (plus de 8)
+  const emojiCount = (text.match(/[\p{Emoji}]/gu) || []).length;
+  if (emojiCount > 8) {
+    warnings.push(`${emojiCount} emojis détectés. Maximum 5-6 pour rester sobre et crédible.`);
+  }
+
+  // Fausse citation de Fdy Phenomen
+  if (/fdy\s*(phenomen)?\s*(a\s*dit|déclare|affirme|confie)/i.test(text)) {
+    warnings.push("Citation attribuée à Fdy Phenomen détectée. Vérifie qu'elle est réelle et sourcée.");
+  }
+
+  // Dénigrement d'autres artistes
+  if (/meilleur\s*(que|artiste|rappeur)|numéro\s*1|le\s*seul\s*(vrai|qui)/i.test(text)) {
+    warnings.push("Comparaison/supériorité détectée. La M.U.G ne se positionne pas contre les autres — elle valorise sa propre démarche.");
+  }
+
+  // Termes trop marketing
+  const marketingTerms = ["roi", "kpi", "conversion", "funnel", "lead", "growth hack", "scalable", "disruptif"];
+  for (const term of marketingTerms) {
+    if (lower.includes(term)) {
+      warnings.push(`Jargon marketing détecté : "${term}". Parle comme un humain, pas comme une agence.`);
+    }
+  }
+
+  return { ok: warnings.length === 0, warnings };
+}
+
 function formatPostPreview(text: string, channelId: string, mode: string, scheduleAt?: string, imageUrls?: string[]): string {
+  // Vérification charte
+  const compliance = checkBrandCompliance(text);
+  const complianceBlock = compliance.ok
+    ? "✅ Conformité charte La M.U.G : OK"
+    : `⚠️  ALERTES CHARTE La M.U.G :\n${compliance.warnings.map(w => `   → ${w}`).join("\n")}`;
+
   const lines = [
     `📝 Texte :\n${text}\n`,
+    complianceBlock,
+    "",
     `📡 Chaîne : ${channelId}`,
     `🕐 Mode  : ${mode}`,
   ];
