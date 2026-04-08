@@ -84,6 +84,7 @@ async function authFetch(url: string, opts?: RequestInit) {
 function LoginScreen({ onLogin }: { onLogin: () => void }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -156,13 +157,14 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 
         <div style={{ marginBottom: "20px" }}>
           <label style={{ display: "block", color: "#888", fontSize: "12px", marginBottom: "6px" }}>Mot de passe</label>
+          <div style={{ position: "relative" }}>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={{
               width: "100%",
-              padding: "10px 12px",
+              padding: "10px 40px 10px 12px",
               background: "#0A0A0A",
               border: "1px solid #333",
               borderRadius: "8px",
@@ -171,6 +173,25 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               outline: "none",
             }}
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "none",
+              border: "none",
+              color: "#888",
+              cursor: "pointer",
+              fontSize: "18px",
+              padding: "4px",
+            }}
+          >
+            {showPassword ? "\u{1F648}" : "\u{1F441}"}
+          </button>
+          </div>
         </div>
 
         {error && (
