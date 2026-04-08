@@ -1,9 +1,36 @@
 // API Route — Dashboard marketing
 // GET : liste les posts (queue, publiés, stats)
 // POST : approuver/rejeter un post de la bibliothèque
+// CORS : autorise la-mug.com et boutique.la-mug.com
 
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+
+const ALLOWED_ORIGINS = [
+  "https://la-mug.com",
+  "https://www.la-mug.com",
+  "https://boutique.la-mug.com",
+  "http://localhost:3000",
+  "http://localhost:3001",
+];
+
+function corsHeaders(origin: string | null) {
+  const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
+
+function json(data: unknown, status: number, origin: string | null) {
+  return NextResponse.json(data, { status, headers: corsHeaders(origin) });
+}
+
+export async function OPTIONS(request: Request) {
+  const origin = request.headers.get("origin");
+  return new NextResponse(null, { status: 204, headers: corsHeaders(origin) });
+}
 
 function getSupabase() {
   return createClient(
@@ -13,6 +40,7 @@ function getSupabase() {
 }
 
 export async function GET(request: Request) {
+  const origin = request.headers.get("origin");
   const { searchParams } = new URL(request.url);
   const view = searchParams.get("view") || "recent";
   const limit = Number(searchParams.get("limit")) || 20;
@@ -24,8 +52,8 @@ export async function GET(request: Request) {
       .select("*")
       .order("created_at", { ascending: false })
       .limit(limit);
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ posts: data });
+    if (error) return json({ error: error.message }, 500, origin);
+    return json({ posts: data }, 200, origin);
   }
 
   if (view === "library") {
@@ -34,8 +62,8 @@ export async function GET(request: Request) {
       .select("*")
       .order("created_at", { ascending: false })
       .limit(limit);
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ items: data });
+    if (error) return json({ error: error.message }, 500, origin);
+    return json({ items: data }, 200, origin);
   }
 
   if (view === "comments") {
@@ -45,8 +73,8 @@ export async function GET(request: Request) {
       .eq("replied", false)
       .order("timestamp", { ascending: false })
       .limit(limit);
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ comments: data });
+    if (error) return json({ error: error.message }, 500, origin);
+    return json({ comments: data }, 200, origin);
   }
 
   if (view === "stats") {
@@ -62,18 +90,14 @@ export async function GET(request: Request) {
     const totalImpressions = posts?.reduce((s, p) => s + (p.impressions || 0), 0) || 0;
     const totalClicks = posts?.reduce((s, p) => s + (p.clicks || 0), 0) || 0;
 
-    return NextResponse.json({
-      totalPosts,
-      avgScore: Math.round(avgScore * 100) / 100,
-      totalImpressions,
-      totalClicks,
-    });
+    return json({ totalPosts, avgScore: Math.round(avgScore * 100) / 100, totalImpressions, totalClicks }, 200, origin);
   }
 
-  return NextResponse.json({ error: "view invalide" }, { status: 400 });
+  return json({ error: "view invalide" }, 400, origin);
 }
 
 export async function POST(request: Request) {
+  const origin = request.headers.get("origin");
   const body = await request.json();
   const { action, id } = body;
   const supabase = getSupabase();
@@ -83,8 +107,8 @@ export async function POST(request: Request) {
       .from("content_library")
       .update({ approved: true, approved_at: new Date().toISOString() })
       .eq("id", id);
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ ok: true });
+    if (error) return json({ error: error.message }, 500, origin);
+    return json({ ok: true }, 200, origin);
   }
 
   if (action === "reject" && id) {
@@ -92,9 +116,9 @@ export async function POST(request: Request) {
       .from("content_library")
       .delete()
       .eq("id", id);
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ ok: true });
+    if (error) return json({ error: error.message }, 500, origin);
+    return json({ ok: true }, 200, origin);
   }
 
-  return NextResponse.json({ error: "action invalide" }, { status: 400 });
+  return json({ error: "action invalide" }, 400, origin);
 }
