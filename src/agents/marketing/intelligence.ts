@@ -106,13 +106,14 @@ export const searchTrends = betaZodTool({
     }
 
     // Recherche custom via DuckDuckGo (pas de blocage)
-    const query = custom_query || {
+    const queryMap: Record<string, string> = {
       "rap-francais": "rap français nouveautés",
       "hip-hop-culture": "culture hip-hop france",
       "vinyle-marche": "marché vinyle france",
       "musique-independante": "musique indépendante france",
       "evenements-culturels": "événements hip-hop france",
-    }[topic] || topic;
+    };
+    const query = custom_query || queryMap[topic] || topic;
 
     try {
       const ddgUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query + " 2026")}`;
