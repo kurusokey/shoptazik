@@ -79,8 +79,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ ok: false, error: "Identifiants incorrects" }, { status: 401, headers });
-  } catch {
-    return NextResponse.json({ ok: false, error: "Requête invalide" }, { status: 400, headers });
+  } catch (err) {
+    return NextResponse.json({ ok: false, error: `Erreur: ${err instanceof Error ? err.message : String(err)}` }, { status: 400, headers });
   }
 }
 
