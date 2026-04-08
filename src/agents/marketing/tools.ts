@@ -11,6 +11,10 @@ import { BRAND_CONFIG } from "./config.js";
 import { BUFFER_TOOLS } from "./buffer.js";
 import { IMAGE_TOOLS } from "./image.js";
 import { ANALYTICS_TOOLS } from "./analytics.js";
+import { NEWSLETTER_TOOLS } from "./newsletter.js";
+import { SMART_LINKS_TOOLS } from "./smart-links.js";
+import { SALES_TOOLS } from "./sales.js";
+import { INTELLIGENCE_TOOLS } from "./intelligence.js";
 
 const OUTPUT_DIR = path.join(process.cwd(), "marketing-output");
 
@@ -520,4 +524,8 @@ export const ALL_TOOLS = [
   ...BUFFER_TOOLS,
   ...IMAGE_TOOLS,
   ...ANALYTICS_TOOLS,
+  ...NEWSLETTER_TOOLS,
+  ...SMART_LINKS_TOOLS,
+  ...SALES_TOOLS,
+  ...INTELLIGENCE_TOOLS,
 ];

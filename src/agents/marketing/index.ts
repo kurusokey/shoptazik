@@ -166,6 +166,27 @@ async function main() {
         message = `Analyse les performances des posts publiés avec analyze_performance. Affiche le rapport complet.`;
       } else if (/^conseils$/i.test(trimmed)) {
         message = `Donne des recommandations basées sur les données de performance avec get_best_practices.`;
+      } else if (/^tendances$/i.test(trimmed)) {
+        message = `Recherche les tendances actuelles avec search_trends sur les thèmes rap-francais, hip-hop-culture et vinyle-marche. Résume les insights.`;
+      } else if (/^ventes$/i.test(trimmed)) {
+        message = `Analyse la corrélation entre les posts marketing et les ventes Stripe avec correlate_sales.`;
+      } else if (/^recycler$/i.test(trimmed)) {
+        message = `Identifie les posts performants à republier avec recycle_top_posts.`;
+      } else if (/^newsletter\s+(.+)$/i.test(trimmed)) {
+        const sujet = trimmed.match(/^newsletter\s+(.+)$/i)![1];
+        message = `Crée une newsletter sur le sujet "${sujet}". Utilise get_brand_info, puis preview_newsletter pour générer l'aperçu HTML. Ne l'envoie PAS sans que je le demande.`;
+      } else if (/^abonn[ée]s$/i.test(trimmed)) {
+        message = `Affiche le nombre d'abonnés newsletter avec manage_subscribers (action: count).`;
+      } else if (/^qr\s+(.+)$/i.test(trimmed)) {
+        const url = trimmed.match(/^qr\s+(.+)$/i)![1];
+        message = `Génère un QR code pour l'URL "${url}" avec generate_qr_code. Utilise les couleurs La M.U.G.`;
+      } else if (/^liens$/i.test(trimmed)) {
+        message = `Liste tous les liens UTM créés avec list_utm_links.`;
+      } else if (/^score\s+(.+)$/i.test(trimmed)) {
+        const texte = trimmed.match(/^score\s+(.+)$/i)![1];
+        message = `Prédit le score d'engagement du texte suivant avec predict_score : "${texte}". Plateforme: instagram, type: post.`;
+      } else if (/^sentiment$/i.test(trimmed)) {
+        message = `Demande-moi de coller des commentaires à analyser, puis utilise analyze_sentiment.`;
       }
 
       try {
