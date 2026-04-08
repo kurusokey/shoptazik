@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // ============================================
 // MUG Marketing Agent — Setup (initialisation DB)
-// Crée les tables Supabase + bucket Storage
+// Exécute le SQL via l'API SQL de Supabase
 // Usage : npx tsx src/agents/marketing/setup.ts
 // ============================================
 
@@ -26,60 +26,115 @@ function loadEnvFile() {
 }
 loadEnvFile();
 
-async function setup() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// Exécuter du SQL via le header x-supabase-db-query (non standard)
+// ou via un contournement : créer les tables une par une avec le client Supabase
+async function createTablesViaRest(supabaseUrl: string, serviceKey: string) {
+  const projectRef = supabaseUrl.match(/https:\/\/([^.]+)/)?.[1];
+  if (!projectRef) throw new Error("Impossible d'extraire le project ref");
 
-  if (!url || !key) {
+  // Lire le fichier SQL complet
+  const sqlPath = path.join(path.dirname(new URL(import.meta.url).pathname), "setup.sql");
+  const fullSql = fs.readFileSync(sqlPath, "utf-8");
+
+  // Tenter via l'API SQL directe de Supabase (nécessite le service_role_key)
+  // POST https://<project>.supabase.co/rest/v1/rpc avec un header spécial
+  // OU exécuter tout le SQL en un seul bloc via pg_query
+
+  // Méthode : POST le SQL entier via le endpoint non documenté mais fonctionnel
+  const sqlApiUrl = `${supabaseUrl}/pg/query`;
+
+  const res = await fetch(sqlApiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${serviceKey}`,
+      apikey: serviceKey,
+    },
+    body: JSON.stringify({ query: fullSql }),
+  });
+
+  if (res.ok) {
+    return { method: "pg_query", success: true };
+  }
+
+  // Fallback : tenter via le endpoint SQL standard
+  const sqlApiUrl2 = `${supabaseUrl}/rest/v1/`;
+  const res2 = await fetch(sqlApiUrl2, {
+    headers: {
+      Authorization: `Bearer ${serviceKey}`,
+      apikey: serviceKey,
+    },
+  });
+
+  // Si aucune méthode REST ne fonctionne, on crée les tables individuellement
+  // via le client Supabase (en tentant un SELECT pour voir si elles existent)
+  return { method: "manual", success: false };
+}
+
+async function setup() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceKey) {
     console.error("❌ NEXT_PUBLIC_SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY requis dans .env.local");
     process.exit(1);
   }
 
-  const supabase = createClient(url, key);
-  console.log("🔌 Connecté à Supabase:", url);
+  const supabase = createClient(supabaseUrl, serviceKey);
+  console.log("🔌 Connecté à Supabase:", supabaseUrl);
 
-  // 1. Lire et exécuter le SQL
-  const sqlPath = path.join(path.dirname(new URL(import.meta.url).pathname), "setup.sql");
-  const sql = fs.readFileSync(sqlPath, "utf-8");
+  // 1. Tenter l'exécution SQL directe
+  console.log("\n📦 Tentative d'exécution SQL directe...");
+  const result = await createTablesViaRest(supabaseUrl, serviceKey);
 
-  // Découper en statements individuels
-  const statements = sql
-    .split(";")
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0 && !s.startsWith("--"));
+  if (result.success) {
+    console.log("  ✅ Toutes les tables créées via API SQL");
+  } else {
+    console.log("  ⚠️  API SQL non disponible — vérification table par table...\n");
 
-  console.log(`\n📦 Exécution de ${statements.length} statements SQL...\n`);
+    // Vérifier chaque table en faisant un SELECT
+    const tables = [
+      "marketing_posts",
+      "newsletter_subscribers",
+      "utm_links",
+      "content_library",
+      "stats_snapshots",
+      "api_costs",
+      "instagram_comments",
+    ];
 
-  let success = 0;
-  let skipped = 0;
-  let errors = 0;
+    const existing: string[] = [];
+    const missing: string[] = [];
 
-  for (const stmt of statements) {
-    const preview = stmt.split("\n")[0].slice(0, 60);
-    try {
-      const { error } = await supabase.rpc("exec_sql", { sql: stmt + ";" });
-      if (error) {
-        // "already exists" = table/index déjà créée, on skip
-        if (error.message.includes("already exists")) {
-          console.log(`  ⏭️  ${preview}... (déjà existant)`);
-          skipped++;
-        } else {
-          console.log(`  ❌ ${preview}...`);
-          console.log(`     ${error.message}`);
-          errors++;
-        }
+    for (const table of tables) {
+      const { error } = await supabase.from(table).select("id").limit(1);
+      if (error?.code === "42P01" || error?.message?.includes("does not exist")) {
+        missing.push(table);
+        console.log(`  ❌ ${table} — n'existe pas`);
       } else {
-        console.log(`  ✅ ${preview}...`);
-        success++;
+        existing.push(table);
+        console.log(`  ✅ ${table} — existe`);
       }
-    } catch (err) {
-      // Si exec_sql n'existe pas, on tente via pg directement
-      console.log(`  ⚠️  ${preview}... (exec_sql non disponible)`);
-      errors++;
+    }
+
+    if (missing.length > 0) {
+      console.log(`\n⚠️  ${missing.length} table(s) manquante(s) : ${missing.join(", ")}`);
+      console.log(`\n📋 Copie le SQL ci-dessous et exécute-le dans le SQL Editor Supabase :`);
+      console.log(`   ${supabaseUrl.replace("https://", "https://supabase.com/dashboard/project/").replace(".supabase.co", "/sql/new")}`);
+      console.log(`\n   Ou ouvre directement : setup.sql dans src/agents/marketing/\n`);
+
+      // Afficher le SQL pour les tables manquantes
+      const sqlPath = path.join(path.dirname(new URL(import.meta.url).pathname), "setup.sql");
+      const fullSql = fs.readFileSync(sqlPath, "utf-8");
+      console.log("─".repeat(60));
+      console.log(fullSql);
+      console.log("─".repeat(60));
+    } else {
+      console.log(`\n✅ Toutes les ${tables.length} tables existent !`);
     }
   }
 
-  // 2. Créer le bucket Storage
+  // 2. Bucket Storage
   console.log("\n📁 Configuration Storage...");
   const { data: buckets } = await supabase.storage.listBuckets();
   const bucketName = "marketing-images";
@@ -98,22 +153,7 @@ async function setup() {
     }
   }
 
-  // 3. Résumé
-  console.log("\n" + "─".repeat(50));
-  console.log(`✅ ${success} créé(s) | ⏭️  ${skipped} existant(s) | ❌ ${errors} erreur(s)`);
-
-  if (errors > 0) {
-    console.log(`
-⚠️  Certains statements ont échoué. C'est probablement parce que
-   la fonction exec_sql n'existe pas sur ton projet Supabase.
-
-   Solution : copie le contenu de setup.sql et exécute-le
-   directement dans le SQL Editor de Supabase Dashboard :
-   ${url.replace(".supabase.co", ".supabase.co")}/project/default/sql
-`);
-  }
-
-  console.log("\n🎤 Setup terminé. Lance 'npm run marketing' pour démarrer l'agent.\n");
+  console.log("\n🎤 Setup terminé.\n");
 }
 
 setup().catch(console.error);
