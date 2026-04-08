@@ -70,27 +70,15 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { username, password } = body;
 
-    const validUser = process.env.ADMIN_USERNAME || "admin";
-    const validPass = process.env.ADMIN_PASSWORD || "";
+    const validUser = (process.env.ADMIN_USERNAME || "admin").trim();
+    const validPass = (process.env.ADMIN_PASSWORD || "").trim();
 
     if (username === validUser && password === validPass) {
       const token = generateToken();
       return NextResponse.json({ ok: true, token }, { headers });
     }
 
-    // Debug temporaire — à supprimer après fix
-    return NextResponse.json({
-      ok: false,
-      error: "Identifiants incorrects",
-      debug: {
-        receivedUser: username,
-        receivedPassLength: password?.length,
-        expectedUser: validUser,
-        expectedPassLength: validPass?.length,
-        passMatch: password === validPass,
-        envDefined: !!process.env.ADMIN_PASSWORD,
-      }
-    }, { status: 401, headers });
+    return NextResponse.json({ ok: false, error: "Identifiants incorrects" }, { status: 401, headers });
   } catch (err) {
     return NextResponse.json({ ok: false, error: `Erreur: ${err instanceof Error ? err.message : String(err)}` }, { status: 400, headers });
   }
