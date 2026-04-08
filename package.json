@@ -11,7 +11,8 @@
     "marketing:weekly": "tsx src/agents/marketing/cron.ts weekly-content",
     "marketing:story": "tsx src/agents/marketing/cron.ts daily-story",
     "marketing:report": "tsx src/agents/marketing/cron.ts monthly-report",
-    "marketing:influencers": "tsx src/agents/marketing/cron.ts influencer-outreach"
+    "marketing:influencers": "tsx src/agents/marketing/cron.ts influencer-outreach",
+    "marketing:setup": "tsx src/agents/marketing/setup.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.85.0",

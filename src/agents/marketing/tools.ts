@@ -15,6 +15,9 @@ import { NEWSLETTER_TOOLS } from "./newsletter.js";
 import { SMART_LINKS_TOOLS } from "./smart-links.js";
 import { SALES_TOOLS } from "./sales.js";
 import { INTELLIGENCE_TOOLS } from "./intelligence.js";
+import { COLLECTOR_TOOLS } from "./collector.js";
+import { COMMUNITY_TOOLS } from "./community.js";
+import { COSTS_TOOLS } from "./costs.js";
 
 const OUTPUT_DIR = path.join(process.cwd(), "marketing-output");
 
@@ -528,4 +531,7 @@ export const ALL_TOOLS = [
   ...SMART_LINKS_TOOLS,
   ...SALES_TOOLS,
   ...INTELLIGENCE_TOOLS,
+  ...COLLECTOR_TOOLS,
+  ...COMMUNITY_TOOLS,
+  ...COSTS_TOOLS,
 ];

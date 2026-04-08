@@ -40,83 +40,130 @@ export const searchTrends = betaZodTool({
       .describe("Requête personnalisée (si topic = custom)"),
   }),
   run: async ({ topic, custom_query }) => {
-    const queries: Record<string, string> = {
-      "rap-francais":
-        "rap français actualités 2026 nouveaux albums sorties",
-      "hip-hop-culture":
-        "culture hip-hop france tendances 2026 urban art",
-      "vinyle-marche":
-        "marché vinyle france 2026 ventes collectors rap",
-      "musique-independante":
-        "musique indépendante france distribution streaming 2026",
-      "evenements-culturels":
-        "événements culturels hip-hop france concerts festivals 2026",
-      custom: custom_query || "",
+    // Sources RSS et pages web publiques par thème
+    const sources: Record<string, { url: string; label: string }[]> = {
+      "rap-francais": [
+        { url: "https://www.booska-p.com/feed/", label: "Booska-P" },
+        { url: "https://www.rapelite.com/feed/", label: "Rap Elite" },
+        { url: "https://www.abcdrduson.com/feed/", label: "L'Abcdr du Son" },
+      ],
+      "hip-hop-culture": [
+        { url: "https://www.abcdrduson.com/feed/", label: "L'Abcdr du Son" },
+        { url: "https://www.booska-p.com/feed/", label: "Booska-P" },
+      ],
+      "vinyle-marche": [
+        { url: "https://www.music-industry-blog.com/feed/", label: "Music Industry Blog" },
+      ],
+      "musique-independante": [
+        { url: "https://www.irma.asso.fr/spip.php?page=rss", label: "IRMA" },
+      ],
+      "evenements-culturels": [
+        { url: "https://www.booska-p.com/feed/", label: "Booska-P" },
+      ],
+      custom: [],
     };
 
-    const query = queries[topic];
-    if (!query) return "Requête vide.";
+    const topicSources = sources[topic] || [];
+    const results: string[] = [`## Veille tendances : ${topic}\n`];
+    let articlesFound = 0;
 
-    // Utiliser l'API de recherche Google (via fetch)
-    // Fallback: suggestions basées sur les connaissances
-    try {
-      const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}&hl=fr&num=5`;
+    // Fetcher les flux RSS réels
+    for (const source of topicSources) {
+      try {
+        const res = await fetch(source.url, {
+          headers: { "User-Agent": "MUG-Marketing-Agent/1.0" },
+          signal: AbortSignal.timeout(8000),
+        });
+        if (!res.ok) continue;
 
-      // Note: Google bloque les requêtes directes, on utilise une approche alternative
-      // On retourne des suggestions contextuelles basées sur le thème
-      const trendSuggestions: Record<string, string[]> = {
-        "rap-francais": [
-          "Surveiller les sorties d'albums prévues ce mois",
-          "Checker les playlists Spotify 'Nouveautés Rap FR'",
-          "Suivre les trending topics #RapFR sur X et TikTok",
-          "Regarder les charts SNEP (classement officiel français)",
-          "Suivre les annonces de festivals (Dour, Garorock, Lollapalooza Paris)",
-        ],
-        "hip-hop-culture": [
-          "Suivre les comptes @booaboreal, @lAbcdrduSon, @rapunchline",
-          "Checker les lives et freestyles sur Planète Rap (Skyrock)",
-          "Surveiller les collabs mode/rap (Nike, Jordan, marques streetwear)",
-          "Suivre les documentaires/films hip-hop en production",
-        ],
-        "vinyle-marche": [
-          "Le marché du vinyle a atteint 1,2 milliard € en 2025 en Europe",
-          "Les éditions limitées et colorées se vendent 3x plus vite",
-          "Le Record Store Day est un moment clé pour la visibilité",
-          "Les collectors rap FR sont en forte demande (IAM, NTM, Booba premiers pressages)",
-        ],
-        "musique-independante": [
-          "Distrokid, TuneCore et Amuse restent les leaders de distribution",
-          "Le streaming représente 84% des revenus musique en France",
-          "La vente directe (Bandcamp, site propre) offre 85-100% de marge",
-          "Les NFT musicaux ont perdu de l'intérêt mais les 'digital collectibles' persistent",
-        ],
-        "evenements-culturels": [
-          "Vérifier le calendrier des MJC et centres culturels locaux",
-          "Les ateliers d'écriture rap sont en forte demande dans les écoles",
-          "La Fête de la Musique (21 juin) est un moment de visibilité gratuit",
-          "Les battle de freestyle regagnent en popularité (End of the Weak, Rap Contenders)",
-        ],
-      };
+        const xml = await res.text();
 
-      const suggestions = trendSuggestions[topic] || [
-        "Recherche personnalisée : vérifie manuellement sur Google, X, et TikTok",
-      ];
+        // Parser RSS basique (extraire titres et liens)
+        const items: { title: string; link: string; date: string }[] = [];
+        const itemRegex = /<item[^>]*>([\s\S]*?)<\/item>/g;
+        let match;
+        while ((match = itemRegex.exec(xml)) !== null && items.length < 5) {
+          const block = match[1];
+          const title = block.match(/<title[^>]*>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/title>/)?.[1] || "";
+          const link = block.match(/<link[^>]*>(.*?)<\/link>/)?.[1] || "";
+          const pubDate = block.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || "";
+          if (title) items.push({ title: title.trim(), link: link.trim(), date: pubDate });
+        }
 
-      return [
-        `## Veille tendances : ${topic}\n`,
-        `### Requête : ${query}\n`,
-        `### Insights et recommandations\n`,
-        ...suggestions.map((s) => `- ${s}`),
-        "",
-        "### Actions suggérées pour La M.U.G",
-        "- Créer du contenu qui surfe sur ces tendances",
-        "- Utiliser les hashtags tendance du moment",
-        "- Adapter le calendrier éditorial en conséquence",
-        `\n_Pour des données en temps réel, consulte manuellement X (#RapFR), TikTok (FYP musique), et Spotify Charts._`,
-      ].join("\n");
-    } catch (error) {
-      return `Erreur: ${error instanceof Error ? error.message : String(error)}`;
+        if (items.length > 0) {
+          results.push(`### ${source.label}\n`);
+          for (const item of items) {
+            const dateStr = item.date ? ` (${new Date(item.date).toLocaleDateString("fr-FR")})` : "";
+            results.push(`- ${item.title}${dateStr}`);
+            if (item.link) results.push(`  ${item.link}`);
+            articlesFound++;
+          }
+          results.push("");
+        }
+      } catch {
+        // Source indisponible, on continue
+      }
     }
+
+    // Recherche custom via DuckDuckGo (pas de blocage)
+    const query = custom_query || {
+      "rap-francais": "rap français nouveautés",
+      "hip-hop-culture": "culture hip-hop france",
+      "vinyle-marche": "marché vinyle france",
+      "musique-independante": "musique indépendante france",
+      "evenements-culturels": "événements hip-hop france",
+    }[topic] || topic;
+
+    try {
+      const ddgUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query + " 2026")}`;
+      const ddgRes = await fetch(ddgUrl, {
+        headers: { "User-Agent": "MUG-Marketing-Agent/1.0" },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (ddgRes.ok) {
+        const html = await ddgRes.text();
+        const titleRegex = /<a[^>]*class="result__a"[^>]*>(.*?)<\/a>/g;
+        const snippetRegex = /<a[^>]*class="result__snippet"[^>]*>(.*?)<\/a>/g;
+        const titles: string[] = [];
+        let m;
+        while ((m = titleRegex.exec(html)) !== null && titles.length < 5) {
+          const clean = m[1].replace(/<[^>]+>/g, "").trim();
+          if (clean) titles.push(clean);
+        }
+        const snippets: string[] = [];
+        while ((m = snippetRegex.exec(html)) !== null && snippets.length < 5) {
+          const clean = m[1].replace(/<[^>]+>/g, "").trim();
+          if (clean) snippets.push(clean);
+        }
+
+        if (titles.length > 0) {
+          results.push(`### Résultats web (DuckDuckGo)\n`);
+          for (let i = 0; i < titles.length; i++) {
+            results.push(`- **${titles[i]}**`);
+            if (snippets[i]) results.push(`  ${snippets[i]}`);
+            articlesFound++;
+          }
+          results.push("");
+        }
+      }
+    } catch {
+      // DuckDuckGo indisponible
+    }
+
+    if (articlesFound === 0) {
+      results.push("Aucune source accessible pour le moment. Réessaie plus tard ou consulte manuellement :");
+      results.push("- X : #RapFR #HipHopFR");
+      results.push("- TikTok : FYP musique");
+      results.push("- Spotify : Charts France, Playlists Rap FR");
+      results.push("- booska-p.com, abcdrduson.com, rapelite.com");
+    }
+
+    results.push("\n### Actions pour La M.U.G");
+    results.push("- Créer du contenu qui surfe sur les sujets chauds identifiés");
+    results.push("- Adapter les hashtags aux tendances actuelles");
+    results.push("- Programmer un post réactif dans les 24h si un sujet est pertinent");
+
+    return results.join("\n");
   },
 });
 
