@@ -1,0 +1,63 @@
+name: MUG Marketing Agent — Cron
+
+on:
+  schedule:
+    # Contenu hebdomadaire : chaque lundi à 8h (Paris = 6h UTC en été)
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "Tâche à exécuter"
+        required: true
+        type: choice
+        options:
+          - weekly-content
+          - daily-story
+          - monthly-report
+          - influencer-outreach
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Marketing Agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          TASK="${{ github.event.inputs.task || 'weekly-content' }}"
+          echo "🤖 Exécution de la tâche : $TASK"
+          npx tsx src/agents/marketing/cron.ts "$TASK"
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketing-logs-${{ github.run_number }}
+          path: marketing-output/logs/
+          retention-days: 30
+
+      - name: Upload generated images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketing-images-${{ github.run_number }}
+          path: marketing-output/images/
+          retention-days: 30

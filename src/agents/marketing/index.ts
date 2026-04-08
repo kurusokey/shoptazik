@@ -157,6 +157,15 @@ async function main() {
       } else if (/^publie\s+(.+)$/i.test(trimmed)) {
         const sujet = trimmed.match(/^publie\s+(.+)$/i)![1];
         message = `Génère un post sur le sujet "${sujet}" et publie-le immédiatement sur toutes les chaînes Buffer connectées. Utilise d'abord get_brand_info et buffer_list_channels, puis buffer_publish_post avec publish_now: true.`;
+      } else if (/^image\s+(.+)$/i.test(trimmed)) {
+        const sujet = trimmed.match(/^image\s+(.+)$/i)![1];
+        message = `Génère une image pour les réseaux sociaux sur le thème "${sujet}". Utilise get_brand_info pour la palette, puis generate_image avec un prompt DALL-E détaillé en anglais. Génère au format 1024x1024 (post carré).`;
+      } else if (/^images$/i.test(trimmed)) {
+        message = `Liste toutes les images déjà générées avec list_generated_images.`;
+      } else if (/^analyse$/i.test(trimmed)) {
+        message = `Analyse les performances des posts publiés avec analyze_performance. Affiche le rapport complet.`;
+      } else if (/^conseils$/i.test(trimmed)) {
+        message = `Donne des recommandations basées sur les données de performance avec get_best_practices.`;
       }
 
       try {

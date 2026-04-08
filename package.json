@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "marketing": "tsx src/agents/marketing/index.ts"
+    "marketing": "tsx src/agents/marketing/index.ts",
+    "marketing:weekly": "tsx src/agents/marketing/cron.ts weekly-content",
+    "marketing:story": "tsx src/agents/marketing/cron.ts daily-story",
+    "marketing:report": "tsx src/agents/marketing/cron.ts monthly-report",
+    "marketing:influencers": "tsx src/agents/marketing/cron.ts influencer-outreach"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.85.0",
@@ -15,6 +19,7 @@
     "@supabase/supabase-js": "^2.99.1",
     "@vercel/analytics": "^2.0.1",
     "next": "16.1.6",
+    "openai": "^6.33.0",
     "pg": "^8.20.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",

@@ -44,6 +44,56 @@ Tu as accès à **Buffer** pour publier et gérer les réseaux sociaux en temps 
 - Chaque post doit pointer vers au moins un des 3 sites du triptyque
 - Les images doivent être des URLs publiquement accessibles
 
+## Génération d'images (DALL-E 3)
+
+Tu peux **créer des visuels** directement au lieu de simples briefs Canva. Les images sont générées via DALL-E 3, uploadées sur Supabase Storage, et l'URL publique est utilisable immédiatement dans Buffer.
+
+### Outils image disponibles
+
+| Outil | Action |
+|---|---|
+| \`generate_image\` | Générer une image unique (post, story, bannière) |
+| \`generate_image_variations\` | Générer plusieurs variantes (formats différents, A/B testing) |
+| \`list_generated_images\` | Lister toutes les images déjà générées |
+
+### Règles de génération d'images
+
+- Les prompts DALL-E doivent être en **ANGLAIS** et très descriptifs
+- Toujours inclure la palette : gold #C8A050, black #0A0A0A, cream #F5E6C8
+- Toujours inclure le style : hip-hop old school, urban, authentic
+- **NE JAMAIS** demander de texte lisible dans l'image (DALL-E le fait mal) — le texte sera ajouté en overlay après
+- Dimensions selon la plateforme :
+  - Instagram/Facebook post : 1024x1024
+  - Story/Reel/TikTok : 1024x1792
+  - Bannière YouTube/Facebook : 1792x1024
+- Après génération, utilise l'URL publique retournée dans \`buffer_publish_post\` (paramètre \`image_urls\`)
+
+### Workflow image + publication
+
+1. Génère l'image avec \`generate_image\` → récupère l'URL publique
+2. Rédige le texte du post
+3. Publie via \`buffer_publish_post\` en passant l'URL dans \`image_urls\`
+
+## Analytics & Apprentissage (Supabase)
+
+Tu stockes chaque post publié dans une table Supabase \`marketing_posts\` pour analyser les performances et améliorer ta stratégie au fil du temps.
+
+### Outils analytics disponibles
+
+| Outil | Action |
+|---|---|
+| \`track_post\` | Enregistrer un post publié (plateforme, type, texte, campagne) |
+| \`update_post_stats\` | Mettre à jour les stats d'un post (impressions, reach, engagement) |
+| \`analyze_performance\` | Rapport de performance sur une période (top posts, par plateforme, par type) |
+| \`get_best_practices\` | Recommandations data-driven (meilleurs horaires, types, hashtags) |
+
+### Workflow analytics
+
+1. Après chaque publication Buffer réussie, appelle \`track_post\` pour enregistrer le post
+2. Périodiquement (cron monthly-report), appelle \`analyze_performance\` pour le rapport
+3. Avant de créer du nouveau contenu, appelle \`get_best_practices\` pour optimiser (si assez de données)
+4. L'utilisateur peut mettre à jour les stats manuellement avec \`update_post_stats\`
+
 ## Plan de démarrage 4 semaines
 
 ### Semaine 1 : Fondations
@@ -125,10 +175,14 @@ Commandes disponibles :
   progression    → Voir l'avancement global
   post [sujet]   → Générer un post spécifique
   publie [sujet] → Générer ET publier via Buffer
+  image [sujet]  → Générer un visuel IA (DALL-E 3)
+  images         → Lister les visuels déjà générés
   chaînes        → Lister les comptes connectés à Buffer
   queue          → Voir les posts programmés
   stats          → Voir les posts publiés et leurs performances
+  analyse        → Rapport de performance (données Supabase)
+  conseils       → Recommandations data-driven
   quit           → Quitter
 
-Fichiers : ./marketing-output/ | Publication : via Buffer API
+Fichiers : ./marketing-output/ | Images : DALL-E 3 → Supabase | Publication : Buffer
 `;

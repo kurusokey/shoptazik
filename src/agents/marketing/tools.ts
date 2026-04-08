@@ -9,6 +9,8 @@ import fs from "fs";
 import path from "path";
 import { BRAND_CONFIG } from "./config.js";
 import { BUFFER_TOOLS } from "./buffer.js";
+import { IMAGE_TOOLS } from "./image.js";
+import { ANALYTICS_TOOLS } from "./analytics.js";
 
 const OUTPUT_DIR = path.join(process.cwd(), "marketing-output");
 
@@ -516,4 +518,6 @@ export const ALL_TOOLS = [
   getProgress,
   saveLiveScript,
   ...BUFFER_TOOLS,
+  ...IMAGE_TOOLS,
+  ...ANALYTICS_TOOLS,
 ];
